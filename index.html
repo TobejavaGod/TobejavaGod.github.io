@@ -152,6 +152,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ArrayList源码学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/03/ArrayList源码学习笔记/">ArrayList源码学习笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/03/ArrayList源码学习笔记/" class="archive-article-date">
+  	<time datetime="2019-10-03T06:52:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="集合源码篇笔记"><a href="#集合源码篇笔记" class="headerlink" title="集合源码篇笔记"></a>集合源码篇笔记</h1><h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><h3 id="初始容量"><a href="#初始容量" class="headerlink" title="初始容量"></a>初始容量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static final int DEFAULT_CAPACITY = 10;</span><br></pre></td></tr></table></figure>
+
+<h3 id="最大容量"><a href="#最大容量" class="headerlink" title="最大容量"></a>最大容量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;</span><br></pre></td></tr></table></figure>
+
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><h4 id="无参构造"><a href="#无参构造" class="headerlink" title="无参构造"></a>无参构造</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public ArrayList() &#123;</span><br><span class="line">        this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;  //直接返回大小为10的Object数组</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="带参构造（给定容量）"><a href="#带参构造（给定容量）" class="headerlink" title="带参构造（给定容量）"></a>带参构造（给定容量）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public ArrayList(int initialCapacity) &#123;</span><br><span class="line">        if (initialCapacity &gt; 0) &#123;   //判断传入的初始容量大小是否合法（大于0）</span><br><span class="line">            this.elementData = new Object[initialCapacity];   //如果合法的话直接初始化一个给定大小的Object数组</span><br><span class="line">        &#125; else if (initialCapacity == 0) &#123;</span><br><span class="line">            this.elementData = EMPTY_ELEMENTDATA;   //如果初始化容量设定为0的话将容器大小初始化称大小为0的空数组</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            throw new IllegalArgumentException(&quot;Illegal Capacity: &quot;+  //如果传参非法的话会抛出非法参数异常</span><br><span class="line">                                               initialCapacity);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="带参构造（给定拷贝的容器）"><a href="#带参构造（给定拷贝的容器）" class="headerlink" title="带参构造（给定拷贝的容器）"></a>带参构造（给定拷贝的容器）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public ArrayList(Collection&lt;? extends E&gt; c) &#123; //参数容器的泛型应是当前容器泛型的子类</span><br><span class="line">        elementData = c.toArray();  //将参数转为数组</span><br><span class="line">        if ((size = elementData.length) != 0) &#123;</span><br><span class="line">            // c.toArray might (incorrectly) not return Object[] (see 6260652)  --&gt;   bug</span><br><span class="line">            // 上面的是JDK源码当中的注释，说明将参数转化为数组的toArray方法并不一定返回的是Object类型的数组，如果不是的话，则要将其拷贝到一个Object数组中</span><br><span class="line">            if (elementData.getClass() != Object[].class)</span><br><span class="line">                elementData = Arrays.copyOf(elementData, size, Object[].class);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // replace with empty array.</span><br><span class="line">            this.elementData = EMPTY_ELEMENTDATA;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h4 id="trimToSize-–-gt-将当前的数组大小变为数组实际元素数量的大小，减小了内存的浪费"><a href="#trimToSize-–-gt-将当前的数组大小变为数组实际元素数量的大小，减小了内存的浪费" class="headerlink" title="trimToSize –&gt; 将当前的数组大小变为数组实际元素数量的大小，减小了内存的浪费"></a>trimToSize –&gt; 将当前的数组大小变为数组实际元素数量的大小，减小了内存的浪费</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public void trimToSize() &#123;</span><br><span class="line">       modCount++;</span><br><span class="line">       if (size &lt; elementData.length) &#123;</span><br><span class="line">           elementData = (size == 0)</span><br><span class="line">             ? EMPTY_ELEMENTDATA</span><br><span class="line">             : Arrays.copyOf(elementData, size);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="grow-–-gt-数组扩容方法"><a href="#grow-–-gt-数组扩容方法" class="headerlink" title="grow  –&gt; 数组扩容方法"></a>grow  –&gt; 数组扩容方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">private void grow(int minCapacity) &#123;</span><br><span class="line">       // overflow-conscious code</span><br><span class="line">       int oldCapacity = elementData.length;</span><br><span class="line">       int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);  //从这行我们可以看出ArrayList的扩容是原容量的1.5倍</span><br><span class="line">       if (newCapacity - minCapacity &lt; 0)</span><br><span class="line">           newCapacity = minCapacity;</span><br><span class="line">       if (newCapacity - MAX_ARRAY_SIZE &gt; 0)</span><br><span class="line">           newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">       // minCapacity is usually close to size, so this is a win:</span><br><span class="line">       elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/03/ArrayList源码学习笔记/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-我的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
