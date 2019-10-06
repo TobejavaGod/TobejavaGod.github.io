@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 旅途</title>
+  <title>Mybatis学习笔记01 | 旅途</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="旅途">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="Mybatis：持久层框架（半ORM）将sql语句放在xml映射文件中 自动将输入的参数映射到sql的动态参数上 自动将结果集生成的内容映射到java对象配置1.配置文件congig.xml     1.引入数据库连接配置    --&amp;gt;   db.properties就是我们配置数据库url，driver，username，password的文件。         &amp;lt;propertie">
+<meta name="keywords" content="Mybatis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis学习笔记01">
+<meta property="og:url" content="http://yoursite.com/2019/10/06/Mybatis学习笔记01/index.html">
 <meta property="og:site_name" content="旅途">
+<meta property="og:description" content="Mybatis：持久层框架（半ORM）将sql语句放在xml映射文件中 自动将输入的参数映射到sql的动态参数上 自动将结果集生成的内容映射到java对象配置1.配置文件congig.xml     1.引入数据库连接配置    --&amp;gt;   db.properties就是我们配置数据库url，driver，username，password的文件。         &amp;lt;propertie">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-06T09:55:11.059Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="旅途">
+<meta name="twitter:title" content="Mybatis学习笔记01">
+<meta name="twitter:description" content="Mybatis：持久层框架（半ORM）将sql语句放在xml映射文件中 自动将输入的参数映射到sql的动态参数上 自动将结果集生成的内容映射到java对象配置1.配置文件congig.xml     1.引入数据库连接配置    --&amp;gt;   db.properties就是我们配置数据库url，driver，username，password的文件。         &amp;lt;propertie">
   
     <link rel="alternative" href="/atom.xml" title="旅途" type="application/atom+xml">
   
@@ -150,36 +155,108 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Mybatis学习笔记01" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/06/Mybatis学习笔记01/" class="archive-article-date">
-  	<time datetime="2019-10-06T09:52:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/06/Mybatis学习笔记01/">Mybatis学习笔记01</a>
+    <h1 class="article-title" itemprop="name">
+      Mybatis学习笔记01
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/10/06/Mybatis学习笔记01/" class="archive-article-date">
+  	<time datetime="2019-10-06T09:52:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Mybatis：持久层框架（半ORM）"><a href="#Mybatis：持久层框架（半ORM）" class="headerlink" title="Mybatis：持久层框架（半ORM）"></a>Mybatis：持久层框架（半ORM）</h2><pre><code>将sql语句放在xml映射文件中
+自动将输入的参数映射到sql的动态参数上
+自动将结果集生成的内容映射到java对象</code></pre><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><pre><code>1.配置文件congig.xml
+    1.引入数据库连接配置    --&gt;   db.properties就是我们配置数据库url，driver，username，password的文件。
+        &lt;properties resource=&quot;db.properties&quot;&gt;&lt;/properties&gt;
+    2.定义数据源
+        &lt;environments default=&quot;development&quot;&gt;
+            &lt;environment id=&quot;development&quot;&gt;
+                &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;
+                &lt;datasource&gt;
+                    &lt;properties name=&quot;driver&quot; value=&quot;${jdbc.driver}&quot;/&gt;
+                    &lt;properties name=&quot;url&quot; value=&quot;${jdbc.url}&quot;/&gt;
+                    &lt;properties name=&quot;username&quot; value=&quot;${jdbc.username}&quot;/&gt;
+                    &lt;properties name=&quot;password&quot; value=&quot;${jdbc.password}&quot;/&gt;
+                &lt;/datasource&gt;
+            &lt;/environment&gt;
+        &lt;/environments&gt;
+    3.定义映射文件
+        &lt;mappers&gt;
+            --&gt;第一种方式：   &lt;mapper resource=&quot;实际存放的路径下的映射文件&quot;/&gt;
+            --&gt;第二种方式(更简便)：   &lt;package name=&quot;存放映射文件的包名&quot;/&gt;
+        &lt;/mappers&gt;
+
+2.映射文件mapper.xml
+        &lt;mapper namespace=&quot;包名+接口名(dao层)&quot;&gt;
+            mapper中statement的类型,每一个语句都叫做一个statement
+            &lt;insert&gt;&lt;/insert&gt;
+            &lt;select id=&quot;接口中的方法名&quot; parameterType=&quot;int&quot; resultType=&quot;返回的对象的实体类&quot;&gt;
+                select * from 表名 where id=#{id}
+            &lt;/select&gt;
+            &lt;update&gt;&lt;/update&gt;
+            &lt;delete&gt;&lt;/delete&gt;
+        &lt;/mapper&gt;
+    *注意：
+        1.关于parameterType的注意事项：在每个statement中的参数类型parameterType表示的是映射类型，如果填写的是int的话其实实质上代表的是Integer，如果想要表示真正的int的话应该写_int,其他的数据类型也是同理。
+        2.关于resultType的注意事项：在未定义别名的情况下，返回值类型应该写对象的全类名。
+            如果想要定义别名，应在config.xml文件中定义
+                &lt;typeAliases&gt;
+                    &lt;typeAlias type=&quot;全类名&quot; alias=&quot;别名&quot;/&gt;
+                &lt;/typeAliases&gt;
+            这样以后，在映射文件中就可以使用定义好的别名了，不过这种操作不是必须的，可以直接使用全类名，定义别名还有第二种方式，就是之前也使用过的package方式
+            在&lt;typeAliases&gt;标签中直接声明&lt;package name=&quot;包名&quot;/&gt;这样的话在这个包下的所有实体类都可以直接使用他们的类名来配置resultType
+        3.关于配置好mapper.xml后接口中方法的定义，方法名就是id属性的值，参数类型就是parameterType属性的值，如果参数类型是单值类型(八大基本数据类型加字符串类型)的话对于参数名称没有要求，方法的返回值类型就是resultType属性的值。</code></pre><h3 id="MybatisUtil-–-gt-Mybatis工具类"><a href="#MybatisUtil-–-gt-Mybatis工具类" class="headerlink" title="MybatisUtil –&gt; Mybatis工具类"></a>MybatisUtil –&gt; Mybatis工具类</h3><p>1.定义静态全局SqlSessionFactory对象<br>    private static SqlSessionFactory sqlSessionFactory = null;<br>2.在静态代码块中读取配置文件，初始化SqlSessionFactory对象<br>    static{<br>        //获取字节输入流对象读取配置文件<br>        InputStream in = Resources.getResourceAsStream(“config.xml”);<br>        利用SqlSessionFactoryBuilder中的build方法初始化sqlSessionFactory对象<br>        sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);<br>    }<br>3.定义一个私有的构造函数  –&gt;  将工具类构建成单例的<br>    private MybatisUtil(){}</p>
+<p>4.获取SqlSession对象<br>    public static SqlSession getSqlSession(){<br>        return sqlSessionFactory.openSession();<br>    }</p>
+<h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><h4 id="使用接口的方式"><a href="#使用接口的方式" class="headerlink" title="使用接口的方式"></a>使用接口的方式</h4><pre><code>1.首先利用MybatisUtil获取SqlSession对象
+
+2.使用SqlSession对象中的getMapper方法，参数是dao层接口的类，返回值就是接口的对象
+    eg:dao = sqlSession.getMapper(IDao.class);
+3.使用接口对象调用接口中的方法，并接收返回值
+
+4.关闭资源
+    sqlSession.close();</code></pre><h4 id="不使用接口的方式"><a href="#不使用接口的方式" class="headerlink" title="不使用接口的方式"></a>不使用接口的方式</h4><pre><code>1.首先利用MybatisUtil获取SqlSession对象
+
+2.直接调用sqlSession中的selectOne方法，传入在xml映射文件中配置的namespace属性的值在加上&quot;.方法名&quot;，以及要查询的sql语句的参数。</code></pre>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -191,100 +268,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/06/Mybatis学习笔记01/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/03/ArrayList源码学习笔记/" class="archive-article-date">
-  	<time datetime="2019-10-03T06:52:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-03</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/03/ArrayList源码学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ArrayList源码学习笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/03/ArrayList源码学习笔记/">ArrayList源码学习笔记</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/02/EL表达式/" class="archive-article-date">
-  	<time datetime="2019-10-02T06:17:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/02/EL表达式/">我的第一篇博客</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/02/hello-world/" class="archive-article-date">
-  	<time datetime="2019-10-02T05:33:51.716Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/02/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -307,8 +390,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
