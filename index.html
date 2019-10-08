@@ -152,6 +152,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-并发编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/08/并发编程/">并发编程</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/08/并发编程/" class="archive-article-date">
+  	<time datetime="2019-10-08T11:46:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="并发编程存在的bug源头"><a href="#并发编程存在的bug源头" class="headerlink" title="并发编程存在的bug源头"></a>并发编程存在的bug源头</h2><h3 id="缓存导致的可见性问题"><a href="#缓存导致的可见性问题" class="headerlink" title="缓存导致的可见性问题"></a>缓存导致的可见性问题</h3><p>可见性：一个线程对于共享变量的修改，另一个线程能够立刻看到。</p>
+<p>多核Cpu中，当多个线程在不同的 CPU 上执行时，这些线程操作的是不同的 CPU 缓存。此时线程间的操作就不具备可见性了。</p>
+<h3 id="线程切换导致的原子性问题"><a href="#线程切换导致的原子性问题" class="headerlink" title="线程切换导致的原子性问题"></a>线程切换导致的原子性问题</h3><p>原子性：一个或者多个操作在 CPU 执行的过程中不被中断的特性</p>
+<p>在多线程执行操作的过程中，指令执行未完成，发生了线程切换，这种情况下就会导致原子性问题。</p>
+<h3 id="编译器优化导致的有序性问题"><a href="#编译器优化导致的有序性问题" class="headerlink" title="编译器优化导致的有序性问题"></a>编译器优化导致的有序性问题</h3><p>有序性：程序按照代码的先后顺序执行</p>
+<p>实际程序中指令的运行顺序可能被编译器优化之后发生了改变，比较典型的就是单例模式中通过双重检测索是实现的方式会发生的问题。</p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><pre><code>1.解决可见性、有序性最直接的办法就是禁用缓存和编译优化，但是这样在解决问题的同时，程序的性能也大大降低了。合理的方案应该是按需禁用缓存以及编译优化。所谓“按需禁用”其实就是指按照程序员的要求来禁用。所以，为了解决可见性和有序性问题，只需要提供给程序员按需禁用缓存和编译优化的方法即可。
+2.Java 内存模型是个很复杂的规范，可以从不同的视角来解读，站在我们这些程序员的视角，本质上可以理解为，Java 内存模型规范了 JVM 如何提供按需禁用缓存和编译优化的方法。具体来说，这些方法包括 volatile、synchronized 和 final 三个关键字，以及六项 Happens-Before 规则</code></pre><h3 id="volatile关键字-gt-它最原始的意义就是禁用-CPU-缓存"><a href="#volatile关键字-gt-它最原始的意义就是禁用-CPU-缓存" class="headerlink" title="volatile关键字 -&gt; 它最原始的意义就是禁用 CPU 缓存"></a>volatile关键字 -&gt; 它最原始的意义就是禁用 CPU 缓存</h3><p>对于声明了volatile关键字的变量，告诉编译器，对这个变量的读写，不能使用 CPU 缓存，必须从内存中读取或者写入。</p>
+<pre><code>有如下程序
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class VolatileExample &#123;</span><br><span class="line">  int x = 0;</span><br><span class="line">  volatile boolean v = false;</span><br><span class="line">  public void writer() &#123;</span><br><span class="line">    x = 42;</span><br><span class="line">    v = true;</span><br><span class="line">  &#125;</span><br><span class="line">  public void reader() &#123;</span><br><span class="line">    if (v == true) &#123;</span><br><span class="line">      // 这里 x 会是多少呢？</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre><p>结论：根据Java的版本，如果在低于1.5版本上运行，x可能是42，也有可能是0；如果在1.5以上的版本上运行，x就是等于42。因为在Java1.5中，对于volatile语义进行了增强。增强的内容就是Happens-before规则</p>
+<h3 id="Happens-before规则-gt-前面一个操作的结果对后续操作是可见的"><a href="#Happens-before规则-gt-前面一个操作的结果对后续操作是可见的" class="headerlink" title="Happens-before规则 -&gt; 前面一个操作的结果对后续操作是可见的"></a>Happens-before规则 -&gt; 前面一个操作的结果对后续操作是可见的</h3><p>1.程序的顺序性规则<br>    按照程序顺序，前面的操作 Happens-Before 于后续的任意操作。<br>2.volatile变量规则<br>    对一个 volatile 变量的写操作， Happens-Before 于后续对这个 volatile 变量的读操作。<br>3.传递性<br>    如果 A Happens-Before B，且 B Happens-Before C，那么 A Happens-Before C。<br>4.管程中锁的规则<br>    对一个锁的解锁 Happens-Before 于后续对这个锁的加锁。<br>5.线程 start() 规则<br>    主线程 A 启动子线程 B 后，子线程 B 能够看到主线程在启动子线程 B 前的操作。<br>6.线程 join() 规则<br>    如果在线程 A 中，调用线程 B 的 join() 并成功返回，那么线程 B 中的任意操作 Happens-Before 于该 join() 操作的返回</p>
+<h3 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h3><p>final关键字的初衷是告诉编译器，该变量生而不变，可以随意优化。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Thread</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/08/并发编程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Mybatis学习笔记02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -744,6 +829,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
             
             <div class="clearfix"></div>
