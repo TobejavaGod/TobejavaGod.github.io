@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="旅途">
 <meta property="og:description" content="Redis概念 -&amp;gt; 一款高性能的NOSQL系列的非关系型数据库关系型数据库(Mysql、Oracle……)：表的形式    1.数据之间有关联关系    2.数据存储在硬盘的文件上非关系型数据库(Redis、Hbase、MangoDB……)：键值对的形式    1.数据之间没有关联关系    2.数据存储在内存中NOSQL:    Not Only Sql,意为不仅仅是sql，是一项全新的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-09T04:08:53.080Z">
+<meta property="og:updated_time" content="2019-10-09T13:34:44.299Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis学习笔记">
 <meta name="twitter:description" content="Redis概念 -&amp;gt; 一款高性能的NOSQL系列的非关系型数据库关系型数据库(Mysql、Oracle……)：表的形式    1.数据之间有关联关系    2.数据存储在硬盘的文件上非关系型数据库(Redis、Hbase、MangoDB……)：键值对的形式    1.数据之间没有关联关系    2.数据存储在内存中NOSQL:    Not Only Sql,意为不仅仅是sql，是一项全新的">
@@ -179,7 +179,24 @@
 <p>应用场景：<br>    缓存<br>    聊天室的在线好友列表<br>    任务队列（秒杀，抢购）<br>    分布式集群架构中的session分离<br>    网站访问统计<br>    数据过期处理（能够精确到ms）</p>
 <p>总结：一般会将数据存储在关系型数据库中，而nosql数据库中备份关系型数据库。</p>
 <h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>在官网上下载的是linux版本的，如果想要下载Windows版本的话要去Github下载。<br>    <a href="https://github.com/microsoftarchive/redis" target="_blank" rel="noopener">github地址</a><br>    往下拉找到release page选项点击，</p>
-<h2 id="命令操作"><a href="#命令操作" class="headerlink" title="命令操作"></a>命令操作</h2><h2 id="持久化操作"><a href="#持久化操作" class="headerlink" title="持久化操作"></a>持久化操作</h2><h2 id="使用Java客户端操作Redis"><a href="#使用Java客户端操作Redis" class="headerlink" title="使用Java客户端操作Redis"></a>使用Java客户端操作Redis</h2>
+<h2 id="命令操作"><a href="#命令操作" class="headerlink" title="命令操作"></a>命令操作</h2><h3 id="redis的数据结构"><a href="#redis的数据结构" class="headerlink" title="redis的数据结构"></a>redis的数据结构</h3><p>redis存储的是键值对形式的数据，其中键都是字符串，值有五种不同数据结构<br>    1.字符串类型 String<br>        存储：set key value<br>        获取：get key<br>        删除：del key<br>    2.哈希类型 hash：map格式<br>        存储：hset key field value<br>        获取：<br>            * hget key field：获取指定的field对应的值<br>            * hgetall key：获取所有的field和value<br>        删除：hdel key field：删除指定的field，对应的value也会被删除<br>    3.列表类型 list：linkedlist格式 允许重复<br>        存储：<br>            * lpush key value<br>            * rpush key value<br>        获取：<br>            * lrange key start end<br>                获取所有：lrange key 0 -1<br>        删除：<br>            * lpop key：删除列表最左边的元素并返回<br>            * rpop key：删除列表最右边的元素并返回<br>    4.集合类型 set：hashset格式 不允许重复<br>        存储：sadd key value<br>        获取：smenbers key:获取set集合中所有的元素<br>        删除：srem key value:删除set集合中的某个元素<br>    5.有序集合类型 sortedset：不允许重复且自动排序<br>        存储：zadd key score value:存储数据以及数据对应的分数(通过分数进行集合成员的排序)<br>        获取：<br>            * zrange key start end<br>            * zrange key start end withscores(带分数获取元素)<br>        删除：zrem key value<br>    6.通用命令：<br>        1. keys * :查询所有的键<br>        2. type key:获取键对应的value类型<br>        3. del key:删除指定的key value</p>
+<h2 id="持久化操作"><a href="#持久化操作" class="headerlink" title="持久化操作"></a>持久化操作</h2><pre><code>1.redis是一个内存数据库，当redis服务器重启或电脑重启时，数据会丢失。我们可以将内存中的数据持久化到硬盘文件中。
+2.redis持久化机制：
+    1.RDB：默认方式，不需要进行配置
+        在一定的间隔时间中，检测key的变化情况，然后持久化数据
+        可以修改redis.windows.conf文件中的
+        save 900 1  两个数字，前一个是指等待的秒数，后一个是最少key的变化数量
+        这个例子的意思是说再默认的持久化方式下，在900秒内有至少一次的key改变就进行持久化，可以更改其中的配置，重新启动服务器，并指定配置文件的名称,指定的位置下运行 redis-server.exe redis.windows.conf
+
+        结果：会在redis的目录下生成后缀名为.rdb的文件
+
+    2.AOF(影响性能)：日志记录的方式，可以记录每一条命令的操作，每一次操作后持久化数据。
+        在配置文件中将appendonly no该成yes
+            # appendfsync always  每一次操作持久化一次
+            appendfsync everysec 每一秒持久化一次（默认方式）
+            # appendfsync no 不执行持久化
+
+        结果：会生成appendonly.aof文件</code></pre><h2 id="使用Java客户端操作Redis"><a href="#使用Java客户端操作Redis" class="headerlink" title="使用Java客户端操作Redis"></a>使用Java客户端操作Redis</h2>
       
 
       
