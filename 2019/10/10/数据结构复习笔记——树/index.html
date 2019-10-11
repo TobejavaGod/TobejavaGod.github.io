@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="旅途">
 <meta property="og:description" content="树1.节点 2.根节点 3.父节点 4.子节点 5.叶子节点（没有子节点的节点） 6.节点的权（节点的值） 7.路径（从root节点找到该节点的路线） 8.层 （根节点是第一层） 9.子树 10.树的高度（最大层数） 11.森林二叉树1.每个节点最多只能有两个子节点的一种形式2.二叉树的子节点分为左子节点和右子节点3.满二叉树：    所有叶子节点都在最后一层，并且节点总数=2的n次方-1，n是层">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-11T00:52:16.507Z">
+<meta property="og:updated_time" content="2019-10-11T05:55:12.475Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构复习笔记——树">
 <meta name="twitter:description" content="树1.节点 2.根节点 3.父节点 4.子节点 5.叶子节点（没有子节点的节点） 6.节点的权（节点的值） 7.路径（从root节点找到该节点的路线） 8.层 （根节点是第一层） 9.子树 10.树的高度（最大层数） 11.森林二叉树1.每个节点最多只能有两个子节点的一种形式2.二叉树的子节点分为左子节点和右子节点3.满二叉树：    所有叶子节点都在最后一层，并且节点总数=2的n次方-1，n是层">
@@ -195,11 +195,21 @@
 <p>以上两种方式属于单旋转，但是某些时候进行单旋转并不能完成平衡二叉树的转换</p>
 <p>双旋转：<br>    如果当前节点的左子节点的右子树的高度大于当前节点的左子节点的左子树<br>    则先对当前节点的左子节点进行左旋转，再对当前节点进行右旋转。</p>
 <pre><code>如果当前节点的右子节点的左子树的高度大于当前节点的左子节点的右子树
-则先对当前节点的右子节点进行右旋转，再对当前节点进行左旋转。</code></pre><h3 id="多叉树"><a href="#多叉树" class="headerlink" title="多叉树"></a>多叉树</h3><p>多叉树：允许每个节点有更多的数据项和更多的子节点。</p>
+则先对当前节点的右子节点进行右旋转，再对当前节点进行左旋转。</code></pre><h3 id="多路查找树"><a href="#多路查找树" class="headerlink" title="多路查找树"></a>多路查找树</h3><p>多叉树：允许每个节点有更多的数据项和更多的子节点。</p>
 <p>优点：通过重新组织节点，减少树的高度，能对二叉树进行优化。</p>
 <h4 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h4><p><strong>所有的叶子节点都在同一层</strong></p>
 <p><strong>B树通过重新组织节点，降低树的高度，并且减少i/o读写次数来提升效率</strong></p>
-<h4 id="2-3树-gt-最简单的B树"><a href="#2-3树-gt-最简单的B树" class="headerlink" title="2-3树 -&gt; 最简单的B树"></a>2-3树 -&gt; 最简单的B树</h4>
+<p>1.B树的阶：<br>    节点的最多子节点个数，例如23树的阶是3，234树的阶是4</p>
+<p>2.B树的搜索：<br>    从根节点开始，对节点内的关键字（有序）序列进行二分查找，如果命中则结束，否则进去其儿子节点查询，重复直到所对应的儿子指针为空或已经是叶子节点。<br>3.关键字集合分布在整棵树中，即叶子节点和非叶子节点都存放数据。</p>
+<p>4.搜索有可能在非叶子节点结束</p>
+<p>5.其搜索性能等价于在关键字全集进行一次二分查找。</p>
+<h4 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h4><p>1.B+树与B树的区别：<br>    B+树在进行搜索时只有达到叶子节点才命中，他的性能也等价于在关键字全集进行一次二分查找。<br>2.B+树所有的关键字都出现在叶子节点的链表中，也就是数据只存在于叶子节点中（也叫稠密索引），链表中的数据也是有序的。</p>
+<p>3.非叶子节点相当于叶子节点的索引（稀疏索引），叶子节点相当于存储数据的数据层。</p>
+<p>4.B+树更适合文件索引系统</p>
+<p>5.B树与B+树没有严格的谁好谁坏的区分，根据各自的应用场景。</p>
+<h4 id="B※树"><a href="#B※树" class="headerlink" title="B※树"></a>B※树</h4><p>在B+树的基础上对于非根节点和非叶子节点加入了指向兄弟节点的指针。</p>
+<h4 id="2-3树-gt-最简单的B树"><a href="#2-3树-gt-最简单的B树" class="headerlink" title="2-3树 -&gt; 最简单的B树"></a>2-3树 -&gt; 最简单的B树</h4><p>1.2-3树的所有叶子节点都在同一层<br>2.有两个子节点的节点叫二节点，二节点要么没有子节点，要么有两个子节点<br>3.有三个子节点的节点叫三节点，三节点要么没有子节点，要么有三个子节点<br>4.2-3树是由二节点和三节点组成的</p>
+
       
 
       
@@ -302,6 +312,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/10/11/数据结构复习笔记——图/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          数据结构复习笔记——图
+        
+      </div>
+    </a>
   
   
     <a href="/2019/10/09/程序员的鸡汤/" id="article-nav-older" class="article-nav-link-wrap">
@@ -444,6 +463,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">datastucture</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
               </li>
              
               <li class="article-tag-list-item">
