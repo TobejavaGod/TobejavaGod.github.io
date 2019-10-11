@@ -8,14 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>数据结构复习笔记——树 | 旅途</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="树1.节点 2.根节点 3.父节点 4.子节点 5.叶子节点（没有子节点的节点） 6.节点的权（节点的值） 7.路径（从root节点找到该节点的路线） 8.层 （根节点是第一层） 9.子树 10.树的高度（最大层数） 11.森林二叉树1.每个节点最多只能有两个子节点的一种形式2.二叉树的子节点分为左子节点和右子节点3.满二叉树：    所有叶子节点都在最后一层，并且节点总数=2的n次方-1，n是层">
+<meta name="keywords" content="datastucture">
+<meta property="og:type" content="article">
 <meta property="og:title" content="数据结构复习笔记——树">
 <meta property="og:url" content="http://yoursite.com/2019/10/10/数据结构复习笔记——树/index.html">
 <meta property="og:site_name" content="旅途">
+<meta property="og:description" content="树1.节点 2.根节点 3.父节点 4.子节点 5.叶子节点（没有子节点的节点） 6.节点的权（节点的值） 7.路径（从root节点找到该节点的路线） 8.层 （根节点是第一层） 9.子树 10.树的高度（最大层数） 11.森林二叉树1.每个节点最多只能有两个子节点的一种形式2.二叉树的子节点分为左子节点和右子节点3.满二叉树：    所有叶子节点都在最后一层，并且节点总数=2的n次方-1，n是层">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-10T12:15:29.611Z">
+<meta property="og:updated_time" content="2019-10-11T00:52:16.507Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构复习笔记——树">
+<meta name="twitter:description" content="树1.节点 2.根节点 3.父节点 4.子节点 5.叶子节点（没有子节点的节点） 6.节点的权（节点的值） 7.路径（从root节点找到该节点的路线） 8.层 （根节点是第一层） 9.子树 10.树的高度（最大层数） 11.森林二叉树1.每个节点最多只能有两个子节点的一种形式2.二叉树的子节点分为左子节点和右子节点3.满二叉树：    所有叶子节点都在最后一层，并且节点总数=2的n次方-1，n是层">
   
     <link rel="alternative" href="/atom.xml" title="旅途" type="application/atom+xml">
   
@@ -171,7 +175,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><pre><code>1.节点
+2.根节点
+3.父节点
+4.子节点
+5.叶子节点（没有子节点的节点）
+6.节点的权（节点的值）
+7.路径（从root节点找到该节点的路线）
+8.层 （根节点是第一层）
+9.子树
+10.树的高度（最大层数）
+11.森林</code></pre><h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p>1.每个节点最多只能有两个子节点的一种形式<br>2.二叉树的子节点分为左子节点和右子节点<br>3.满二叉树：<br>    所有叶子节点都在最后一层，并且节点总数=2的n次方-1，n是层数<br>4.完全二叉树：<br>    所有的叶子节点都在最后一层或倒数第二层，并且最后一层的叶子节点在左边连续，倒数第二层的叶子节点在右边连续。<br>5.具有n个节点的完全二叉树的深度为floor(log2n)+1<br>6.深度为k的完全二叉树，节点最少有2的k减1次方个，最多有2的k次方减1个</p>
+<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>首先堆是一种完全二叉树，且具有以下性质：<br>    大顶堆：每个节点的值都大于或等于左右孩子的值（对于左右孩子的大小关系没有要求）<br>    小顶堆：每个节点的值都小于或等于左右孩子的值（对于左右孩子的大小关系没有要求）<br>对于堆排序来说，一般升序采用大顶堆，降序采用小顶堆。<br>    1.将无序队列构建成一个大顶堆。<br>    2.讲根节点，也就是最大的节点与末尾节点交换。<br>    3.重新调整交换后的结构为大顶堆，将第二大的节点交换到根节点上。<br>    4.循环执行，直到整个序列有序。<br>第一个非叶子节点的索引是arr.length/2 - 1</p>
+<h3 id="赫夫曼树-gt-带权路径长度-wpl-最短的树"><a href="#赫夫曼树-gt-带权路径长度-wpl-最短的树" class="headerlink" title="赫夫曼树 -&gt; 带权路径长度(wpl)最短的树"></a>赫夫曼树 -&gt; 带权路径长度(wpl)最短的树</h3><p>权值越大的节点距离根节点就越近</p>
+<h3 id="二叉排序树-gt-BST-Tree"><a href="#二叉排序树-gt-BST-Tree" class="headerlink" title="二叉排序树 -&gt; BST Tree"></a>二叉排序树 -&gt; BST Tree</h3><p>对于任意一个非叶子节点，要求左子节点的值比当前节点的值小，右子节点的值比当前节点的值大。</p>
+<h3 id="平衡二叉树-gt-AVL-Tree"><a href="#平衡二叉树-gt-AVL-Tree" class="headerlink" title="平衡二叉树 -&gt; AVL Tree"></a>平衡二叉树 -&gt; AVL Tree</h3><p>它是一颗孔数或他的左右两个子树的高度差不超过一，并且左右两个子树都是一颗平衡二叉树。平衡二叉树的实现方法有红黑树，伸展树等。</p>
+<p>左旋转：节点右子树与左子树的高度差大于1时<br>    1.创建一个新节点，节点的值就是根节点的值<br>    2.将新节点的左子树指向当前节点的左子树<br>    3.将新节点的右子树指向当前节点的右子树的左子树<br>    4.将当前节点的值换成当前节点的右子节点的值<br>    5.将当前节点的右子树指向右子树的右子树<br>    6.将当前节点的左子树指向新节点</p>
+<p>右旋转：节点的左子树与右子树的高度差大于1<br>    1.创建新节点，新节点的值等于根节点的值<br>    2.将新节点的右子树设置为当前节点的右子树<br>    3.将新节点的左子树设置为当前节点的左子树的右子树<br>    4.将当前节点的值设置为当前节点的左子节点的值<br>    5.将当前节点的左子树设置为当前节点的左子树的左子树<br>    6.将当前节点的右子树设置为新节点</p>
+<p>以上两种方式属于单旋转，但是某些时候进行单旋转并不能完成平衡二叉树的转换</p>
+<p>双旋转：<br>    如果当前节点的左子节点的右子树的高度大于当前节点的左子节点的左子树<br>    则先对当前节点的左子节点进行左旋转，再对当前节点进行右旋转。</p>
+<pre><code>如果当前节点的右子节点的左子树的高度大于当前节点的左子节点的右子树
+则先对当前节点的右子节点进行右旋转，再对当前节点进行左旋转。</code></pre><h3 id="多叉树"><a href="#多叉树" class="headerlink" title="多叉树"></a>多叉树</h3><p>多叉树：允许每个节点有更多的数据项和更多的子节点。</p>
+<p>优点：通过重新组织节点，减少树的高度，能对二叉树进行优化。</p>
+<h4 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h4><p><strong>所有的叶子节点都在同一层</strong></p>
+<p><strong>B树通过重新组织节点，降低树的高度，并且减少i/o读写次数来提升效率</strong></p>
+<h4 id="2-3树-gt-最简单的B树"><a href="#2-3树-gt-最简单的B树" class="headerlink" title="2-3树 -&gt; 最简单的B树"></a>2-3树 -&gt; 最简单的B树</h4>
       
 
       
@@ -200,6 +228,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">datastucture</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -401,6 +440,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">datastucture</a>
               </li>
              
               <li class="article-tag-list-item">
