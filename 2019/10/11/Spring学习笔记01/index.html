@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Mybatis学习笔记01 | The journey of coding</title>
+  <title>Spring学习笔记01 | The journey of coding</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Mybatis：持久层框架（半ORM）将sql语句放在xml映射文件中 自动将输入的参数映射到sql的动态参数上 自动将结果集生成的内容映射到java对象配置1.配置文件congig.xml     1.引入数据库连接配置    --&amp;gt;   db.properties就是我们配置数据库url，driver，username，password的文件。         &amp;lt;propertie">
-<meta name="keywords" content="Mybatis">
+  <meta name="description" content="SpringIOC：控制反转   –&amp;gt;   降低耦合，但不能解除ApplicationContext的三个常用类1.ClassPathXmlApplicationContext:他可以加载类路径下的配置文件，要求配置文件必须在类路径下，不在的话会加载失败（更加常用） 2.FileSystemXmlApplicationContext：他可以加载磁盘任意路径下的配置文件（必须有访问权限） 3.">
+<meta name="keywords" content="Spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mybatis学习笔记01">
-<meta property="og:url" content="http://yoursite.com/2019/10/06/Mybatis学习笔记01/index.html">
+<meta property="og:title" content="Spring学习笔记01">
+<meta property="og:url" content="http://yoursite.com/2019/10/11/Spring学习笔记01/index.html">
 <meta property="og:site_name" content="The journey of coding">
-<meta property="og:description" content="Mybatis：持久层框架（半ORM）将sql语句放在xml映射文件中 自动将输入的参数映射到sql的动态参数上 自动将结果集生成的内容映射到java对象配置1.配置文件congig.xml     1.引入数据库连接配置    --&amp;gt;   db.properties就是我们配置数据库url，driver，username，password的文件。         &amp;lt;propertie">
+<meta property="og:description" content="SpringIOC：控制反转   –&amp;gt;   降低耦合，但不能解除ApplicationContext的三个常用类1.ClassPathXmlApplicationContext:他可以加载类路径下的配置文件，要求配置文件必须在类路径下，不在的话会加载失败（更加常用） 2.FileSystemXmlApplicationContext：他可以加载磁盘任意路径下的配置文件（必须有访问权限） 3.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-06T09:55:11.059Z">
+<meta property="og:updated_time" content="2019-10-11T12:25:02.315Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mybatis学习笔记01">
-<meta name="twitter:description" content="Mybatis：持久层框架（半ORM）将sql语句放在xml映射文件中 自动将输入的参数映射到sql的动态参数上 自动将结果集生成的内容映射到java对象配置1.配置文件congig.xml     1.引入数据库连接配置    --&amp;gt;   db.properties就是我们配置数据库url，driver，username，password的文件。         &amp;lt;propertie">
+<meta name="twitter:title" content="Spring学习笔记01">
+<meta name="twitter:description" content="SpringIOC：控制反转   –&amp;gt;   降低耦合，但不能解除ApplicationContext的三个常用类1.ClassPathXmlApplicationContext:他可以加载类路径下的配置文件，要求配置文件必须在类路径下，不在的话会加载失败（更加常用） 2.FileSystemXmlApplicationContext：他可以加载磁盘任意路径下的配置文件（必须有访问权限） 3.">
   
     <link rel="alternative" href="/atom.xml" title="The journey of coding" type="application/atom+xml">
   
@@ -146,80 +146,65 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Mybatis学习笔记01" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Spring学习笔记01" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Mybatis学习笔记01
+      Spring学习笔记01
     </h1>
   
 
         
-        <a href="/2019/10/06/Mybatis学习笔记01/" class="archive-article-date">
-  	<time datetime="2019-10-06T09:52:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
+        <a href="/2019/10/11/Spring学习笔记01/" class="archive-article-date">
+  	<time datetime="2019-10-11T12:23:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Mybatis：持久层框架（半ORM）"><a href="#Mybatis：持久层框架（半ORM）" class="headerlink" title="Mybatis：持久层框架（半ORM）"></a>Mybatis：持久层框架（半ORM）</h2><pre><code>将sql语句放在xml映射文件中
-自动将输入的参数映射到sql的动态参数上
-自动将结果集生成的内容映射到java对象</code></pre><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><pre><code>1.配置文件congig.xml
-    1.引入数据库连接配置    --&gt;   db.properties就是我们配置数据库url，driver，username，password的文件。
-        &lt;properties resource=&quot;db.properties&quot;&gt;&lt;/properties&gt;
-    2.定义数据源
-        &lt;environments default=&quot;development&quot;&gt;
-            &lt;environment id=&quot;development&quot;&gt;
-                &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;
-                &lt;datasource&gt;
-                    &lt;properties name=&quot;driver&quot; value=&quot;${jdbc.driver}&quot;/&gt;
-                    &lt;properties name=&quot;url&quot; value=&quot;${jdbc.url}&quot;/&gt;
-                    &lt;properties name=&quot;username&quot; value=&quot;${jdbc.username}&quot;/&gt;
-                    &lt;properties name=&quot;password&quot; value=&quot;${jdbc.password}&quot;/&gt;
-                &lt;/datasource&gt;
-            &lt;/environment&gt;
-        &lt;/environments&gt;
-    3.定义映射文件
-        &lt;mappers&gt;
-            --&gt;第一种方式：   &lt;mapper resource=&quot;实际存放的路径下的映射文件&quot;/&gt;
-            --&gt;第二种方式(更简便)：   &lt;package name=&quot;存放映射文件的包名&quot;/&gt;
-        &lt;/mappers&gt;
+        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="IOC：控制反转-–-gt-降低耦合，但不能解除"><a href="#IOC：控制反转-–-gt-降低耦合，但不能解除" class="headerlink" title="IOC：控制反转   –&gt;   降低耦合，但不能解除"></a>IOC：控制反转   –&gt;   降低耦合，但不能解除</h2><h3 id="ApplicationContext的三个常用类"><a href="#ApplicationContext的三个常用类" class="headerlink" title="ApplicationContext的三个常用类"></a>ApplicationContext的三个常用类</h3><pre><code>1.ClassPathXmlApplicationContext:他可以加载类路径下的配置文件，要求配置文件必须在类路径下，不在的话会加载失败（更加常用）
+2.FileSystemXmlApplicationContext：他可以加载磁盘任意路径下的配置文件（必须有访问权限）
+3.AnnotationConfigApplicationContext：鸭是用于读取注解创建容器的。</code></pre><h3 id="核心容器的两个接口"><a href="#核心容器的两个接口" class="headerlink" title="核心容器的两个接口"></a>核心容器的两个接口</h3><pre><code>ApplicationContext：单例对象适用
+    它在构建核心容器时，采用的是立即加载的方式，也就是说，只要一读取完配置文件马上就创建配置文件中配置的对象。
+BeanFactory：多例对象适用
+    它在构建核心容器时，采用的是延迟加载的方式，也就是说，什么时候根据id获取对象，什么时候再真正创建对象。</code></pre><h2 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h2><h3 id="创建bean的三种方式"><a href="#创建bean的三种方式" class="headerlink" title="创建bean的三种方式"></a>创建bean的三种方式</h3><pre><code>1.使用默认构造函数创建bean对象
+    在spring配置文件中使用bean标签，配以id和class属性后，且没有其他的属性和标签时，采用的就是默认构造函数创建bean对象，此时如果类中没有默认构造函数，则对象就无法创建。
+2.使用普通工厂中的方法去创建对象（使用某个类中的方法去创建对象，并存入spring容器）
+3.使用工厂中的静态方法创建对象（使用某个类中的静态方法创建对象，并存入spring容器）</code></pre><h3 id="bean对象的作用范围"><a href="#bean对象的作用范围" class="headerlink" title="bean对象的作用范围"></a>bean对象的作用范围</h3><pre><code>bean中的scope属性：用于指定bean的作用范围
+    singleton：单例的（默认值）
+    prototype：多例的
+    request：作用于web应用的请求范围
+    session：作用于web应用的会话范围
+    global-session：作用于集群环境的会话范围（全局会话范围），当不是集群环境时，他就是session</code></pre><h3 id="bean对象的声明周期"><a href="#bean对象的声明周期" class="headerlink" title="bean对象的声明周期"></a>bean对象的声明周期</h3><pre><code>1.单例对象
+    出生：当容器创建时对象出生
+    活着：只要容器还在，对象一直活着
+    死亡：容器销毁，对象消亡
+    总结：单例对象的声明周期和容器相同
+2.多例对象
+    出生：当使用对象时，spring框架帮我们创建
+    活着：对象只要在使用过程中就一直活着
+    死亡：当对象长时间不使用且没有对象引用时，由GC回收</code></pre><h2 id="依赖注入-DI"><a href="#依赖注入-DI" class="headerlink" title="依赖注入  DI"></a>依赖注入  DI</h2><p>1.依赖关系的维护交给Spring来做，当当前类需要使用其他类的对象时，由Spring来提供，我们只需要在配置文件中声明即可。这种依赖关系的维护就称之为依赖注入。</p>
+<p>2.如果是经常变化的数据，不适用于依赖注入。</p>
+<h3 id="能注入的数据"><a href="#能注入的数据" class="headerlink" title="能注入的数据"></a>能注入的数据</h3><pre><code>1.基本类型和String
+2.其他Bean类型（在配置文件或注解中声明的类型）
+3.复杂类型/集合类</code></pre><h3 id="注入的方式"><a href="#注入的方式" class="headerlink" title="注入的方式"></a>注入的方式</h3><p>1.使用构造方法提供<br>    标签：constructor-arg<br>    标签出现的位置：bean标签的内部<br>    属性：<br>        type:指定要注入的数据的数据类型<br>        index:指定索引为构造函数参数赋值<br>        name:指定构造函数的参数名赋值<br>        value:提供基本类型和String类型的数据<br>        ref:其他bean类型，指的时在SpringIOC核心容器中出现过的bean对象<br>    优点：<br>        获取对象时需要注入数据，否则无法创建对象<br>    缺点：<br>        改变了bean对象的实例化方式，即便是我们不需要的数据，也需要注入<br>2.使用set方法提供 -&gt; 更加常用的方式<br>    标签：property<br>    标签出现的位置：bean标签的内部<br>    属性：<br>        name：指定注入时调用的set方法名称。<br>        value：提供基本数据类型和String<br>        ref：其他bean类型<br>    优点：<br>        创建对象时没有明确的限制，可以使用默认构造函数<br>    缺点：<br>        如果某个成员变量必须有值，则获取对象时set方法可能并没有执行<br>3.对于集合数据的注入 -&gt; 使用set方法<br>    * 用于给list结构注入的标签:array、list、set<br>    * 用于给map结构注入的标签:map、props<br>        数组：<br>            <array><br>                <value></value><br>            </array><br>        List：<br>            &lt;<list><br>                <value></value><br>            </list><br>        Set：<br>            <set><br>                <value></value><br>            </set><br>        Map：<br>            <map><br>                <entry key value></entry><br>            </map><br>        Properties：<br>            <props><br>                <prop key><br>                    value<br>                <prop><br>            </prop></prop></props><br>4.由注解提供</p>
+<h2 id="注解-gt-11个"><a href="#注解-gt-11个" class="headerlink" title="注解  -&gt; 11个"></a>注解  -&gt; 11个</h2><p>0.在bean的配置文件中，加入context名称空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        https://www.springframework.org/schema/context/spring-context.xsd&quot;</span><br></pre></td></tr></table></figure>
 
-2.映射文件mapper.xml
-        &lt;mapper namespace=&quot;包名+接口名(dao层)&quot;&gt;
-            mapper中statement的类型,每一个语句都叫做一个statement
-            &lt;insert&gt;&lt;/insert&gt;
-            &lt;select id=&quot;接口中的方法名&quot; parameterType=&quot;int&quot; resultType=&quot;返回的对象的实体类&quot;&gt;
-                select * from 表名 where id=#{id}
-            &lt;/select&gt;
-            &lt;update&gt;&lt;/update&gt;
-            &lt;delete&gt;&lt;/delete&gt;
-        &lt;/mapper&gt;
-    *注意：
-        1.关于parameterType的注意事项：在每个statement中的参数类型parameterType表示的是映射类型，如果填写的是int的话其实实质上代表的是Integer，如果想要表示真正的int的话应该写_int,其他的数据类型也是同理。
-        2.关于resultType的注意事项：在未定义别名的情况下，返回值类型应该写对象的全类名。
-            如果想要定义别名，应在config.xml文件中定义
-                &lt;typeAliases&gt;
-                    &lt;typeAlias type=&quot;全类名&quot; alias=&quot;别名&quot;/&gt;
-                &lt;/typeAliases&gt;
-            这样以后，在映射文件中就可以使用定义好的别名了，不过这种操作不是必须的，可以直接使用全类名，定义别名还有第二种方式，就是之前也使用过的package方式
-            在&lt;typeAliases&gt;标签中直接声明&lt;package name=&quot;包名&quot;/&gt;这样的话在这个包下的所有实体类都可以直接使用他们的类名来配置resultType
-        3.关于配置好mapper.xml后接口中方法的定义，方法名就是id属性的值，参数类型就是parameterType属性的值，如果参数类型是单值类型(八大基本数据类型加字符串类型)的话对于参数名称没有要求，方法的返回值类型就是resultType属性的值。</code></pre><h3 id="MybatisUtil-–-gt-Mybatis工具类"><a href="#MybatisUtil-–-gt-Mybatis工具类" class="headerlink" title="MybatisUtil –&gt; Mybatis工具类"></a>MybatisUtil –&gt; Mybatis工具类</h3><p>1.定义静态全局SqlSessionFactory对象<br>    private static SqlSessionFactory sqlSessionFactory = null;<br>2.在静态代码块中读取配置文件，初始化SqlSessionFactory对象<br>    static{<br>        //获取字节输入流对象读取配置文件<br>        InputStream in = Resources.getResourceAsStream(“config.xml”);<br>        利用SqlSessionFactoryBuilder中的build方法初始化sqlSessionFactory对象<br>        sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);<br>    }<br>3.定义一个私有的构造函数  –&gt;  将工具类构建成单例的<br>    private MybatisUtil(){}</p>
-<p>4.获取SqlSession对象<br>    public static SqlSession getSqlSession(){<br>        return sqlSessionFactory.openSession();<br>    }</p>
-<h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><h4 id="使用接口的方式"><a href="#使用接口的方式" class="headerlink" title="使用接口的方式"></a>使用接口的方式</h4><pre><code>1.首先利用MybatisUtil获取SqlSession对象
+<p>配置扫描指定包名下的注解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context:component-scan base-package=&quot;包名&quot;&gt;&lt;/context:component-scan&gt;</span><br></pre></td></tr></table></figure>
 
-2.使用SqlSession对象中的getMapper方法，参数是dao层接口的类，返回值就是接口的对象
-    eg:dao = sqlSession.getMapper(IDao.class);
-3.使用接口对象调用接口中的方法，并接收返回值
+<p>1.用于创建对象的注解 -&gt; 相当于xml中配置的bean标签<br>    @Component<br>        作用：用于把当前类对象存入Spring容器中<br>        属性：<br>            value：用于指定bean的id，当我们不指定时，他的默认值是类名且首字母变小写<br>    <strong>对于下面的三个注解，他们的作用与属性与Component是一模一样的，他们三个是Spring框架为我们提供明确的三层使用的注解，使得层次模块更清晰</strong><br>    @Controller：一般用在表现层<br>    @Repository：一般用在持久层<br>    @Service：一般用在业务层<br>2.用于注入数据的注解 -&gt; 相当于xml中bean标签中的property标签<br>    @Autowired<br>        作用：自动按照类型注入，只要容器中有唯一的bean对象类型与要注入的变量类型相匹配就可以注入成功，如果没有一个匹配的就会报错<br>              如果有两个以上的bean对象类型匹配时，他会去匹配id，如果匹配到了则注入成功，否则注入失败<br>        出现位置：可以是变量上，也可以是方法上。<br>        细节：在使用注解注入是，set方法就不是必须的了<br>    @Qualifier<br>        作用：在按照类中注入的基础上再按照名称注入。他在给类成员注入时不能单独使用（要与Autowired配合使用），但是再给方法注入时可以。<br>        属性：<br>            value：用于指定注入bean的id<br>    @Resource<br>        作用：直接按照bean的id注入，可以直接使用<br>        属性：<br>            name：用于指定注入bean的id<br>    <strong>以上三个注解都只能注入其他bean类型，对于基本类型和String无法注入，另外，对于集合类型只能通过xml实现</strong></p>
+<pre><code>@Value
+    作用：用于注入基本数据类型和String类型的数据
+    属性：
+        value：用于指定数据的值，可以使用Spring中的spel，${表达式}</code></pre><p>3.用于改变作用范围的注解 -&gt; 相当于bean标签中使用scope属性<br>    @Scope<br>        作用：用于指定bean的作用范围<br>        属性：<br>            value：指定范围的取值，常用取值：singleton  prototype 默认的是单例的<br>4.和生命周期相关的注解 -&gt; 相当于bean标签中的init-method和destroy-method –&gt; 了解即可<br>    @PreDestroy<br>        作用：用于指定销毁方法<br>    @PostConstruct<br>        作用：用于指定初始化方法</p>
+<p><strong>细节：如果注解中的属性只有value时，value可以省略</strong></p>
 
-4.关闭资源
-    sqlSession.close();</code></pre><h4 id="不使用接口的方式"><a href="#不使用接口的方式" class="headerlink" title="不使用接口的方式"></a>不使用接口的方式</h4><pre><code>1.首先利用MybatisUtil获取SqlSession对象
-
-2.直接调用sqlSession中的selectOne方法，传入在xml映射文件中配置的namespace属性的值在加上&quot;.方法名&quot;，以及要查询的sql语句的参数。</code></pre>
       
 
       
@@ -253,7 +238,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
         		</li>
       		
 		</ul>
@@ -309,7 +294,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/06/Mybatis学习笔记01/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/11/Spring学习笔记01/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -323,18 +308,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/10/07/Mybatis学习笔记02/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Mybatis学习笔记02
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/10/03/ArrayList源码学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ArrayList源码学习笔记</div>
+    <a href="/2019/10/11/数据结构复习笔记——图/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据结构复习笔记——图</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -361,7 +337,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis：持久层框架（半ORM）"><span class="toc-number">1.</span> <span class="toc-text">Mybatis：持久层框架（半ORM）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MybatisUtil-–-gt-Mybatis工具类"><span class="toc-number">1.2.</span> <span class="toc-text">MybatisUtil –&gt; Mybatis工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试用例"><span class="toc-number">1.3.</span> <span class="toc-text">测试用例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用接口的方式"><span class="toc-number">1.3.1.</span> <span class="toc-text">使用接口的方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不使用接口的方式"><span class="toc-number">1.3.2.</span> <span class="toc-text">不使用接口的方式</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring"><span class="toc-number">1.</span> <span class="toc-text">Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#IOC：控制反转-–-gt-降低耦合，但不能解除"><span class="toc-number">1.1.</span> <span class="toc-text">IOC：控制反转   –&gt;   降低耦合，但不能解除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ApplicationContext的三个常用类"><span class="toc-number">1.1.1.</span> <span class="toc-text">ApplicationContext的三个常用类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#核心容器的两个接口"><span class="toc-number">1.1.2.</span> <span class="toc-text">核心容器的两个接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bean"><span class="toc-number">1.2.</span> <span class="toc-text">Bean</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建bean的三种方式"><span class="toc-number">1.2.1.</span> <span class="toc-text">创建bean的三种方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bean对象的作用范围"><span class="toc-number">1.2.2.</span> <span class="toc-text">bean对象的作用范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bean对象的声明周期"><span class="toc-number">1.2.3.</span> <span class="toc-text">bean对象的声明周期</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖注入-DI"><span class="toc-number">1.3.</span> <span class="toc-text">依赖注入  DI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#能注入的数据"><span class="toc-number">1.3.1.</span> <span class="toc-text">能注入的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注入的方式"><span class="toc-number">1.3.2.</span> <span class="toc-text">注入的方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注解-gt-11个"><span class="toc-number">1.4.</span> <span class="toc-text">注解  -&gt; 11个</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -375,7 +351,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Mybatis学习笔记01" data-title="Mybatis学习笔记01" data-url="http://yoursite.com/2019/10/06/Mybatis学习笔记01/"></div>
+	<div class="ds-thread" data-thread-key="Spring学习笔记01" data-title="Spring学习笔记01" data-url="http://yoursite.com/2019/10/11/Spring学习笔记01/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
