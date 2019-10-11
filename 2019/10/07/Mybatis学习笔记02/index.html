@@ -48,7 +48,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="/header.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Jin</a></h1>
@@ -82,13 +82,15 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/TobejavaGod/java" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="weibo" target="_blank" href="https://weibo.com/p/1005055979909924" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+					<a class="qq" target="_blank" href="/827408200" title="qq"><i class="icon-qq"></i></a>
 		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="weixin" target="_blank" href="/jbb82740820" title="weixin"><i class="icon-weixin"></i></a>
+		        
+					<a class="bilibili" target="_blank" href="https://space.bilibili.com/58965748" title="bilibili"><i class="icon-bilibili"></i></a>
 		        
 			</div>
 		</nav>
@@ -106,7 +108,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="/header.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Jin</h1>
@@ -123,13 +125,15 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/TobejavaGod/java" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="weibo" target="_blank" href="https://weibo.com/p/1005055979909924" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+						<a class="qq" target="_blank" href="/827408200" title="qq"><i class="icon-qq"></i></a>
 			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="weixin" target="_blank" href="/jbb82740820" title="weixin"><i class="icon-weixin"></i></a>
+			        
+						<a class="bilibili" target="_blank" href="https://space.bilibili.com/58965748" title="bilibili"><i class="icon-bilibili"></i></a>
 			        
 				</div>
 			</nav>
@@ -365,10 +369,43 @@ update tablename set &apos;字段&apos;=#{对象中的属性} where &apos;id&apo
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#列名和属性名不一致的情况"><span class="toc-number">1.</span> <span class="toc-text">列名和属性名不一致的情况</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用别名"><span class="toc-number">1.1.</span> <span class="toc-text">使用别名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用resultMap"><span class="toc-number">1.2.</span> <span class="toc-text">使用resultMap</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#和-的区别"><span class="toc-number">2.</span> <span class="toc-text">#和$的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不区分大小写的查询"><span class="toc-number">3.</span> <span class="toc-text">不区分大小写的查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多参数传递-gt-分页查询"><span class="toc-number">4.</span> <span class="toc-text">多参数传递 -&gt; 分页查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插入-获取刚插入的记录的id（自增id）"><span class="toc-number">5.</span> <span class="toc-text">插入 - 获取刚插入的记录的id（自增id）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改"><span class="toc-number">6.</span> <span class="toc-text">修改</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#修改记录的所有属性-gt-通过记录的id来修改"><span class="toc-number">6.1.</span> <span class="toc-text">修改记录的所有属性 -&gt; 通过记录的id来修改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改记录的某几条属性"><span class="toc-number">6.2.</span> <span class="toc-text">修改记录的某几条属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除-gt-通过id删除记录"><span class="toc-number">7.</span> <span class="toc-text">删除 -&gt; 通过id删除记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态sql"><span class="toc-number">8.</span> <span class="toc-text">动态sql</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#if"><span class="toc-number">8.1.</span> <span class="toc-text">if</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#choose-when-otherwise"><span class="toc-number">8.2.</span> <span class="toc-text">choose when otherwise</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#where"><span class="toc-number">8.3.</span> <span class="toc-text">where</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#set"><span class="toc-number">8.4.</span> <span class="toc-text">set</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#trim"><span class="toc-number">8.5.</span> <span class="toc-text">trim</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#foreach-gt-批量删除"><span class="toc-number">8.6.</span> <span class="toc-text">foreach  -&gt; 批量删除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sql片段-重用sql语句片段"><span class="toc-number">8.7.</span> <span class="toc-text">sql片段  重用sql语句片段</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Mybatis学习笔记02" data-title="Mybatis学习笔记02" data-url="http://yoursite.com/2019/10/07/Mybatis学习笔记02/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
   
   
@@ -479,6 +516,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">datastucture</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
@@ -488,10 +529,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Me</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">datastucture</a>
               </li>
             
             <div class="clearfix"></div>
@@ -574,7 +611,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">我是程序员&lt;br&gt;&lt;br&gt;平凡有一点理想&lt;br&gt;渴望让世界不一样</div>
   	  	
     	</section>
     
