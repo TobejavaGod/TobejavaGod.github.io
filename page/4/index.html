@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="The journey of coding">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
 <meta property="og:site_name" content="The journey of coding">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
@@ -143,30 +143,39 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-数据结构复习笔记——图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/11/数据结构复习笔记——图/">数据结构复习笔记——图</a>
+      <a class="article-title" href="/2019/10/02/hello-world/">Hello World</a>
     </h1>
   
 
         
-        <a href="/2019/10/11/数据结构复习笔记——图/" class="archive-article-date">
-  	<time datetime="2019-10-11T05:56:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-11</time>
+        <a href="/2019/10/02/hello-world/" class="archive-article-date">
+  	<time datetime="2019-10-02T05:33:51.716Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-02</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="图-gt-表示一种多对多的关系"><a href="#图-gt-表示一种多对多的关系" class="headerlink" title="图 -&gt; 表示一种多对多的关系"></a>图 -&gt; 表示一种多对多的关系</h2><h3 id="图的常用概念"><a href="#图的常用概念" class="headerlink" title="图的常用概念"></a>图的常用概念</h3><p>1.顶点：<br>    图中的数据元素<br>2.边：<br>    顶点间的连线<br>3.路径：<br>    一个顶点与另一个顶点之间的路<br>4.无向图：<br>    顶点之间的连接没有方向<br>5.有向图：<br>    两个顶点之间是有方向的<br>6.带权图：<br>    边具有权值，带权图也叫网<br>7.完全图：<br>    无向完全图：<br>        任意两点之间都存在边，含有n个顶点的图具有n×(n-1)/2条边。<br>    有向完全图：<br>        任意两点间存在两条互为反向的边，含有n个顶点的图具有n×(n-1)条边。</p>
-<p>当一个图越接近完全图时，就成它为稠密图，反之称他为稀疏图。</p>
-<h4 id="图的表示方式"><a href="#图的表示方式" class="headerlink" title="图的表示方式"></a>图的表示方式</h4><p>1.邻接矩阵<br>    表示图中顶点之间相邻关系的矩阵，对于n个顶点的图而言，矩阵的行列是1到n个点<br>2.邻接表<br>    邻接表只关心存在的边，由数组+链表实现，没有空间浪费。</p>
-<h4 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h4><p>1.深度优先(DFS)<br>    访问当前节点后递归的继续访问当前节点的第一个邻接节点。<br>2.广度优先(BFS)<br>    访问当前节点的所有可访问的节点将其入队列，按层次循环遍历。</p>
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
       
 
@@ -175,205 +184,11 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">datastructure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/11/数据结构复习笔记——图/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-数据结构复习笔记——树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/10/数据结构复习笔记——树/">数据结构复习笔记——树</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/10/数据结构复习笔记——树/" class="archive-article-date">
-  	<time datetime="2019-10-10T12:15:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><pre><code>1.节点
-2.根节点
-3.父节点
-4.子节点
-5.叶子节点（没有子节点的节点）
-6.节点的权（节点的值）
-7.路径（从root节点找到该节点的路线）
-8.层 （根节点是第一层）
-9.子树
-10.树的高度（最大层数）
-11.森林</code></pre><h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p>1.每个节点最多只能有两个子节点的一种形式<br>2.二叉树的子节点分为左子节点和右子节点<br>3.满二叉树：<br>    所有叶子节点都在最后一层，并且节点总数=2的n次方-1，n是层数<br>4.完全二叉树：<br>    所有的叶子节点都在最后一层或倒数第二层，并且最后一层的叶子节点在左边连续，倒数第二层的叶子节点在右边连续。<br>5.具有n个节点的完全二叉树的深度为floor(log2n)+1<br>6.深度为k的完全二叉树，节点最少有2的k减1次方个，最多有2的k次方减1个</p>
-<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>首先堆是一种完全二叉树，且具有以下性质：<br>    大顶堆：每个节点的值都大于或等于左右孩子的值（对于左右孩子的大小关系没有要求）<br>    小顶堆：每个节点的值都小于或等于左右孩子的值（对于左右孩子的大小关系没有要求）<br>对于堆排序来说，一般升序采用大顶堆，降序采用小顶堆。<br>    1.将无序队列构建成一个大顶堆。<br>    2.讲根节点，也就是最大的节点与末尾节点交换。<br>    3.重新调整交换后的结构为大顶堆，将第二大的节点交换到根节点上。<br>    4.循环执行，直到整个序列有序。<br>第一个非叶子节点的索引是arr.length/2 - 1</p>
-<h3 id="赫夫曼树-gt-带权路径长度-wpl-最短的树"><a href="#赫夫曼树-gt-带权路径长度-wpl-最短的树" class="headerlink" title="赫夫曼树 -&gt; 带权路径长度(wpl)最短的树"></a>赫夫曼树 -&gt; 带权路径长度(wpl)最短的树</h3><p>权值越大的节点距离根节点就越近</p>
-<h3 id="二叉排序树-gt-BST-Tree"><a href="#二叉排序树-gt-BST-Tree" class="headerlink" title="二叉排序树 -&gt; BST Tree"></a>二叉排序树 -&gt; BST Tree</h3><p>对于任意一个非叶子节点，要求左子节点的值比当前节点的值小，右子节点的值比当前节点的值大。</p>
-<h3 id="平衡二叉树-gt-AVL-Tree"><a href="#平衡二叉树-gt-AVL-Tree" class="headerlink" title="平衡二叉树 -&gt; AVL Tree"></a>平衡二叉树 -&gt; AVL Tree</h3><p>它是一颗孔数或他的左右两个子树的高度差不超过一，并且左右两个子树都是一颗平衡二叉树。平衡二叉树的实现方法有红黑树，伸展树等。</p>
-<p>左旋转：节点右子树与左子树的高度差大于1时<br>    1.创建一个新节点，节点的值就是根节点的值<br>    2.将新节点的左子树指向当前节点的左子树<br>    3.将新节点的右子树指向当前节点的右子树的左子树<br>    4.将当前节点的值换成当前节点的右子节点的值<br>    5.将当前节点的右子树指向右子树的右子树<br>    6.将当前节点的左子树指向新节点</p>
-<p>右旋转：节点的左子树与右子树的高度差大于1<br>    1.创建新节点，新节点的值等于根节点的值<br>    2.将新节点的右子树设置为当前节点的右子树<br>    3.将新节点的左子树设置为当前节点的左子树的右子树<br>    4.将当前节点的值设置为当前节点的左子节点的值<br>    5.将当前节点的左子树设置为当前节点的左子树的左子树<br>    6.将当前节点的右子树设置为新节点</p>
-<p>以上两种方式属于单旋转，但是某些时候进行单旋转并不能完成平衡二叉树的转换</p>
-<p>双旋转：<br>    如果当前节点的左子节点的右子树的高度大于当前节点的左子节点的左子树<br>    则先对当前节点的左子节点进行左旋转，再对当前节点进行右旋转。</p>
-<pre><code>如果当前节点的右子节点的左子树的高度大于当前节点的左子节点的右子树
-则先对当前节点的右子节点进行右旋转，再对当前节点进行左旋转。</code></pre><h3 id="多路查找树"><a href="#多路查找树" class="headerlink" title="多路查找树"></a>多路查找树</h3><p>多叉树：允许每个节点有更多的数据项和更多的子节点。</p>
-<p>优点：通过重新组织节点，减少树的高度，能对二叉树进行优化。</p>
-<h4 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h4><p><strong>所有的叶子节点都在同一层</strong></p>
-<p><strong>B树通过重新组织节点，降低树的高度，并且减少i/o读写次数来提升效率</strong></p>
-<p>1.B树的阶：<br>    节点的最多子节点个数，例如23树的阶是3，234树的阶是4</p>
-<p>2.B树的搜索：<br>    从根节点开始，对节点内的关键字（有序）序列进行二分查找，如果命中则结束，否则进去其儿子节点查询，重复直到所对应的儿子指针为空或已经是叶子节点。<br>3.关键字集合分布在整棵树中，即叶子节点和非叶子节点都存放数据。</p>
-<p>4.搜索有可能在非叶子节点结束</p>
-<p>5.其搜索性能等价于在关键字全集进行一次二分查找。</p>
-<h4 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h4><p>1.B+树与B树的区别：<br>    B+树在进行搜索时只有达到叶子节点才命中，他的性能也等价于在关键字全集进行一次二分查找。<br>2.B+树所有的关键字都出现在叶子节点的链表中，也就是数据只存在于叶子节点中（也叫稠密索引），链表中的数据也是有序的。</p>
-<p>3.非叶子节点相当于叶子节点的索引（稀疏索引），叶子节点相当于存储数据的数据层。</p>
-<p>4.B+树更适合文件索引系统</p>
-<p>5.B树与B+树没有严格的谁好谁坏的区分，根据各自的应用场景。</p>
-<h4 id="B※树"><a href="#B※树" class="headerlink" title="B※树"></a>B※树</h4><p>在B+树的基础上对于非根节点和非叶子节点加入了指向兄弟节点的指针。</p>
-<h4 id="2-3树-gt-最简单的B树"><a href="#2-3树-gt-最简单的B树" class="headerlink" title="2-3树 -&gt; 最简单的B树"></a>2-3树 -&gt; 最简单的B树</h4><p>1.2-3树的所有叶子节点都在同一层<br>2.有两个子节点的节点叫二节点，二节点要么没有子节点，要么有两个子节点<br>3.有三个子节点的节点叫三节点，三节点要么没有子节点，要么有三个子节点<br>4.2-3树是由二节点和三节点组成的</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">datastucture</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/10/数据结构复习笔记——树/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-程序员的鸡汤" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/09/程序员的鸡汤/">程序员的鸡汤</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/09/程序员的鸡汤/" class="archive-article-date">
-  	<time datetime="2019-10-09T07:08:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="喝的东西"><a href="#喝的东西" class="headerlink" title="喝的东西"></a>喝的东西</h2><h3 id="我曾七次鄙视自己的灵魂"><a href="#我曾七次鄙视自己的灵魂" class="headerlink" title="我曾七次鄙视自己的灵魂"></a>我曾七次鄙视自己的灵魂</h3><p><em>《我曾七次鄙视自己的灵魂》是 纪伯伦以“自己的灵魂”为名，看穿人性所共有弱点的一首诗。诗句简单有力发人深省，督促人们拥有更高的精神境界，呼吁人们涤荡自己的灵魂，唾弃丑恶，追求高尚。</em></p>
-<p>Seven times have I despised my soul: ——Kahlil Gibran</p>
-<p>The first time when I saw her being meek that she might attain height.<br>第一次，当它本可进取时，却故作谦卑；<br>The second time when I saw her limping before the crippled.<br>第二次，当它在空虚时，用爱欲来填充；<br>The third time when she was given to choose between the hard and the easy, and she chose the easy.<br>第三次，在困难和容易之间，它选择了容易；<br>The fourth time when she committed a wrong, and comforted herself that others also commit wrong.<br>第四次，它犯了错，却借由别人也会犯错来宽慰自己；<br>The fifth time when she forbore for weakness, and attributed her patience to strength.<br>第五次，它自由软弱，却把它认为是生命的坚韧；<br>The sixth time when she despised the ugliness of a face, and knew not that it was one of her own masks.<br>第六次，当它鄙夷一张丑恶的嘴脸时，却不知那正是自己面具中的一副；<br>And the seventh time when she sang a song of praise, and deemed it a virtue.<br>第七次，它侧身于生活的污泥中，虽不甘心，却又畏首畏尾。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Me</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/09/程序员的鸡汤/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/02/hello-world/">展开全文 >></a>
         </p>
       
 
@@ -405,7 +220,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
     </nav>
   
 
