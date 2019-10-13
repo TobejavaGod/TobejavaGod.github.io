@@ -143,6 +143,200 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Redis学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/09/Redis学习笔记/">Redis学习笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/09/Redis学习笔记/" class="archive-article-date">
+  	<time datetime="2019-10-09T04:08:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="概念-gt-一款高性能的NOSQL系列的非关系型数据库"><a href="#概念-gt-一款高性能的NOSQL系列的非关系型数据库" class="headerlink" title="概念 -&gt; 一款高性能的NOSQL系列的非关系型数据库"></a>概念 -&gt; 一款高性能的NOSQL系列的非关系型数据库</h2><p>关系型数据库(Mysql、Oracle……)：表的形式<br>    1.数据之间有关联关系<br>    2.数据存储在硬盘的文件上<br>非关系型数据库(Redis、Hbase、MangoDB……)：键值对的形式<br>    1.数据之间没有关联关系<br>    2.数据存储在内存中<br>NOSQL:<br>    Not Only Sql,意为不仅仅是sql，是一项全新的数据库理念，泛指非关系型数据库。他的产生是为了解决大规模数据集合多重数据种类带来的挑战。<br>Redis：<br>    Redis是用C语言开发的一个开源的高性能键值对数据库。</p>
+<p>应用场景：<br>    缓存<br>    聊天室的在线好友列表<br>    任务队列（秒杀，抢购）<br>    分布式集群架构中的session分离<br>    网站访问统计<br>    数据过期处理（能够精确到ms）</p>
+<p>总结：一般会将数据存储在关系型数据库中，而nosql数据库中备份关系型数据库。</p>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>在官网上下载的是linux版本的，如果想要下载Windows版本的话要去Github下载。<br>    <a href="https://github.com/microsoftarchive/redis" target="_blank" rel="noopener">github地址</a><br>    往下拉找到release page选项点击，</p>
+<h2 id="命令操作"><a href="#命令操作" class="headerlink" title="命令操作"></a>命令操作</h2><h3 id="redis的数据结构"><a href="#redis的数据结构" class="headerlink" title="redis的数据结构"></a>redis的数据结构</h3><p>redis存储的是键值对形式的数据，其中键都是字符串，值有五种不同数据结构<br>    1.字符串类型 String<br>        存储：set key value<br>        获取：get key<br>        删除：del key<br>    2.哈希类型 hash：map格式<br>        存储：hset key field value<br>        获取：<br>            * hget key field：获取指定的field对应的值<br>            * hgetall key：获取所有的field和value<br>        删除：hdel key field：删除指定的field，对应的value也会被删除<br>    3.列表类型 list：linkedlist格式 允许重复<br>        存储：<br>            * lpush key value<br>            * rpush key value<br>        获取：<br>            * lrange key start end<br>                获取所有：lrange key 0 -1<br>        删除：<br>            * lpop key：删除列表最左边的元素并返回<br>            * rpop key：删除列表最右边的元素并返回<br>    4.集合类型 set：hashset格式 不允许重复<br>        存储：sadd key value<br>        获取：smenbers key:获取set集合中所有的元素<br>        删除：srem key value:删除set集合中的某个元素<br>    5.有序集合类型 sortedset：不允许重复且自动排序<br>        存储：zadd key score value:存储数据以及数据对应的分数(通过分数进行集合成员的排序)<br>        获取：<br>            * zrange key start end<br>            * zrange key start end withscores(带分数获取元素)<br>        删除：zrem key value<br>    6.通用命令：<br>        1. keys * :查询所有的键<br>        2. type key:获取键对应的value类型<br>        3. del key:删除指定的key value</p>
+<h2 id="持久化操作"><a href="#持久化操作" class="headerlink" title="持久化操作"></a>持久化操作</h2><pre><code>1.redis是一个内存数据库，当redis服务器重启或电脑重启时，数据会丢失。我们可以将内存中的数据持久化到硬盘文件中。
+2.redis持久化机制：
+    1.RDB：默认方式，不需要进行配置
+        在一定的间隔时间中，检测key的变化情况，然后持久化数据
+        可以修改redis.windows.conf文件中的
+        save 900 1  两个数字，前一个是指等待的秒数，后一个是最少key的变化数量
+        这个例子的意思是说再默认的持久化方式下，在900秒内有至少一次的key改变就进行持久化，可以更改其中的配置，重新启动服务器，并指定配置文件的名称,指定的位置下运行 redis-server.exe redis.windows.conf
+
+        结果：会在redis的目录下生成后缀名为.rdb的文件
+
+    2.AOF(影响性能)：日志记录的方式，可以记录每一条命令的操作，每一次操作后持久化数据。
+        在配置文件中将appendonly no该成yes
+            # appendfsync always  每一次操作持久化一次
+            appendfsync everysec 每一秒持久化一次（默认方式）
+            # appendfsync no 不执行持久化
+
+        结果：会生成appendonly.aof文件</code></pre><h2 id="使用Java客户端操作Redis-Jedis-一款java操作redis数据库的工具-gt-需要jar包"><a href="#使用Java客户端操作Redis-Jedis-一款java操作redis数据库的工具-gt-需要jar包" class="headerlink" title="使用Java客户端操作Redis Jedis 一款java操作redis数据库的工具  -&gt; 需要jar包"></a>使用Java客户端操作Redis Jedis 一款java操作redis数据库的工具  -&gt; 需要jar包</h2><h3 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h3><p>1.获取连接<br>空参构造默认的就是localhost下的6379端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Jedis jedis = new Jedis(&quot;localhost&quot;,6379)</span><br></pre></td></tr></table></figure>
+
+<p>2.操作<br>普通的get和和set方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jedis.set(&quot;username&quot;,&quot;zhangsan&quot;)</span><br><span class="line">jedis.get(&quot;username&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>使用setex指定失效时间<br>jedis.setex(“username”,20,”zhangsan”) -&gt; 20秒后自动删除<br>3.关闭连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jedis.close()</span><br></pre></td></tr></table></figure>
+
+<h3 id="Jedis连接池-：JedisPool"><a href="#Jedis连接池-：JedisPool" class="headerlink" title="Jedis连接池 ：JedisPool"></a>Jedis连接池 ：JedisPool</h3><p> 0.创建配置对象(可选)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JedisPoolConfig config = new JedisPoolConfig()</span><br><span class="line">config.setMaxTotal() //最大允许连接数</span><br><span class="line">config.setMaxIdle() //最大空闲连接</span><br></pre></td></tr></table></figure>
+
+<p> 1.创建连接池对象<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JedispPool jedispool = new JedisPool()</span><br><span class="line">//JedispPool jedispool = new JedisPool(config,&quot;localhost&quot;,6379)  通过配置来创建连接池对象</span><br></pre></td></tr></table></figure></p>
+<p> 2.获取连接对象<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Jedis jedis = jedispool.getResource()</span><br></pre></td></tr></table></figure></p>
+<p> 3.进行操作<br> 4.关闭连接，归还到连接池中</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/09/Redis学习笔记/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-并发编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/08/并发编程/">并发编程</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/08/并发编程/" class="archive-article-date">
+  	<time datetime="2019-10-08T11:46:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="并发编程存在的bug源头"><a href="#并发编程存在的bug源头" class="headerlink" title="并发编程存在的bug源头"></a>并发编程存在的bug源头</h2><h3 id="缓存导致的可见性问题"><a href="#缓存导致的可见性问题" class="headerlink" title="缓存导致的可见性问题"></a>缓存导致的可见性问题</h3><p>可见性：一个线程对于共享变量的修改，另一个线程能够立刻看到。</p>
+<p>多核Cpu中，当多个线程在不同的 CPU 上执行时，这些线程操作的是不同的 CPU 缓存。此时线程间的操作就不具备可见性了。</p>
+<h3 id="线程切换导致的原子性问题"><a href="#线程切换导致的原子性问题" class="headerlink" title="线程切换导致的原子性问题"></a>线程切换导致的原子性问题</h3><p>原子性：一个或者多个操作在 CPU 执行的过程中不被中断的特性</p>
+<p>在多线程执行操作的过程中，指令执行未完成，发生了线程切换，这种情况下就会导致原子性问题。</p>
+<h3 id="编译器优化导致的有序性问题"><a href="#编译器优化导致的有序性问题" class="headerlink" title="编译器优化导致的有序性问题"></a>编译器优化导致的有序性问题</h3><p>有序性：程序按照代码的先后顺序执行</p>
+<p>实际程序中指令的运行顺序可能被编译器优化之后发生了改变，比较典型的就是单例模式中通过双重检测索是实现的方式会发生的问题。</p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><pre><code>1.解决可见性、有序性最直接的办法就是禁用缓存和编译优化，但是这样在解决问题的同时，程序的性能也大大降低了。合理的方案应该是按需禁用缓存以及编译优化。所谓“按需禁用”其实就是指按照程序员的要求来禁用。所以，为了解决可见性和有序性问题，只需要提供给程序员按需禁用缓存和编译优化的方法即可。
+2.Java 内存模型是个很复杂的规范，可以从不同的视角来解读，站在我们这些程序员的视角，本质上可以理解为，Java 内存模型规范了 JVM 如何提供按需禁用缓存和编译优化的方法。具体来说，这些方法包括 volatile、synchronized 和 final 三个关键字，以及六项 Happens-Before 规则</code></pre><h3 id="volatile关键字-gt-它最原始的意义就是禁用-CPU-缓存"><a href="#volatile关键字-gt-它最原始的意义就是禁用-CPU-缓存" class="headerlink" title="volatile关键字 -&gt; 它最原始的意义就是禁用 CPU 缓存"></a>volatile关键字 -&gt; 它最原始的意义就是禁用 CPU 缓存</h3><p>对于声明了volatile关键字的变量，告诉编译器，对这个变量的读写，不能使用 CPU 缓存，必须从内存中读取或者写入。</p>
+<pre><code>有如下程序
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class VolatileExample &#123;</span><br><span class="line">  int x = 0;</span><br><span class="line">  volatile boolean v = false;</span><br><span class="line">  public void writer() &#123;</span><br><span class="line">    x = 42;</span><br><span class="line">    v = true;</span><br><span class="line">  &#125;</span><br><span class="line">  public void reader() &#123;</span><br><span class="line">    if (v == true) &#123;</span><br><span class="line">      // 这里 x 会是多少呢？</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre><p>结论：根据Java的版本，如果在低于1.5版本上运行，x可能是42，也有可能是0；如果在1.5以上的版本上运行，x就是等于42。因为在Java1.5中，对于volatile语义进行了增强。增强的内容就是Happens-before规则</p>
+<h3 id="Happens-before规则-gt-前面一个操作的结果对后续操作是可见的"><a href="#Happens-before规则-gt-前面一个操作的结果对后续操作是可见的" class="headerlink" title="Happens-before规则 -&gt; 前面一个操作的结果对后续操作是可见的"></a>Happens-before规则 -&gt; 前面一个操作的结果对后续操作是可见的</h3><p>1.程序的顺序性规则<br>    按照程序顺序，前面的操作 Happens-Before 于后续的任意操作。<br>2.volatile变量规则<br>    对一个 volatile 变量的写操作， Happens-Before 于后续对这个 volatile 变量的读操作。<br>3.传递性<br>    如果 A Happens-Before B，且 B Happens-Before C，那么 A Happens-Before C。<br>4.管程中锁的规则<br>    对一个锁的解锁 Happens-Before 于后续对这个锁的加锁。<br>5.线程 start() 规则<br>    主线程 A 启动子线程 B 后，子线程 B 能够看到主线程在启动子线程 B 前的操作。<br>6.线程 join() 规则<br>    如果在线程 A 中，调用线程 B 的 join() 并成功返回，那么线程 B 中的任意操作 Happens-Before 于该 join() 操作的返回</p>
+<h3 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h3><p>final关键字的初衷是告诉编译器，该变量生而不变，可以随意优化。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Thread</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/08/并发编程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Mybatis学习笔记02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -163,7 +357,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="列名和属性名不一致的情况"><a href="#列名和属性名不一致的情况" class="headerlink" title="列名和属性名不一致的情况"></a>列名和属性名不一致的情况</h3><h4 id="使用别名"><a href="#使用别名" class="headerlink" title="使用别名"></a>使用别名</h4><pre><code>编写sql语句时，直接将数据库中的列起上实体类中对应属性的别名</code></pre><h4 id="使用resultMap"><a href="#使用resultMap" class="headerlink" title="使用resultMap"></a>使用resultMap</h4><pre><code>在xml映射文件中配置
+        <h3 id="列名和属性名不一致的情况"><a href="#列名和属性名不一致的情况" class="headerlink" title="列名和属性名不一致的情况"></a>列名和属性名不一致的情况</h3><h4 id="使用别名"><a href="#使用别名" class="headerlink" title="使用别名"></a>使用别名</h4><p>编写sql语句时，直接将数据库中的列起上实体类中对应属性的别名</p>
+<h4 id="使用resultMap"><a href="#使用resultMap" class="headerlink" title="使用resultMap"></a>使用resultMap</h4><pre><code>在xml映射文件中配置
 &lt;resultMap type=&quot;实体类全类名（没有起别名的情况下）&quot; id=&quot;XXXresultMap&quot;&gt;
     &lt;!-- 其中填写不一致的列,jdbcType可写可不写，Mybatis自动识别--&gt;
     &lt;result column=&quot;数据库中列名&quot; property=&quot;实体类中属性名&quot; jdbcType=&quot;Integer&quot;/&gt;
@@ -171,21 +366,10 @@
 在配置了resultMap以后相应的在select中的resultType属性就要改为resultMap，它的值为resultMap的id。
 
 细节：在配置resultMap以后，一般会将表的主键也加入，因为之后主键可能会与其他的表有关联，这是一种良好的编程习惯。
-    &lt;id column=&quot;id&quot; property=&quot;id&quot; jdbcType=&quot;Integer&quot;/&gt;</code></pre><h3 id="和-的区别"><a href="#和-的区别" class="headerlink" title="#和$的区别"></a>#和$的区别</h3><pre><code>1.使用#传参：使用占位符的方式
-2.使用$传参：使用字符串拼接的方式
-    --&gt;！注意：如果参数是单值类型（简单类型），且只有一个参数，那么参数必须使用value占位！！！，并且如果参数是字符串要使用引号~
-    尽量使用#而不是$，但是如果参数是表名或者列名的时候，只能使用$。</code></pre><h3 id="不区分大小写的查询"><a href="#不区分大小写的查询" class="headerlink" title="不区分大小写的查询"></a>不区分大小写的查询</h3><pre><code>利用mysql中的upper或lower函数实现不区分大小写的模糊查询
-eg: select * from 表名 where lower（列名） like &apos;${value}&apos;;</code></pre><h3 id="多参数传递-gt-分页查询"><a href="#多参数传递-gt-分页查询" class="headerlink" title="多参数传递 -&gt; 分页查询"></a>多参数传递 -&gt; 分页查询</h3><pre><code>1.使用索引：
-    按照参数的顺序，从0开始 
-    select * from tablename limit #{0},#{1}
-2.使用注解：
-    在接口声明处使用注解
-    返回值类型 方法名(@Param(value=&quot;offset&quot;) int offset,@Param(value=&quot;pagesize&quot;) int pagesize)
-    对应的映射文件中
-        select * from tablename limit #{offset},#{pagesize} -&gt; 注意此处的占位参数要和注解中value的值相对应，方法中的参数名可以任意
-3.使用map
-    映射文件中的语句不变
-    将参数变为map，使用时map的键就是映射文件中的占位参数，对应的值就是要传入的值。</code></pre><h3 id="插入-获取刚插入的记录的id（自增id）"><a href="#插入-获取刚插入的记录的id（自增id）" class="headerlink" title="插入 - 获取刚插入的记录的id（自增id）"></a>插入 - 获取刚插入的记录的id（自增id）</h3><p>插入语句</p>
+    &lt;id column=&quot;id&quot; property=&quot;id&quot; jdbcType=&quot;Integer&quot;/&gt;</code></pre><h3 id="和-的区别"><a href="#和-的区别" class="headerlink" title="#和$的区别"></a>#和$的区别</h3><p>1.使用#传参：使用占位符的方式<br>2.使用$传参：使用字符串拼接的方式<br>    –&gt;！注意：如果参数是单值类型（简单类型），且只有一个参数，那么参数必须使用value占位！！！，并且如果参数是字符串要使用引号~<br>    尽量使用#而不是$，但是如果参数是表名或者列名的时候，只能使用$。</p>
+<h3 id="不区分大小写的查询"><a href="#不区分大小写的查询" class="headerlink" title="不区分大小写的查询"></a>不区分大小写的查询</h3><p>利用mysql中的upper或lower函数实现不区分大小写的模糊查询<br>eg: select * from 表名 where lower（列名） like ‘${value}’;</p>
+<h3 id="多参数传递-gt-分页查询"><a href="#多参数传递-gt-分页查询" class="headerlink" title="多参数传递 -&gt; 分页查询"></a>多参数传递 -&gt; 分页查询</h3><p>1.使用索引：<br>    按照参数的顺序，从0开始<br>    select * from tablename limit #{0},#{1}<br>2.使用注解：<br>    在接口声明处使用注解<br>    返回值类型 方法名(@Param(value=”offset”) int offset,@Param(value=”pagesize”) int pagesize)<br>    对应的映射文件中<br>        select * from tablename limit #{offset},#{pagesize} -&gt; 注意此处的占位参数要和注解中value的值相对应，方法中的参数名可以任意<br>3.使用map<br>    映射文件中的语句不变<br>    将参数变为map，使用时map的键就是映射文件中的占位参数，对应的值就是要传入的值。</p>
+<h3 id="插入-获取刚插入的记录的id（自增id）"><a href="#插入-获取刚插入的记录的id（自增id）" class="headerlink" title="插入 - 获取刚插入的记录的id（自增id）"></a>插入 - 获取刚插入的记录的id（自增id）</h3><p>插入语句</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;方法名&quot; parameterType=&quot;插入的对象&quot;&gt;</span><br><span class="line">	insert into tablename(属性) values (#&#123;属性&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
 
 <p>通过这种插入的方式，打印插入的记录会显示id为null</p>
@@ -194,10 +378,11 @@ eg: select * from 表名 where lower（列名） like &apos;${value}&apos;;</cod
 
 <pre><code>这样方式一中的userGeneratedKeys就可以省略了，但是后面的keyProperties还需要声明</code></pre><p>解决方式三：适用于没有主键的数据库，比如Oracle<br>    在insert语句内部配置selectKey选项<br>Oracle:    <selectkey resulttype="java.lang.Integer" order="BEFORE" keyproperties="id"><br>        select seq.nextval as id from dual<br>        </selectkey></p>
 <p>Mysql”    <selectkey resulttype="java.lang.Integer" order="AFTER" keyproperties="id"><br>        select last_insert_id()<br>        </selectkey></p>
-<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><h4 id="修改记录的所有属性-gt-通过记录的id来修改"><a href="#修改记录的所有属性-gt-通过记录的id来修改" class="headerlink" title="修改记录的所有属性 -&gt; 通过记录的id来修改"></a>修改记录的所有属性 -&gt; 通过记录的id来修改</h4><pre><code>new 一个对象，设置他的id为要修改的id，然后设置所有属性为要修改的属性，执行sql
-update tablename set &apos;字段&apos;=#{对象中的属性} where &apos;id&apos;=#{id}</code></pre><h4 id="修改记录的某几条属性"><a href="#修改记录的某几条属性" class="headerlink" title="修改记录的某几条属性"></a>修改记录的某几条属性</h4><p>1.先查询再修改<br>    通过select方法先查出对应id的记录并返回其对象，然后修改对象中要修改的属性，最后执行update方法</p>
+<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><h4 id="修改记录的所有属性-gt-通过记录的id来修改"><a href="#修改记录的所有属性-gt-通过记录的id来修改" class="headerlink" title="修改记录的所有属性 -&gt; 通过记录的id来修改"></a>修改记录的所有属性 -&gt; 通过记录的id来修改</h4><p>new 一个对象，设置他的id为要修改的id，然后设置所有属性为要修改的属性，执行sql<br>update tablename set ‘字段’=#{对象中的属性} where ‘id’=#{id}</p>
+<h4 id="修改记录的某几条属性"><a href="#修改记录的某几条属性" class="headerlink" title="修改记录的某几条属性"></a>修改记录的某几条属性</h4><p>1.先查询再修改<br>    通过select方法先查出对应id的记录并返回其对象，然后修改对象中要修改的属性，最后执行update方法</p>
 <p>2.动态sql<br>    在set标签中嵌套多个if，条件是非空的时候修改，修改指定的列，未指定的不修改</p>
-<h3 id="删除-gt-通过id删除记录"><a href="#删除-gt-通过id删除记录" class="headerlink" title="删除 -&gt; 通过id删除记录"></a>删除 -&gt; 通过id删除记录</h3><pre><code>delete from tablename where id=#{id}</code></pre><h3 id="动态sql"><a href="#动态sql" class="headerlink" title="动态sql"></a>动态sql</h3><h4 id="if"><a href="#if" class="headerlink" title="if"></a>if</h4><pre><code>&lt;if test=&quot;boolean类型值或表达式&quot;&gt;
+<h3 id="删除-gt-通过id删除记录"><a href="#删除-gt-通过id删除记录" class="headerlink" title="删除 -&gt; 通过id删除记录"></a>删除 -&gt; 通过id删除记录</h3><p>delete from tablename where id=#{id}</p>
+<h3 id="动态sql"><a href="#动态sql" class="headerlink" title="动态sql"></a>动态sql</h3><h4 id="if"><a href="#if" class="headerlink" title="if"></a>if</h4><pre><code>&lt;if test=&quot;boolean类型值或表达式&quot;&gt;
     test为true的时候执行if语句中的内容
 &lt;/if&gt;</code></pre><h4 id="choose-when-otherwise"><a href="#choose-when-otherwise" class="headerlink" title="choose when otherwise"></a>choose when otherwise</h4><pre><code>&lt;choose&gt;
     &lt;when&gt;&lt;/when&gt;
@@ -271,211 +456,9 @@ update tablename set &apos;字段&apos;=#{对象中的属性} where &apos;id&apo
 
 
   
-    <article id="post-Mybatis学习笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/06/Mybatis学习笔记01/">Mybatis学习笔记01</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/06/Mybatis学习笔记01/" class="archive-article-date">
-  	<time datetime="2019-10-06T09:52:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Mybatis：持久层框架（半ORM）"><a href="#Mybatis：持久层框架（半ORM）" class="headerlink" title="Mybatis：持久层框架（半ORM）"></a>Mybatis：持久层框架（半ORM）</h2><pre><code>将sql语句放在xml映射文件中
-自动将输入的参数映射到sql的动态参数上
-自动将结果集生成的内容映射到java对象</code></pre><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><pre><code>1.配置文件congig.xml
-    1.引入数据库连接配置    --&gt;   db.properties就是我们配置数据库url，driver，username，password的文件。
-        &lt;properties resource=&quot;db.properties&quot;&gt;&lt;/properties&gt;
-    2.定义数据源
-        &lt;environments default=&quot;development&quot;&gt;
-            &lt;environment id=&quot;development&quot;&gt;
-                &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;
-                &lt;datasource&gt;
-                    &lt;properties name=&quot;driver&quot; value=&quot;${jdbc.driver}&quot;/&gt;
-                    &lt;properties name=&quot;url&quot; value=&quot;${jdbc.url}&quot;/&gt;
-                    &lt;properties name=&quot;username&quot; value=&quot;${jdbc.username}&quot;/&gt;
-                    &lt;properties name=&quot;password&quot; value=&quot;${jdbc.password}&quot;/&gt;
-                &lt;/datasource&gt;
-            &lt;/environment&gt;
-        &lt;/environments&gt;
-    3.定义映射文件
-        &lt;mappers&gt;
-            --&gt;第一种方式：   &lt;mapper resource=&quot;实际存放的路径下的映射文件&quot;/&gt;
-            --&gt;第二种方式(更简便)：   &lt;package name=&quot;存放映射文件的包名&quot;/&gt;
-        &lt;/mappers&gt;
-
-2.映射文件mapper.xml
-        &lt;mapper namespace=&quot;包名+接口名(dao层)&quot;&gt;
-            mapper中statement的类型,每一个语句都叫做一个statement
-            &lt;insert&gt;&lt;/insert&gt;
-            &lt;select id=&quot;接口中的方法名&quot; parameterType=&quot;int&quot; resultType=&quot;返回的对象的实体类&quot;&gt;
-                select * from 表名 where id=#{id}
-            &lt;/select&gt;
-            &lt;update&gt;&lt;/update&gt;
-            &lt;delete&gt;&lt;/delete&gt;
-        &lt;/mapper&gt;
-    *注意：
-        1.关于parameterType的注意事项：在每个statement中的参数类型parameterType表示的是映射类型，如果填写的是int的话其实实质上代表的是Integer，如果想要表示真正的int的话应该写_int,其他的数据类型也是同理。
-        2.关于resultType的注意事项：在未定义别名的情况下，返回值类型应该写对象的全类名。
-            如果想要定义别名，应在config.xml文件中定义
-                &lt;typeAliases&gt;
-                    &lt;typeAlias type=&quot;全类名&quot; alias=&quot;别名&quot;/&gt;
-                &lt;/typeAliases&gt;
-            这样以后，在映射文件中就可以使用定义好的别名了，不过这种操作不是必须的，可以直接使用全类名，定义别名还有第二种方式，就是之前也使用过的package方式
-            在&lt;typeAliases&gt;标签中直接声明&lt;package name=&quot;包名&quot;/&gt;这样的话在这个包下的所有实体类都可以直接使用他们的类名来配置resultType
-        3.关于配置好mapper.xml后接口中方法的定义，方法名就是id属性的值，参数类型就是parameterType属性的值，如果参数类型是单值类型(八大基本数据类型加字符串类型)的话对于参数名称没有要求，方法的返回值类型就是resultType属性的值。</code></pre><h3 id="MybatisUtil-–-gt-Mybatis工具类"><a href="#MybatisUtil-–-gt-Mybatis工具类" class="headerlink" title="MybatisUtil –&gt; Mybatis工具类"></a>MybatisUtil –&gt; Mybatis工具类</h3><p>1.定义静态全局SqlSessionFactory对象<br>    private static SqlSessionFactory sqlSessionFactory = null;<br>2.在静态代码块中读取配置文件，初始化SqlSessionFactory对象<br>    static{<br>        //获取字节输入流对象读取配置文件<br>        InputStream in = Resources.getResourceAsStream(“config.xml”);<br>        利用SqlSessionFactoryBuilder中的build方法初始化sqlSessionFactory对象<br>        sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);<br>    }<br>3.定义一个私有的构造函数  –&gt;  将工具类构建成单例的<br>    private MybatisUtil(){}</p>
-<p>4.获取SqlSession对象<br>    public static SqlSession getSqlSession(){<br>        return sqlSessionFactory.openSession();<br>    }</p>
-<h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><h4 id="使用接口的方式"><a href="#使用接口的方式" class="headerlink" title="使用接口的方式"></a>使用接口的方式</h4><pre><code>1.首先利用MybatisUtil获取SqlSession对象
-
-2.使用SqlSession对象中的getMapper方法，参数是dao层接口的类，返回值就是接口的对象
-    eg:dao = sqlSession.getMapper(IDao.class);
-3.使用接口对象调用接口中的方法，并接收返回值
-
-4.关闭资源
-    sqlSession.close();</code></pre><h4 id="不使用接口的方式"><a href="#不使用接口的方式" class="headerlink" title="不使用接口的方式"></a>不使用接口的方式</h4><pre><code>1.首先利用MybatisUtil获取SqlSession对象
-
-2.直接调用sqlSession中的selectOne方法，传入在xml映射文件中配置的namespace属性的值在加上&quot;.方法名&quot;，以及要查询的sql语句的参数。</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/06/Mybatis学习笔记01/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ArrayList源码学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/03/ArrayList源码学习笔记/">ArrayList源码学习笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/03/ArrayList源码学习笔记/" class="archive-article-date">
-  	<time datetime="2019-10-03T06:52:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="集合源码篇笔记"><a href="#集合源码篇笔记" class="headerlink" title="集合源码篇笔记"></a>集合源码篇笔记</h1><h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><h3 id="初始容量"><a href="#初始容量" class="headerlink" title="初始容量"></a>初始容量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static final int DEFAULT_CAPACITY = 10;</span><br></pre></td></tr></table></figure>
-
-<h3 id="最大容量"><a href="#最大容量" class="headerlink" title="最大容量"></a>最大容量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;</span><br></pre></td></tr></table></figure>
-
-<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><h4 id="无参构造"><a href="#无参构造" class="headerlink" title="无参构造"></a>无参构造</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public ArrayList() &#123;</span><br><span class="line">        this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;  //直接返回大小为10的Object数组</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="带参构造（给定容量）"><a href="#带参构造（给定容量）" class="headerlink" title="带参构造（给定容量）"></a>带参构造（给定容量）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public ArrayList(int initialCapacity) &#123;</span><br><span class="line">        if (initialCapacity &gt; 0) &#123;   //判断传入的初始容量大小是否合法（大于0）</span><br><span class="line">            this.elementData = new Object[initialCapacity];   //如果合法的话直接初始化一个给定大小的Object数组</span><br><span class="line">        &#125; else if (initialCapacity == 0) &#123;</span><br><span class="line">            this.elementData = EMPTY_ELEMENTDATA;   //如果初始化容量设定为0的话将容器大小初始化称大小为0的空数组</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            throw new IllegalArgumentException(&quot;Illegal Capacity: &quot;+  //如果传参非法的话会抛出非法参数异常</span><br><span class="line">                                               initialCapacity);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="带参构造（给定拷贝的容器）"><a href="#带参构造（给定拷贝的容器）" class="headerlink" title="带参构造（给定拷贝的容器）"></a>带参构造（给定拷贝的容器）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public ArrayList(Collection&lt;? extends E&gt; c) &#123; //参数容器的泛型应是当前容器泛型的子类</span><br><span class="line">        elementData = c.toArray();  //将参数转为数组</span><br><span class="line">        if ((size = elementData.length) != 0) &#123;</span><br><span class="line">            // c.toArray might (incorrectly) not return Object[] (see 6260652)  --&gt;   bug</span><br><span class="line">            // 上面的是JDK源码当中的注释，说明将参数转化为数组的toArray方法并不一定返回的是Object类型的数组，如果不是的话，则要将其拷贝到一个Object数组中</span><br><span class="line">            if (elementData.getClass() != Object[].class)</span><br><span class="line">                elementData = Arrays.copyOf(elementData, size, Object[].class);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // replace with empty array.</span><br><span class="line">            this.elementData = EMPTY_ELEMENTDATA;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h4 id="trimToSize-–-gt-将当前的数组大小变为数组实际元素数量的大小，减小了内存的浪费"><a href="#trimToSize-–-gt-将当前的数组大小变为数组实际元素数量的大小，减小了内存的浪费" class="headerlink" title="trimToSize –&gt; 将当前的数组大小变为数组实际元素数量的大小，减小了内存的浪费"></a>trimToSize –&gt; 将当前的数组大小变为数组实际元素数量的大小，减小了内存的浪费</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public void trimToSize() &#123;</span><br><span class="line">       modCount++;</span><br><span class="line">       if (size &lt; elementData.length) &#123;</span><br><span class="line">           elementData = (size == 0)</span><br><span class="line">             ? EMPTY_ELEMENTDATA</span><br><span class="line">             : Arrays.copyOf(elementData, size);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="grow-–-gt-数组扩容方法"><a href="#grow-–-gt-数组扩容方法" class="headerlink" title="grow  –&gt; 数组扩容方法"></a>grow  –&gt; 数组扩容方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">private void grow(int minCapacity) &#123;</span><br><span class="line">       // overflow-conscious code</span><br><span class="line">       int oldCapacity = elementData.length;</span><br><span class="line">       int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);  //从这行我们可以看出ArrayList的扩容是原容量的1.5倍</span><br><span class="line">       if (newCapacity - minCapacity &lt; 0)</span><br><span class="line">           newCapacity = minCapacity;</span><br><span class="line">       if (newCapacity - MAX_ARRAY_SIZE &gt; 0)</span><br><span class="line">           newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">       // minCapacity is usually close to size, so this is a win:</span><br><span class="line">       elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/03/ArrayList源码学习笔记/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
@@ -571,15 +554,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">datastucture</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -588,10 +579,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">datastucture</a>
               </li>
              
               <li class="article-tag-list-item">
