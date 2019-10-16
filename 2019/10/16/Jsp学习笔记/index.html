@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>The journey of coding</title>
+  <title>Jsp学习笔记 | The journey of coding</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="The journey of coding">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="Jsp -&amp;gt; 本质上就是一个ServletJava服务端页面 既可以定义    html也可以定义java代码    简化开发 指令1.page 配置jsp页面    1.contentType：等同于response里的色图Content Type()        1.设置响应体的mime类型和字符集        2.设置当前jsp页面的编码（高级的IDE才能生效，如果是低级的要使用p">
+<meta name="keywords" content="JSP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jsp学习笔记">
+<meta property="og:url" content="http://yoursite.com/2019/10/16/Jsp学习笔记/index.html">
 <meta property="og:site_name" content="The journey of coding">
+<meta property="og:description" content="Jsp -&amp;gt; 本质上就是一个ServletJava服务端页面 既可以定义    html也可以定义java代码    简化开发 指令1.page 配置jsp页面    1.contentType：等同于response里的色图Content Type()        1.设置响应体的mime类型和字符集        2.设置当前jsp页面的编码（高级的IDE才能生效，如果是低级的要使用p">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-16T11:52:19.505Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The journey of coding">
+<meta name="twitter:title" content="Jsp学习笔记">
+<meta name="twitter:description" content="Jsp -&amp;gt; 本质上就是一个ServletJava服务端页面 既可以定义    html也可以定义java代码    简化开发 指令1.page 配置jsp页面    1.contentType：等同于response里的色图Content Type()        1.设置响应体的mime类型和字符集        2.设置当前jsp页面的编码（高级的IDE才能生效，如果是低级的要使用p">
   
     <link rel="alternative" href="/atom.xml" title="The journey of coding" type="application/atom+xml">
   
@@ -141,53 +146,55 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Spring学习笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Jsp学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/11/Spring学习笔记01/">Spring学习笔记01</a>
+    <h1 class="article-title" itemprop="name">
+      Jsp学习笔记
     </h1>
   
 
         
-        <a href="/2019/10/11/Spring学习笔记01/" class="archive-article-date">
-  	<time datetime="2019-10-11T12:23:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-11</time>
+        <a href="/2019/10/16/Jsp学习笔记/" class="archive-article-date">
+  	<time datetime="2019-10-16T11:50:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="IOC：控制反转-–-gt-降低耦合，但不能解除"><a href="#IOC：控制反转-–-gt-降低耦合，但不能解除" class="headerlink" title="IOC：控制反转   –&gt;   降低耦合，但不能解除"></a>IOC：控制反转   –&gt;   降低耦合，但不能解除</h2><h3 id="ApplicationContext的三个常用类"><a href="#ApplicationContext的三个常用类" class="headerlink" title="ApplicationContext的三个常用类"></a>ApplicationContext的三个常用类</h3><p>1.ClassPathXmlApplicationContext:他可以加载类路径下的配置文件，要求配置文件必须在类路径下，不在的话会加载失败（更加常用）<br>2.FileSystemXmlApplicationContext：他可以加载磁盘任意路径下的配置文件（必须有访问权限）<br>3.AnnotationConfigApplicationContext：鸭是用于读取注解创建容器的。</p>
-<h3 id="核心容器的两个接口"><a href="#核心容器的两个接口" class="headerlink" title="核心容器的两个接口"></a>核心容器的两个接口</h3><p>ApplicationContext：单例对象适用<br>    它在构建核心容器时，采用的是立即加载的方式，也就是说，只要一读取完配置文件马上就创建配置文件中配置的对象。<br>BeanFactory：多例对象适用<br>    它在构建核心容器时，采用的是延迟加载的方式，也就是说，什么时候根据id获取对象，什么时候再真正创建对象。</p>
-<h2 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h2><h3 id="创建bean的三种方式"><a href="#创建bean的三种方式" class="headerlink" title="创建bean的三种方式"></a>创建bean的三种方式</h3><p>1.使用默认构造函数创建bean对象<br>    在spring配置文件中使用bean标签，配以id和class属性后，且没有其他的属性和标签时，采用的就是默认构造函数创建bean对象，此时如果类中没有默认构造函数，则对象就无法创建。<br>2.使用普通工厂中的方法去创建对象（使用某个类中的方法去创建对象，并存入spring容器）<br>3.使用工厂中的静态方法创建对象（使用某个类中的静态方法创建对象，并存入spring容器）</p>
-<h3 id="bean对象的作用范围"><a href="#bean对象的作用范围" class="headerlink" title="bean对象的作用范围"></a>bean对象的作用范围</h3><p>bean中的scope属性：用于指定bean的作用范围<br>    singleton：单例的（默认值）<br>    prototype：多例的<br>    request：作用于web应用的请求范围<br>    session：作用于web应用的会话范围<br>    global-session：作用于集群环境的会话范围（全局会话范围），当不是集群环境时，他就是session</p>
-<h3 id="bean对象的声明周期"><a href="#bean对象的声明周期" class="headerlink" title="bean对象的声明周期"></a>bean对象的声明周期</h3><p>1.单例对象<br>    出生：当容器创建时对象出生<br>    活着：只要容器还在，对象一直活着<br>    死亡：容器销毁，对象消亡<br>    总结：单例对象的声明周期和容器相同<br>2.多例对象<br>    出生：当使用对象时，spring框架帮我们创建<br>    活着：对象只要在使用过程中就一直活着<br>    死亡：当对象长时间不使用且没有对象引用时，由GC回收</p>
-<h2 id="依赖注入-DI"><a href="#依赖注入-DI" class="headerlink" title="依赖注入  DI"></a>依赖注入  DI</h2><p>1.依赖关系的维护交给Spring来做，当当前类需要使用其他类的对象时，由Spring来提供，我们只需要在配置文件中声明即可。这种依赖关系的维护就称之为依赖注入。</p>
-<p>2.如果是经常变化的数据，不适用于依赖注入。</p>
-<h3 id="能注入的数据"><a href="#能注入的数据" class="headerlink" title="能注入的数据"></a>能注入的数据</h3><p>1.基本类型和String<br>2.其他Bean类型（在配置文件或注解中声明的类型）<br>3.复杂类型/集合类</p>
-<h3 id="注入的方式"><a href="#注入的方式" class="headerlink" title="注入的方式"></a>注入的方式</h3><p>1.使用构造方法提供<br>    标签：constructor-arg<br>    标签出现的位置：bean标签的内部<br>    属性：<br>        type:指定要注入的数据的数据类型<br>        index:指定索引为构造函数参数赋值<br>        name:指定构造函数的参数名赋值<br>        value:提供基本类型和String类型的数据<br>        ref:其他bean类型，指的时在SpringIOC核心容器中出现过的bean对象<br>    优点：<br>        获取对象时需要注入数据，否则无法创建对象<br>    缺点：<br>        改变了bean对象的实例化方式，即便是我们不需要的数据，也需要注入<br>2.使用set方法提供 -&gt; 更加常用的方式<br>    标签：property<br>    标签出现的位置：bean标签的内部<br>    属性：<br>        name：指定注入时调用的set方法名称。<br>        value：提供基本数据类型和String<br>        ref：其他bean类型<br>    优点：<br>        创建对象时没有明确的限制，可以使用默认构造函数<br>    缺点：<br>        如果某个成员变量必须有值，则获取对象时set方法可能并没有执行<br>3.对于集合数据的注入 -&gt; 使用set方法<br>    1. 用于给list结构注入的标签:array、list、set<br>    2. 用于给map结构注入的标签:map、props<br>        数组：array标签中嵌套value<br>        List：list标签中嵌套value<br>        Set：set标签中嵌套value<br>        Map：map标签中嵌套entry，entry中设置key和value<br>        Properties：props标签中嵌套prop，prop中设置key和value<br>4.由注解提供</p>
-<h2 id="注解-gt-11个"><a href="#注解-gt-11个" class="headerlink" title="注解  -&gt; 11个"></a>注解  -&gt; 11个</h2><p>0.在bean的配置文件中，加入context名称空间</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        https://www.springframework.org/schema/context/spring-context.xsd&quot;</span><br></pre></td></tr></table></figure>
-
-<p>配置扫描指定包名下的注解</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context:component-scan base-package=&quot;包名&quot;&gt;&lt;/context:component-scan&gt;</span><br></pre></td></tr></table></figure>
-
-<p>1.用于创建对象的注解 -&gt; 相当于xml中配置的bean标签<br>    @Component<br>        作用：用于把当前类对象存入Spring容器中<br>        属性：<br>            value：用于指定bean的id，当我们不指定时，他的默认值是类名且首字母变小写<br>    <strong>对于下面的三个注解，他们的作用与属性与Component是一模一样的，他们三个是Spring框架为我们提供明确的三层使用的注解，使得层次模块更清晰</strong><br>    @Controller：一般用在表现层<br>    @Repository：一般用在持久层<br>    @Service：一般用在业务层<br>2.用于注入数据的注解 -&gt; 相当于xml中bean标签中的property标签<br>    @Autowired<br>        作用：自动按照类型注入，只要容器中有唯一的bean对象类型与要注入的变量类型相匹配就可以注入成功，如果没有一个匹配的就会报错<br>              如果有两个以上的bean对象类型匹配时，他会去匹配id，如果匹配到了则注入成功，否则注入失败<br>        出现位置：可以是变量上，也可以是方法上。<br>        细节：在使用注解注入是，set方法就不是必须的了<br>    @Qualifier<br>        作用：在按照类中注入的基础上再按照名称注入。他在给类成员注入时不能单独使用（要与Autowired配合使用），但是再给方法注入时可以。<br>        属性：<br>            value：用于指定注入bean的id<br>    @Resource<br>        作用：直接按照bean的id注入，可以直接使用<br>        属性：<br>            name：用于指定注入bean的id<br>    <strong>以上三个注解都只能注入其他bean类型，对于基本类型和String无法注入，另外，对于集合类型只能通过xml实现</strong><br>    @Value<br>        作用：用于注入基本数据类型和String类型的数据<br>        属性：<br>            value：用于指定数据的值，可以使用Spring中的spel，${表达式}</p>
-<p>3.用于改变作用范围的注解 -&gt; 相当于bean标签中使用scope属性<br>    @Scope<br>        作用：用于指定bean的作用范围<br>        属性：<br>            value：指定范围的取值，常用取值：singleton  prototype 默认的是单例的<br>4.和生命周期相关的注解 -&gt; 相当于bean标签中的init-method和destroy-method –&gt; 了解即可<br>    @PreDestroy<br>        作用：用于指定销毁方法<br>    @PostConstruct<br>        作用：用于指定初始化方法</p>
-<p><strong>细节：如果注解中的属性只有value时，value可以省略</strong></p>
-<p>5.Spring的新注解</p>
-<p>@Configuration<br>    作用：指定当前类是一个配置类<br>    细节：当配置类作为使用注解创建容器的参数时，改注解可以不写<br>@ComponentScan<br>    作用：用于指定创建容器时要扫描的包<br>    属性：下面两个属性的作用是一样的，都是指定要扫描的包名<br>        value<br>        basePackage<br>@Bean<br>    作用：用于把当前方法的返回值作为bean对象存入Spring的容器中<br>    属性：<br>        name：用于指导bean的id  -&gt; 当不写时，默认值是当前方法的名称<br>@import<br>    作用：用于导入其他的配置类</p>
-<p>@propertySource -&gt; 配置在主配置类上<br>    作用：用于指定properties文件的位置<br>    属性：<br>        value：指定文件的名称和路径<br>            关键字：classpath，表示在类路径下</p>
-<h3 id="Spring整合JUnit"><a href="#Spring整合JUnit" class="headerlink" title="Spring整合JUnit"></a>Spring整合JUnit</h3><p>1.导入Spring整合Junit的jar包<br>2.使用junit提供的@Runwith注解，将原有的main方法替换成spring提供的SpringJunit4ClassRunner.class<br>3.告知spring的运行器，spring和ioc容器的创建是基于xml还是注解，并说明xml文件或配置类的位置<br>    使用@ContextConfiguration注解<br>        属性：<br>            locations：指定xml文件的位置，加上classpath关键字表示在类路径下<br>            classes：指定注解类所在的配置，<br><strong>细节：当我们使用Spring5以上时，要求junit的版本是4.12及以上</strong></p>
+        <h1 id="Jsp-gt-本质上就是一个Servlet"><a href="#Jsp-gt-本质上就是一个Servlet" class="headerlink" title="Jsp -&gt; 本质上就是一个Servlet"></a>Jsp -&gt; 本质上就是一个Servlet</h1><p>Java服务端页面 既可以定义    html也可以定义java代码<br>    简化开发</p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>1.page 配置jsp页面<br>    1.contentType：等同于response里的色图Content Type()<br>        1.设置响应体的mime类型和字符集<br>        2.设置当前jsp页面的编码（高级的IDE才能生效，如果是低级的要使用pageEncoding来配置页面编码）<br>    2.language：只支持java<br>    3.buffer：设置缓冲区的大小<br>    4.import：导包<br>    5.errorPage：当前页面发生异常后会自动跳转到指定的错误页面<br>    6.isErrorPage：标识当前页面是否为错误页面，标识为错误页面以后才可以使用exception内置对象，默认值为false（即不是错误页面）<br>2.include 页面包含的。导入页面的资源文件<br>3.taglib 导入资源<br>    引入标签库（eg：jstl标签库）<br>        prefix：定义前缀</p>
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><p>1.&lt;% 代码 %&gt;：定义的java代码，在service方法中，service方法可以定义什么，该脚本就能定义什么<br>2.&lt;%! 代码 %&gt;：定义的java代码，在jsp转换后的java类的成员位置<br>3.&lt;%= 代码 %&gt;：定义的java代码，会输出到页面上</p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>1.&lt;感叹号– –&gt;html注释（浏览器看得到）<br>    只能注释html<br>2.&lt;%– –%&gt;jsp注释 –&gt; 推荐使用（浏览器看不到）<br>    可以注释所有</p>
+<h2 id="内置对象（在jsp中不需要创建可以直接使用的对象）"><a href="#内置对象（在jsp中不需要创建可以直接使用的对象）" class="headerlink" title="内置对象（在jsp中不需要创建可以直接使用的对象）"></a>内置对象（在jsp中不需要创建可以直接使用的对象）</h2><p>普通页面有8个，在声明了isErrorPage的页面有9个（多了一个exception对象）<br>    变量名                真实类型                       作用<br>1.pageContext             PageContext                 当前页面共享数据，还可以获取其他八个内置对象<br>2.request                  HttpServletRequest            一次请求访问的多个资源（转发）<br>3.session                 HttpSession                    一次会话的多个请求间<br>4.application             ServletContext                所有用户间共享数据<br>5.response                 HttpServletResponse            响应对象<br>6.page                     Object                         当前页面（servlet）的对象 this<br>7.out                     JspWriter                    输出对象，输出数据到页面上<br>8.config                 ServletConfig                servlet的配置对象<br>9.exception             Throwable                    异常对象</p>
 
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -198,7 +205,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JSP</a>
         		</li>
       		
 		</ul>
@@ -207,16 +214,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/11/Spring学习笔记01/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/16/Jsp学习笔记/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/13/设计模式学习笔记01/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式学习笔记01</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -231,201 +297,52 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-数据结构复习笔记——图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/11/数据结构复习笔记——图/">数据结构复习笔记——图</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/11/数据结构复习笔记——图/" class="archive-article-date">
-  	<time datetime="2019-10-11T05:56:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="图-gt-表示一种多对多的关系"><a href="#图-gt-表示一种多对多的关系" class="headerlink" title="图 -&gt; 表示一种多对多的关系"></a>图 -&gt; 表示一种多对多的关系</h2><h3 id="图的常用概念"><a href="#图的常用概念" class="headerlink" title="图的常用概念"></a>图的常用概念</h3><p>1.顶点：<br>    图中的数据元素<br>2.边：<br>    顶点间的连线<br>3.路径：<br>    一个顶点与另一个顶点之间的路<br>4.无向图：<br>    顶点之间的连接没有方向<br>5.有向图：<br>    两个顶点之间是有方向的<br>6.带权图：<br>    边具有权值，带权图也叫网<br>7.完全图：<br>    无向完全图：<br>        任意两点之间都存在边，含有n个顶点的图具有n×(n-1)/2条边。<br>    有向完全图：<br>        任意两点间存在两条互为反向的边，含有n个顶点的图具有n×(n-1)条边。</p>
-<p>当一个图越接近完全图时，就成它为稠密图，反之称他为稀疏图。</p>
-<h4 id="图的表示方式"><a href="#图的表示方式" class="headerlink" title="图的表示方式"></a>图的表示方式</h4><p>1.邻接矩阵<br>    表示图中顶点之间相邻关系的矩阵，对于n个顶点的图而言，矩阵的行列是1到n个点<br>2.邻接表<br>    邻接表只关心存在的边，由数组+链表实现，没有空间浪费。</p>
-<h4 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h4><p>1.深度优先(DFS)<br>    访问当前节点后递归的继续访问当前节点的第一个邻接节点。<br>2.广度优先(BFS)<br>    访问当前节点的所有可访问的节点将其入队列，按层次循环遍历。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">datastructure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/11/数据结构复习笔记——图/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Jsp-gt-本质上就是一个Servlet"><span class="toc-number">1.</span> <span class="toc-text">Jsp -&gt; 本质上就是一个Servlet</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#指令"><span class="toc-number">1.1.</span> <span class="toc-text">指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#脚本"><span class="toc-number">1.2.</span> <span class="toc-text">脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注释"><span class="toc-number">1.3.</span> <span class="toc-text">注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内置对象（在jsp中不需要创建可以直接使用的对象）"><span class="toc-number">1.4.</span> <span class="toc-text">内置对象（在jsp中不需要创建可以直接使用的对象）</span></a></li></ol></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
   
-    <article id="post-数据结构复习笔记——树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/10/数据结构复习笔记——树/">数据结构复习笔记——树</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/10/数据结构复习笔记——树/" class="archive-article-date">
-  	<time datetime="2019-10-10T12:15:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><pre><code>1.节点
-2.根节点
-3.父节点
-4.子节点
-5.叶子节点（没有子节点的节点）
-6.节点的权（节点的值）
-7.路径（从root节点找到该节点的路线）
-8.层 （根节点是第一层）
-9.子树
-10.树的高度（最大层数）
-11.森林</code></pre><h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p>1.每个节点最多只能有两个子节点的一种形式<br>2.二叉树的子节点分为左子节点和右子节点<br>3.满二叉树：<br>    所有叶子节点都在最后一层，并且节点总数=2的n次方-1，n是层数<br>4.完全二叉树：<br>    所有的叶子节点都在最后一层或倒数第二层，并且最后一层的叶子节点在左边连续，倒数第二层的叶子节点在右边连续。<br>5.具有n个节点的完全二叉树的深度为floor(log2n)+1<br>6.深度为k的完全二叉树，节点最少有2的k减1次方个，最多有2的k次方减1个</p>
-<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>首先堆是一种完全二叉树，且具有以下性质：<br>    大顶堆：每个节点的值都大于或等于左右孩子的值（对于左右孩子的大小关系没有要求）<br>    小顶堆：每个节点的值都小于或等于左右孩子的值（对于左右孩子的大小关系没有要求）<br>对于堆排序来说，一般升序采用大顶堆，降序采用小顶堆。<br>    1.将无序队列构建成一个大顶堆。<br>    2.讲根节点，也就是最大的节点与末尾节点交换。<br>    3.重新调整交换后的结构为大顶堆，将第二大的节点交换到根节点上。<br>    4.循环执行，直到整个序列有序。<br>第一个非叶子节点的索引是arr.length/2 - 1</p>
-<h3 id="赫夫曼树-gt-带权路径长度-wpl-最短的树"><a href="#赫夫曼树-gt-带权路径长度-wpl-最短的树" class="headerlink" title="赫夫曼树 -&gt; 带权路径长度(wpl)最短的树"></a>赫夫曼树 -&gt; 带权路径长度(wpl)最短的树</h3><p>权值越大的节点距离根节点就越近</p>
-<h3 id="二叉排序树-gt-BST-Tree"><a href="#二叉排序树-gt-BST-Tree" class="headerlink" title="二叉排序树 -&gt; BST Tree"></a>二叉排序树 -&gt; BST Tree</h3><p>对于任意一个非叶子节点，要求左子节点的值比当前节点的值小，右子节点的值比当前节点的值大。</p>
-<h3 id="平衡二叉树-gt-AVL-Tree"><a href="#平衡二叉树-gt-AVL-Tree" class="headerlink" title="平衡二叉树 -&gt; AVL Tree"></a>平衡二叉树 -&gt; AVL Tree</h3><p>它是一颗孔数或他的左右两个子树的高度差不超过一，并且左右两个子树都是一颗平衡二叉树。平衡二叉树的实现方法有红黑树，伸展树等。</p>
-<p>左旋转：节点右子树与左子树的高度差大于1时<br>    1.创建一个新节点，节点的值就是根节点的值<br>    2.将新节点的左子树指向当前节点的左子树<br>    3.将新节点的右子树指向当前节点的右子树的左子树<br>    4.将当前节点的值换成当前节点的右子节点的值<br>    5.将当前节点的右子树指向右子树的右子树<br>    6.将当前节点的左子树指向新节点</p>
-<p>右旋转：节点的左子树与右子树的高度差大于1<br>    1.创建新节点，新节点的值等于根节点的值<br>    2.将新节点的右子树设置为当前节点的右子树<br>    3.将新节点的左子树设置为当前节点的左子树的右子树<br>    4.将当前节点的值设置为当前节点的左子节点的值<br>    5.将当前节点的左子树设置为当前节点的左子树的左子树<br>    6.将当前节点的右子树设置为新节点</p>
-<p>以上两种方式属于单旋转，但是某些时候进行单旋转并不能完成平衡二叉树的转换</p>
-<p>双旋转：<br>    如果当前节点的左子节点的右子树的高度大于当前节点的左子节点的左子树<br>    则先对当前节点的左子节点进行左旋转，再对当前节点进行右旋转。</p>
-<pre><code>如果当前节点的右子节点的左子树的高度大于当前节点的左子节点的右子树
-则先对当前节点的右子节点进行右旋转，再对当前节点进行左旋转。</code></pre><h3 id="多路查找树"><a href="#多路查找树" class="headerlink" title="多路查找树"></a>多路查找树</h3><p>多叉树：允许每个节点有更多的数据项和更多的子节点。</p>
-<p>优点：通过重新组织节点，减少树的高度，能对二叉树进行优化。</p>
-<h4 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h4><p><strong>所有的叶子节点都在同一层</strong></p>
-<p><strong>B树通过重新组织节点，降低树的高度，并且减少i/o读写次数来提升效率</strong></p>
-<p>1.B树的阶：<br>    节点的最多子节点个数，例如23树的阶是3，234树的阶是4</p>
-<p>2.B树的搜索：<br>    从根节点开始，对节点内的关键字（有序）序列进行二分查找，如果命中则结束，否则进去其儿子节点查询，重复直到所对应的儿子指针为空或已经是叶子节点。<br>3.关键字集合分布在整棵树中，即叶子节点和非叶子节点都存放数据。</p>
-<p>4.搜索有可能在非叶子节点结束</p>
-<p>5.其搜索性能等价于在关键字全集进行一次二分查找。</p>
-<h4 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h4><p>1.B+树与B树的区别：<br>    B+树在进行搜索时只有达到叶子节点才命中，他的性能也等价于在关键字全集进行一次二分查找。<br>2.B+树所有的关键字都出现在叶子节点的链表中，也就是数据只存在于叶子节点中（也叫稠密索引），链表中的数据也是有序的。</p>
-<p>3.非叶子节点相当于叶子节点的索引（稀疏索引），叶子节点相当于存储数据的数据层。</p>
-<p>4.B+树更适合文件索引系统</p>
-<p>5.B树与B+树没有严格的谁好谁坏的区分，根据各自的应用场景。</p>
-<h4 id="B※树"><a href="#B※树" class="headerlink" title="B※树"></a>B※树</h4><p>在B+树的基础上对于非根节点和非叶子节点加入了指向兄弟节点的指针。</p>
-<h4 id="2-3树-gt-最简单的B树"><a href="#2-3树-gt-最简单的B树" class="headerlink" title="2-3树 -&gt; 最简单的B树"></a>2-3树 -&gt; 最简单的B树</h4><p>1.2-3树的所有叶子节点都在同一层<br>2.有两个子节点的节点叫二节点，二节点要么没有子节点，要么有两个子节点<br>3.有三个子节点的节点叫三节点，三节点要么没有子节点，要么有三个子节点<br>4.2-3树是由二节点和三节点组成的</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">datastructure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/10/数据结构复习笔记——树/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Jsp学习笔记" data-title="Jsp学习笔记" data-url="http://yoursite.com/2019/10/16/Jsp学习笔记/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -448,8 +365,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
