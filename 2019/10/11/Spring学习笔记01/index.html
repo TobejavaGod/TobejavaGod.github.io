@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="The journey of coding">
 <meta property="og:description" content="SpringIOC：控制反转   –&amp;gt;   降低耦合，但不能解除ApplicationContext的三个常用类1.ClassPathXmlApplicationContext:他可以加载类路径下的配置文件，要求配置文件必须在类路径下，不在的话会加载失败（更加常用）2.FileSystemXmlApplicationContext：他可以加载磁盘任意路径下的配置文件（必须有访问权限）3.An">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-13T05:43:06.625Z">
+<meta property="og:updated_time" content="2019-10-21T06:30:25.670Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring学习笔记01">
 <meta name="twitter:description" content="SpringIOC：控制反转   –&amp;gt;   降低耦合，但不能解除ApplicationContext的三个常用类1.ClassPathXmlApplicationContext:他可以加载类路径下的配置文件，要求配置文件必须在类路径下，不在的话会加载失败（更加常用）2.FileSystemXmlApplicationContext：他可以加载磁盘任意路径下的配置文件（必须有访问权限）3.An">
@@ -166,11 +166,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="IOC：控制反转-–-gt-降低耦合，但不能解除"><a href="#IOC：控制反转-–-gt-降低耦合，但不能解除" class="headerlink" title="IOC：控制反转   –&gt;   降低耦合，但不能解除"></a>IOC：控制反转   –&gt;   降低耦合，但不能解除</h2><h3 id="ApplicationContext的三个常用类"><a href="#ApplicationContext的三个常用类" class="headerlink" title="ApplicationContext的三个常用类"></a>ApplicationContext的三个常用类</h3><p>1.ClassPathXmlApplicationContext:他可以加载类路径下的配置文件，要求配置文件必须在类路径下，不在的话会加载失败（更加常用）<br>2.FileSystemXmlApplicationContext：他可以加载磁盘任意路径下的配置文件（必须有访问权限）<br>3.AnnotationConfigApplicationContext：鸭是用于读取注解创建容器的。</p>
+        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="IOC：控制反转-–-gt-降低耦合，但不能解除"><a href="#IOC：控制反转-–-gt-降低耦合，但不能解除" class="headerlink" title="IOC：控制反转   –&gt;   降低耦合，但不能解除"></a>IOC：控制反转   –&gt;   降低耦合，但不能解除</h2><h3 id="ApplicationContext的三个常用类"><a href="#ApplicationContext的三个常用类" class="headerlink" title="ApplicationContext的三个常用类"></a>ApplicationContext的三个常用类</h3><p>1.ClassPathXmlApplicationContext:他可以加载类路径下的配置文件，要求配置文件必须在类路径下，不在的话会加载失败（更加常用）<br>2.FileSystemXmlApplicationContext：他可以加载磁盘任意路径下的配置文件（必须有访问权限）<br>3.AnnotationConfigApplicationContext：他是用于读取注解创建容器的。</p>
 <h3 id="核心容器的两个接口"><a href="#核心容器的两个接口" class="headerlink" title="核心容器的两个接口"></a>核心容器的两个接口</h3><p>ApplicationContext：单例对象适用<br>    它在构建核心容器时，采用的是立即加载的方式，也就是说，只要一读取完配置文件马上就创建配置文件中配置的对象。<br>BeanFactory：多例对象适用<br>    它在构建核心容器时，采用的是延迟加载的方式，也就是说，什么时候根据id获取对象，什么时候再真正创建对象。</p>
 <h2 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h2><h3 id="创建bean的三种方式"><a href="#创建bean的三种方式" class="headerlink" title="创建bean的三种方式"></a>创建bean的三种方式</h3><p>1.使用默认构造函数创建bean对象<br>    在spring配置文件中使用bean标签，配以id和class属性后，且没有其他的属性和标签时，采用的就是默认构造函数创建bean对象，此时如果类中没有默认构造函数，则对象就无法创建。<br>2.使用普通工厂中的方法去创建对象（使用某个类中的方法去创建对象，并存入spring容器）<br>3.使用工厂中的静态方法创建对象（使用某个类中的静态方法创建对象，并存入spring容器）</p>
 <h3 id="bean对象的作用范围"><a href="#bean对象的作用范围" class="headerlink" title="bean对象的作用范围"></a>bean对象的作用范围</h3><p>bean中的scope属性：用于指定bean的作用范围<br>    singleton：单例的（默认值）<br>    prototype：多例的<br>    request：作用于web应用的请求范围<br>    session：作用于web应用的会话范围<br>    global-session：作用于集群环境的会话范围（全局会话范围），当不是集群环境时，他就是session</p>
-<h3 id="bean对象的声明周期"><a href="#bean对象的声明周期" class="headerlink" title="bean对象的声明周期"></a>bean对象的声明周期</h3><p>1.单例对象<br>    出生：当容器创建时对象出生<br>    活着：只要容器还在，对象一直活着<br>    死亡：容器销毁，对象消亡<br>    总结：单例对象的声明周期和容器相同<br>2.多例对象<br>    出生：当使用对象时，spring框架帮我们创建<br>    活着：对象只要在使用过程中就一直活着<br>    死亡：当对象长时间不使用且没有对象引用时，由GC回收</p>
+<h3 id="bean对象的声明周期"><a href="#bean对象的声明周期" class="headerlink" title="bean对象的声明周期"></a>bean对象的声明周期</h3><p>1.单例对象<br>    出生：当容器创建时对象出生<br>    活着：只要容器还在，对象一直活着<br>    死亡：容器销毁，对象消亡<br>    总结：单例对象的生命周期和容器相同<br>2.多例对象<br>    出生：当使用对象时，spring框架帮我们创建<br>    活着：对象只要在使用过程中就一直活着<br>    死亡：当对象长时间不使用且没有对象引用时，由GC回收</p>
 <h2 id="依赖注入-DI"><a href="#依赖注入-DI" class="headerlink" title="依赖注入  DI"></a>依赖注入  DI</h2><p>1.依赖关系的维护交给Spring来做，当当前类需要使用其他类的对象时，由Spring来提供，我们只需要在配置文件中声明即可。这种依赖关系的维护就称之为依赖注入。</p>
 <p>2.如果是经常变化的数据，不适用于依赖注入。</p>
 <h3 id="能注入的数据"><a href="#能注入的数据" class="headerlink" title="能注入的数据"></a>能注入的数据</h3><p>1.基本类型和String<br>2.其他Bean类型（在配置文件或注解中声明的类型）<br>3.复杂类型/集合类</p>
@@ -467,15 +467,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,7 +475,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -492,6 +488,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Me</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
               <li class="article-tag-list-item">
