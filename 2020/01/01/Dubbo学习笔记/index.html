@@ -8,14 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Dubbo学习笔记 | The journey of coding</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="DubboRPC (remote produce call)远程过程调用 -&amp;gt; 服务与服务之间通讯  通过socket建立连接，并以二进制的形式进行数据通讯 影响RPC性能的因素1.序列化的速度 2.建立Socket连接的速度  Dubbo的介绍Dubbo是阿里巴巴公司开源的一个高性能优秀的服务框架，使得应用可通过高性能的 RPC 实现服务的输出和输入功能，可以和Spring框架无缝集成。D">
+<meta name="keywords" content="Dubbo">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Dubbo学习笔记">
 <meta property="og:url" content="http://yoursite.com/2020/01/01/Dubbo学习笔记/index.html">
 <meta property="og:site_name" content="The journey of coding">
+<meta property="og:description" content="DubboRPC (remote produce call)远程过程调用 -&amp;gt; 服务与服务之间通讯  通过socket建立连接，并以二进制的形式进行数据通讯 影响RPC性能的因素1.序列化的速度 2.建立Socket连接的速度  Dubbo的介绍Dubbo是阿里巴巴公司开源的一个高性能优秀的服务框架，使得应用可通过高性能的 RPC 实现服务的输出和输入功能，可以和Spring框架无缝集成。D">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-01T06:52:40.079Z">
+<meta property="og:updated_time" content="2020-01-01T11:13:52.214Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dubbo学习笔记">
+<meta name="twitter:description" content="DubboRPC (remote produce call)远程过程调用 -&amp;gt; 服务与服务之间通讯  通过socket建立连接，并以二进制的形式进行数据通讯 影响RPC性能的因素1.序列化的速度 2.建立Socket连接的速度  Dubbo的介绍Dubbo是阿里巴巴公司开源的一个高性能优秀的服务框架，使得应用可通过高性能的 RPC 实现服务的输出和输入功能，可以和Spring框架无缝集成。D">
   
     <link rel="alternative" href="/atom.xml" title="The journey of coding" type="application/atom+xml">
   
@@ -162,7 +166,113 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="Dubbo"><a href="#Dubbo" class="headerlink" title="Dubbo"></a>Dubbo</h1><h2 id="RPC-remote-produce-call-远程过程调用-gt-服务与服务之间通讯"><a href="#RPC-remote-produce-call-远程过程调用-gt-服务与服务之间通讯" class="headerlink" title="RPC (remote produce call)远程过程调用 -&gt; 服务与服务之间通讯"></a>RPC (remote produce call)远程过程调用 -&gt; 服务与服务之间通讯</h2><p>  通过socket建立连接，并以二进制的形式进行数据通讯</p>
+<h3 id="影响RPC性能的因素"><a href="#影响RPC性能的因素" class="headerlink" title="影响RPC性能的因素"></a>影响RPC性能的因素</h3><pre><code>1.序列化的速度
+2.建立Socket连接的速度  </code></pre><h2 id="Dubbo的介绍"><a href="#Dubbo的介绍" class="headerlink" title="Dubbo的介绍"></a>Dubbo的介绍</h2><p>Dubbo是阿里巴巴公司开源的一个高性能优秀的服务框架，使得应用可通过高性能的 RPC 实现服务的输出和输入功能，可以和Spring框架无缝集成。<br>Dubbo是一款高性能、轻量级的开源Java RPC框架，它提供了三大核心能力：面向接口的远程方法调用，智能容错和负载均衡，以及服务自动注册和发现。</p>
+<h2 id="Dubbo环境搭建"><a href="#Dubbo环境搭建" class="headerlink" title="Dubbo环境搭建"></a>Dubbo环境搭建</h2><h3 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h3><pre><code>1、在zookeeper的官网上下载压缩包 zookeeper-3.4.14.tar.gz
+2、配置jDK的JAVA_HOME环境变量
+3、解压压缩包并将其移动至usr/local目录下
+    tar -zxvf zookeeper-3.4.14.tar.gz -C /usr/local
+4、修改配置文件
+    进入zookeeper得conf目录
+    cp zoo_sample.cfg zoo.cfg
+    编辑zoo.cfg文件，改变dataDir属性的值为zookeeper下的data目录
+    配置文件的名字必须是zoo.cfg，因为zookeeper会在配置目录中载入这个配置文件
+5、启动
+    进入zookeeper的bin目录
+    启动服务端 ./zkServer.sh start 
+6、测试
+    启动客户端 ./zkCli.sh
+    输入 ls / 命令，该命令的作用是展示当前根目录下的所有节点 【默认只有一个zookeeper节点】</code></pre><h3 id="Monitor"><a href="#Monitor" class="headerlink" title="Monitor"></a>Monitor</h3><pre><code>1、在dubbo的GitHub主页中寻找dubbo-admin，使用dubbo的2.6版本，对应得是master分支中得项目。
+2、修改配置文件：注册中心的地址属性
+    dubbo.registry.address=zookeeper://39.97.255.20(linux服务器地址):2181
+3、将Monitor打包，在dubbo-admin文件夹下打开cmd命令行，输入mvn package -DskipTests将项目打成jar包并上传至linux服务器
+4、在linux中使用Java -jar命令启动监控中心，在启动之后，这时在zookeeper中的根目录下新增了一个dubbo节点。
+5、在window浏览器地址栏中输入公网ip下的7001端口，访问dubbo监控中心的可视化界面</code></pre><h2 id="Dubbo与Spring"><a href="#Dubbo与Spring" class="headerlink" title="Dubbo与Spring"></a>Dubbo与Spring</h2><h3 id="生产者"><a href="#生产者" class="headerlink" title="生产者"></a>生产者</h3><pre><code>1、创建生产者的maven项目
+    dubbo-user-provider
+2、导入依赖
+    zookeeper核心客户端curator
+    spring核心依赖
+    dubbo核心依赖
+    dubbo-api -&gt; 其中有个一UserService的接口（根据dubbo的官方文档，还需要创建一个公共的接口项目，定义对外访问的接口，并将其导入生产者的pom文件中）
+3、编写配置文件
+    &lt;!--    1 指定当前服务的名称--&gt;
+    &lt;dubbo:application name=&quot;dubbo-user-provider&quot;/&gt;
+    &lt;!--    2 指定注册中心的地址--&gt;
+    &lt;dubbo:registry address=&quot;zookeeper://39.97.255.20:2181&quot;/&gt;
+    &lt;!--    3 指定使用的协议和端口号--&gt;
+    &lt;dubbo:protocol name=&quot;dubbo&quot; port=&quot;20880&quot;/&gt;
+    &lt;!--    4.1 由spring容器构建UserServiceImpl--&gt;
+    &lt;bean id=&quot;userService&quot; class=&quot;com.sxu.service.impl.UserServiceImpl&quot;/&gt;
+    &lt;!--    5 对外提供服务--&gt;
+    &lt;dubbo:service interface=&quot;com.sxu.service.UserService&quot; ref=&quot;userService&quot;/&gt;
+4、在生产者项目中创建一个类，定义main方法，加载配置文件
+     ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;classpath:applicationContext.xml&quot;);
+     启动项目，在监控中心中发现了注册成功的服务</code></pre><h3 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h3><pre><code>1、创建消费者的maven项目
+    dubbo-order-comsumer
+2、导入依赖（与生产者的依赖一致）
+3、创建controller
+    在controller中注入UserService
+    调用service的方法
+4、编写配置文件
+    &lt;!--    1 指定应用名称--&gt;
+        &lt;dubbo:application name=&quot;dubbo-order-consumer&quot;/&gt;
+    &lt;!--    2 指定zookeeper的地址--&gt;
+        &lt;dubbo:registry address=&quot;zookeeper://39.97.255.20:2181&quot;/&gt;
+    &lt;!--    3 订阅服务--&gt;
+        &lt;dubbo:reference interface=&quot;com.sxu.service.UserService&quot; id=&quot;userService&quot;/&gt;
+    &lt;!--    4.1 构建OrderController并注入容器--&gt;
+        &lt;bean id=&quot;orderCOntroller&quot; class=&quot;com.sxu.controller.OrderController&quot;&gt;
+            &lt;property name=&quot;userService&quot; ref=&quot;userService&quot;/&gt;
+        &lt;/bean&gt;
+5、编写启动类
+    ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;classpath:applicationContext.xml&quot;);
+     启动项目，在监控中心中发现了注册成功的服务</code></pre><h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><pre><code>在使用spring整和Dubbo时，发生了Fail to register dubbo的错误，在网上查找了资料，发现是因为版本冲突，因为我使用的dubbo客户端curator的版本是4.0.1，而dubbo的版本是2.6.2，客户端的版本远高于服务端，将客户端的版本改成2.7.1之后错误消失。</code></pre><h2 id="SpringBoot整合Dubbo"><a href="#SpringBoot整合Dubbo" class="headerlink" title="SpringBoot整合Dubbo"></a>SpringBoot整合Dubbo</h2><h3 id="生产者-1"><a href="#生产者-1" class="headerlink" title="生产者"></a>生产者</h3><pre><code>1 创建SpringBoot项目
+2 导入依赖
+    &lt;!-- dubbo的依赖 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.alibaba.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;dubbo-spring-boot-starter&lt;/artifactId&gt;
+        &lt;version&gt;0.2.0&lt;/version&gt;
+    &lt;/dependency&gt;
+3 创建公共的模块并将其导入到生产者和消费者的项目中
+    注意：创建的传递数据的实体类一定要实现Serializable接口
+4 编写服务实现
+    编写具体的Service实现类，在类上加入@Service注解，注意该注解是在com.alibaba包下的
+5 编写配置文件
+    应用名称
+        dubbo:
+             application:
+                name: boot-dubbo-order-provider
+    注册中心地址 
+         registry:
+            address: zookeeper://39.97.255.20:2181
+    协议和端口号
+         protocol:
+            port: 20881
+            name: dubbo
+6 启动类添加@EnableDubbo注解
+7 启动生产者项目 -&gt; 在监控中心中成功找到应用与服务</code></pre><h3 id="消费者-1"><a href="#消费者-1" class="headerlink" title="消费者"></a>消费者</h3><pre><code>1 创建SpringBoot项目
+2 导入依赖
+    与生产者依赖一致
+3 编写配置文件
+    dubbo:
+      application:
+        name: boot-dubbo-user-consumer
+      registry:
+        address: zookeeper://39.97.255.20:2181
+    &lt;!-- 为防止与生产者的端口冲突，这里设置其端口为80 --&gt;
+    server: 
+          port: 80
+4 创建controller并注入服务
+    在声明service的接口时不再使用@Autowired注入，而是使用com.alibaba包下的@Reference注解
+5 启动类添加注解
+    @EnableDubbo
+6 启动项目并进行测试</code></pre><h2 id="Dubbo的其他配置"><a href="#Dubbo的其他配置" class="headerlink" title="Dubbo的其他配置"></a>Dubbo的其他配置</h2><h3 id="启动时检查"><a href="#启动时检查" class="headerlink" title="启动时检查"></a>启动时检查</h3><pre><code>check
+    Dubbo 缺省会在启动时检查依赖的服务是否可用，不可用时会抛出异常，阻止 Spring 初始化完成，以便上线时，能及早发现问题，默认 check=&quot;true&quot;。
+    可以通过 check=&quot;false&quot; 关闭检查，比如，测试时，有些服务不关心，或者出现了循环依赖，必须有一方先启动。</code></pre><h3 id="超时时间"><a href="#超时时间" class="headerlink" title="超时时间"></a>超时时间</h3><pre><code>timeout
+    消费者调用生产者的某一个服务下的制定方法时，最长时间时多少，缺省的配置为一秒；生产者也可以配置具体的超时时间。
+    消费者可以在dubbo:consumer、dubbo:reference以及reference中的dubbo:method三处配置超时，生产者可以在dubbo:provider、dubbo:service以及service中的dubbo:method三处配置超时，但是优先级的关系是配置粒度最细的优先级最高，且同级别消费者的优先级大于生产者的优先级,即reference.method&gt;service.method&gt;reference&gt;service&gt;consumer&gt;provider</code></pre>
       
 
       
@@ -191,6 +301,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Dubbo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -284,7 +405,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Dubbo"><span class="toc-number">1.</span> <span class="toc-text">Dubbo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RPC-remote-produce-call-远程过程调用-gt-服务与服务之间通讯"><span class="toc-number">1.1.</span> <span class="toc-text">RPC (remote produce call)远程过程调用 -&gt; 服务与服务之间通讯</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#影响RPC性能的因素"><span class="toc-number">1.1.1.</span> <span class="toc-text">影响RPC性能的因素</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dubbo的介绍"><span class="toc-number">1.2.</span> <span class="toc-text">Dubbo的介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dubbo环境搭建"><span class="toc-number">1.3.</span> <span class="toc-text">Dubbo环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Zookeeper"><span class="toc-number">1.3.1.</span> <span class="toc-text">Zookeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Monitor"><span class="toc-number">1.3.2.</span> <span class="toc-text">Monitor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dubbo与Spring"><span class="toc-number">1.4.</span> <span class="toc-text">Dubbo与Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生产者"><span class="toc-number">1.4.1.</span> <span class="toc-text">生产者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#消费者"><span class="toc-number">1.4.2.</span> <span class="toc-text">消费者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遇到的问题"><span class="toc-number">1.4.3.</span> <span class="toc-text">遇到的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot整合Dubbo"><span class="toc-number">1.5.</span> <span class="toc-text">SpringBoot整合Dubbo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生产者-1"><span class="toc-number">1.5.1.</span> <span class="toc-text">生产者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#消费者-1"><span class="toc-number">1.5.2.</span> <span class="toc-text">消费者</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dubbo的其他配置"><span class="toc-number">1.6.</span> <span class="toc-text">Dubbo的其他配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#启动时检查"><span class="toc-number">1.6.1.</span> <span class="toc-text">启动时检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#超时时间"><span class="toc-number">1.6.2.</span> <span class="toc-text">超时时间</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -417,6 +538,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
@@ -433,11 +558,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
               <li class="article-tag-list-item">
