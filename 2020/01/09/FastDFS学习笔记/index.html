@@ -6,23 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>The journey of coding</title>
+  <title>FastDFS学习笔记 | The journey of coding</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: FastDFS学习笔记date: 2020-01-09 17:24:46tags: FastDFS 1 FastDFS简介FastDFS是一款类Google FS开源的轻量级分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及Fas">
+  <meta name="description" content="1 FastDFS简介FastDFS是一款类Google FS开源的轻量级分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及FastDFS、mogileFS、HDFS、TFS等类Google FS都不是系统级的分布式文件系统，而是应用级的分布式">
+<meta name="keywords" content="FastDFS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The journey of coding">
+<meta property="og:title" content="FastDFS学习笔记">
 <meta property="og:url" content="http://yoursite.com/2020/01/09/FastDFS学习笔记/index.html">
 <meta property="og:site_name" content="The journey of coding">
-<meta property="og:description" content="title: FastDFS学习笔记date: 2020-01-09 17:24:46tags: FastDFS 1 FastDFS简介FastDFS是一款类Google FS开源的轻量级分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及Fas">
+<meta property="og:description" content="1 FastDFS简介FastDFS是一款类Google FS开源的轻量级分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及FastDFS、mogileFS、HDFS、TFS等类Google FS都不是系统级的分布式文件系统，而是应用级的分布式">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5959612-ff4ecd58dcc6b128.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/655/format/webp">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5959612-bd7250d11210b100.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/542/format/webp">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5959612-ade344b10f0dd462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/548/format/webp">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5959612-0d186a0083a51af1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/837/format/webp">
-<meta property="og:updated_time" content="2020-01-09T09:37:21.091Z">
+<meta property="og:updated_time" content="2020-01-09T09:41:17.922Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The journey of coding">
-<meta name="twitter:description" content="title: FastDFS学习笔记date: 2020-01-09 17:24:46tags: FastDFS 1 FastDFS简介FastDFS是一款类Google FS开源的轻量级分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及Fas">
+<meta name="twitter:title" content="FastDFS学习笔记">
+<meta name="twitter:description" content="1 FastDFS简介FastDFS是一款类Google FS开源的轻量级分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及FastDFS、mogileFS、HDFS、TFS等类Google FS都不是系统级的分布式文件系统，而是应用级的分布式">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/5959612-ff4ecd58dcc6b128.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/655/format/webp">
   
     <link rel="alternative" href="/atom.xml" title="The journey of coding" type="application/atom+xml">
@@ -153,10 +154,24 @@
             <article id="post-FastDFS学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      FastDFS学习笔记
+    </h1>
+  
+
+        
+        <a href="/2020/01/09/FastDFS学习笔记/" class="archive-article-date">
+  	<time datetime="2020-01-09T09:24:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-09</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>title: FastDFS学习笔记<br>date: 2020-01-09 17:24:46<br>tags: FastDFS</p>
-<h1 id="1-FastDFS简介"><a href="#1-FastDFS简介" class="headerlink" title="1 FastDFS简介"></a>1 FastDFS简介</h1><p><strong>FastDFS</strong>是一款类Google FS开源的轻量级分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及FastDFS、mogileFS、HDFS、TFS等类Google FS都不是系统级的分布式文件系统，而是应用级的分布式文件存储服务。</p>
+        <h1 id="1-FastDFS简介"><a href="#1-FastDFS简介" class="headerlink" title="1 FastDFS简介"></a>1 FastDFS简介</h1><p><strong>FastDFS</strong>是一款类Google FS开源的轻量级分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及FastDFS、mogileFS、HDFS、TFS等类Google FS都不是系统级的分布式文件系统，而是应用级的分布式文件存储服务。</p>
 <p>FastDFS是为互联网应用量身定做的分布式文件系统，充分考虑了<strong>冗余备份、负载均衡、线性扩容</strong>等机制，并注重高可用、高性能等指标，使用FastDFS很容易搭建一套高性能的文件服务器集群提供文件上传、下载等服务。</p>
 <h2 id="1-1-功能包括："><a href="#1-1-功能包括：" class="headerlink" title="1.1 功能包括："></a><code>1.1</code> 功能包括：</h2><p>文件存储、文件同步、文件访问（文件上传、文件下载）等，解决了大容量存储和负载均衡的问题。特别适合以文件（建议范围：4KB &lt; file_size &lt;500MB）为载体的在线服务，如相册网站、视频网站等等。</p>
 <h2 id="1-2-对比"><a href="#1-2-对比" class="headerlink" title="1.2 对比"></a>1.2 对比</h2><p>和现有的类Google FS分布式文件系统相比，FastDFS的架构和设计理念有其独到之处，主要体现在轻量级、分组方式和对等结构三个方面。</p>
@@ -227,6 +242,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">FastDFS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -334,7 +360,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="FastDFS学习笔记" data-title="" data-url="http://yoursite.com/2020/01/09/FastDFS学习笔记/"></div>
+	<div class="ds-thread" data-thread-key="FastDFS学习笔记" data-title="FastDFS学习笔记" data-url="http://yoursite.com/2020/01/09/FastDFS学习笔记/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -453,11 +479,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -473,6 +499,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
@@ -481,19 +511,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Me</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
             
             <div class="clearfix"></div>
