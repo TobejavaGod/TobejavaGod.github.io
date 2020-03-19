@@ -143,6 +143,113 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-数据结构复习笔记——树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/10/数据结构复习笔记——树/">数据结构复习笔记——树</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/10/数据结构复习笔记——树/" class="archive-article-date">
+  	<time datetime="2019-10-10T12:15:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><pre><code>1.节点
+2.根节点
+3.父节点
+4.子节点
+5.叶子节点（没有子节点的节点）
+6.节点的权（节点的值）
+7.路径（从root节点找到该节点的路线）
+8.层 （根节点是第一层）
+9.子树
+10.树的高度（最大层数）
+11.森林</code></pre><h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p>1.每个节点最多只能有两个子节点的一种形式<br>2.二叉树的子节点分为左子节点和右子节点<br>3.满二叉树：<br>    所有叶子节点都在最后一层，并且节点总数=2的n次方-1，n是层数<br>4.完全二叉树：<br>    所有的叶子节点都在最后一层或倒数第二层，并且最后一层的叶子节点在左边连续，倒数第二层的叶子节点在右边连续。<br>5.具有n个节点的完全二叉树的深度为floor(log2n)+1<br>6.深度为k的完全二叉树，节点最少有2的k减1次方个，最多有2的k次方减1个</p>
+<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>首先堆是一种完全二叉树，且具有以下性质：<br>    大顶堆：每个节点的值都大于或等于左右孩子的值（对于左右孩子的大小关系没有要求）<br>    小顶堆：每个节点的值都小于或等于左右孩子的值（对于左右孩子的大小关系没有要求）<br>对于堆排序来说，一般升序采用大顶堆，降序采用小顶堆。<br>    1.将无序队列构建成一个大顶堆。<br>    2.讲根节点，也就是最大的节点与末尾节点交换。<br>    3.重新调整交换后的结构为大顶堆，将第二大的节点交换到根节点上。<br>    4.循环执行，直到整个序列有序。<br>第一个非叶子节点的索引是arr.length/2 - 1</p>
+<h3 id="赫夫曼树-gt-带权路径长度-wpl-最短的树"><a href="#赫夫曼树-gt-带权路径长度-wpl-最短的树" class="headerlink" title="赫夫曼树 -&gt; 带权路径长度(wpl)最短的树"></a>赫夫曼树 -&gt; 带权路径长度(wpl)最短的树</h3><p>权值越大的节点距离根节点就越近</p>
+<h3 id="二叉排序树-gt-BST-Tree"><a href="#二叉排序树-gt-BST-Tree" class="headerlink" title="二叉排序树 -&gt; BST Tree"></a>二叉排序树 -&gt; BST Tree</h3><p>对于任意一个非叶子节点，要求左子节点的值比当前节点的值小，右子节点的值比当前节点的值大。</p>
+<h3 id="平衡二叉树-gt-AVL-Tree"><a href="#平衡二叉树-gt-AVL-Tree" class="headerlink" title="平衡二叉树 -&gt; AVL Tree"></a>平衡二叉树 -&gt; AVL Tree</h3><p>它是一颗孔数或他的左右两个子树的高度差不超过一，并且左右两个子树都是一颗平衡二叉树。平衡二叉树的实现方法有红黑树，伸展树等。</p>
+<p>左旋转：节点右子树与左子树的高度差大于1时<br>    1.创建一个新节点，节点的值就是根节点的值<br>    2.将新节点的左子树指向当前节点的左子树<br>    3.将新节点的右子树指向当前节点的右子树的左子树<br>    4.将当前节点的值换成当前节点的右子节点的值<br>    5.将当前节点的右子树指向右子树的右子树<br>    6.将当前节点的左子树指向新节点</p>
+<p>右旋转：节点的左子树与右子树的高度差大于1<br>    1.创建新节点，新节点的值等于根节点的值<br>    2.将新节点的右子树设置为当前节点的右子树<br>    3.将新节点的左子树设置为当前节点的左子树的右子树<br>    4.将当前节点的值设置为当前节点的左子节点的值<br>    5.将当前节点的左子树设置为当前节点的左子树的左子树<br>    6.将当前节点的右子树设置为新节点</p>
+<p>以上两种方式属于单旋转，但是某些时候进行单旋转并不能完成平衡二叉树的转换</p>
+<p>双旋转：<br>    如果当前节点的左子节点的右子树的高度大于当前节点的左子节点的左子树<br>    则先对当前节点的左子节点进行左旋转，再对当前节点进行右旋转。</p>
+<pre><code>如果当前节点的右子节点的左子树的高度大于当前节点的左子节点的右子树
+则先对当前节点的右子节点进行右旋转，再对当前节点进行左旋转。</code></pre><h3 id="多路查找树"><a href="#多路查找树" class="headerlink" title="多路查找树"></a>多路查找树</h3><p>多叉树：允许每个节点有更多的数据项和更多的子节点。</p>
+<p>优点：通过重新组织节点，减少树的高度，能对二叉树进行优化。</p>
+<h4 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h4><p><strong>所有的叶子节点都在同一层</strong></p>
+<p><strong>B树通过重新组织节点，降低树的高度，并且减少i/o读写次数来提升效率</strong></p>
+<p>1.B树的阶：<br>    节点的最多子节点个数，例如23树的阶是3，234树的阶是4</p>
+<p>2.B树的搜索：<br>    从根节点开始，对节点内的关键字（有序）序列进行二分查找，如果命中则结束，否则进去其儿子节点查询，重复直到所对应的儿子指针为空或已经是叶子节点。<br>3.关键字集合分布在整棵树中，即叶子节点和非叶子节点都存放数据。</p>
+<p>4.搜索有可能在非叶子节点结束</p>
+<p>5.其搜索性能等价于在关键字全集进行一次二分查找。</p>
+<h4 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h4><p>1.B+树与B树的区别：<br>    B+树在进行搜索时只有达到叶子节点才命中，他的性能也等价于在关键字全集进行一次二分查找。<br>2.B+树所有的关键字都出现在叶子节点的链表中，也就是数据只存在于叶子节点中（也叫稠密索引），链表中的数据也是有序的。</p>
+<p>3.非叶子节点相当于叶子节点的索引（稀疏索引），叶子节点相当于存储数据的数据层。</p>
+<p>4.B+树更适合文件索引系统</p>
+<p>5.B树与B+树没有严格的谁好谁坏的区分，根据各自的应用场景。</p>
+<h4 id="B※树"><a href="#B※树" class="headerlink" title="B※树"></a>B※树</h4><p>在B+树的基础上对于非根节点和非叶子节点加入了指向兄弟节点的指针。</p>
+<h4 id="2-3树-gt-最简单的B树"><a href="#2-3树-gt-最简单的B树" class="headerlink" title="2-3树 -&gt; 最简单的B树"></a>2-3树 -&gt; 最简单的B树</h4><p>1.2-3树的所有叶子节点都在同一层<br>2.有两个子节点的节点叫二节点，二节点要么没有子节点，要么有两个子节点<br>3.有三个子节点的节点叫三节点，三节点要么没有子节点，要么有三个子节点<br>4.2-3树是由二节点和三节点组成的</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">datastructure</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/10/数据结构复习笔记——树/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-程序员的鸡汤" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -328,91 +435,6 @@
 
 
   
-    <article id="post-并发编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/08/并发编程/">并发编程</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/08/并发编程/" class="archive-article-date">
-  	<time datetime="2019-10-08T11:46:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="并发编程存在的bug源头"><a href="#并发编程存在的bug源头" class="headerlink" title="并发编程存在的bug源头"></a>并发编程存在的bug源头</h2><h3 id="缓存导致的可见性问题"><a href="#缓存导致的可见性问题" class="headerlink" title="缓存导致的可见性问题"></a>缓存导致的可见性问题</h3><p>可见性：一个线程对于共享变量的修改，另一个线程能够立刻看到。</p>
-<p>多核Cpu中，当多个线程在不同的 CPU 上执行时，这些线程操作的是不同的 CPU 缓存。此时线程间的操作就不具备可见性了。</p>
-<h3 id="线程切换导致的原子性问题"><a href="#线程切换导致的原子性问题" class="headerlink" title="线程切换导致的原子性问题"></a>线程切换导致的原子性问题</h3><p>原子性：一个或者多个操作在 CPU 执行的过程中不被中断的特性</p>
-<p>在多线程执行操作的过程中，指令执行未完成，发生了线程切换，这种情况下就会导致原子性问题。</p>
-<h3 id="编译器优化导致的有序性问题"><a href="#编译器优化导致的有序性问题" class="headerlink" title="编译器优化导致的有序性问题"></a>编译器优化导致的有序性问题</h3><p>有序性：程序按照代码的先后顺序执行</p>
-<p>实际程序中指令的运行顺序可能被编译器优化之后发生了改变，比较典型的就是单例模式中通过双重检测索是实现的方式会发生的问题。</p>
-<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><pre><code>1.解决可见性、有序性最直接的办法就是禁用缓存和编译优化，但是这样在解决问题的同时，程序的性能也大大降低了。合理的方案应该是按需禁用缓存以及编译优化。所谓“按需禁用”其实就是指按照程序员的要求来禁用。所以，为了解决可见性和有序性问题，只需要提供给程序员按需禁用缓存和编译优化的方法即可。
-2.Java 内存模型是个很复杂的规范，可以从不同的视角来解读，站在我们这些程序员的视角，本质上可以理解为，Java 内存模型规范了 JVM 如何提供按需禁用缓存和编译优化的方法。具体来说，这些方法包括 volatile、synchronized 和 final 三个关键字，以及六项 Happens-Before 规则</code></pre><h3 id="volatile关键字-gt-它最原始的意义就是禁用-CPU-缓存"><a href="#volatile关键字-gt-它最原始的意义就是禁用-CPU-缓存" class="headerlink" title="volatile关键字 -&gt; 它最原始的意义就是禁用 CPU 缓存"></a>volatile关键字 -&gt; 它最原始的意义就是禁用 CPU 缓存</h3><p>对于声明了volatile关键字的变量，告诉编译器，对这个变量的读写，不能使用 CPU 缓存，必须从内存中读取或者写入。</p>
-<pre><code>有如下程序
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class VolatileExample &#123;</span><br><span class="line">  int x = 0;</span><br><span class="line">  volatile boolean v = false;</span><br><span class="line">  public void writer() &#123;</span><br><span class="line">    x = 42;</span><br><span class="line">    v = true;</span><br><span class="line">  &#125;</span><br><span class="line">  public void reader() &#123;</span><br><span class="line">    if (v == true) &#123;</span><br><span class="line">      // 这里 x 会是多少呢？</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre><p>结论：根据Java的版本，如果在低于1.5版本上运行，x可能是42，也有可能是0；如果在1.5以上的版本上运行，x就是等于42。因为在Java1.5中，对于volatile语义进行了增强。增强的内容就是Happens-before规则</p>
-<h3 id="Happens-before规则-gt-前面一个操作的结果对后续操作是可见的"><a href="#Happens-before规则-gt-前面一个操作的结果对后续操作是可见的" class="headerlink" title="Happens-before规则 -&gt; 前面一个操作的结果对后续操作是可见的"></a>Happens-before规则 -&gt; 前面一个操作的结果对后续操作是可见的</h3><p>1.程序的顺序性规则<br>    按照程序顺序，前面的操作 Happens-Before 于后续的任意操作。<br>2.volatile变量规则<br>    对一个 volatile 变量的写操作， Happens-Before 于后续对这个 volatile 变量的读操作。<br>3.传递性<br>    如果 A Happens-Before B，且 B Happens-Before C，那么 A Happens-Before C。<br>4.管程中锁的规则<br>    对一个锁的解锁 Happens-Before 于后续对这个锁的加锁。<br>5.线程 start() 规则<br>    主线程 A 启动子线程 B 后，子线程 B 能够看到主线程在启动子线程 B 前的操作。<br>6.线程 join() 规则<br>    如果在线程 A 中，调用线程 B 的 join() 并成功返回，那么线程 B 中的任意操作 Happens-Before 于该 join() 操作的返回</p>
-<h3 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h3><p>final关键字的初衷是告诉编译器，该变量生而不变，可以随意优化。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Thread</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/08/并发编程/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
@@ -511,11 +533,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,6 +546,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -552,10 +578,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">面试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
              
               <li class="article-tag-list-item">
