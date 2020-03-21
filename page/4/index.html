@@ -143,6 +143,163 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-面试题总结01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/17/面试题总结01/">面试题总结01</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/17/面试题总结01/" class="archive-article-date">
+  	<time datetime="2019-10-17T00:35:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h1><h2 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h2><h3 id="线程与进程的区别"><a href="#线程与进程的区别" class="headerlink" title="线程与进程的区别"></a>线程与进程的区别</h3><p>线程是cpu调度的最小单位，进程是资源分配的最小单位<br>一个进程可以包含多个线程，线程是在进程中执行的<br>每个线程都运行在进程的上下文中，并共享全局数据<br>不同进程间的数据难以共享，同一个进程中的不同线程间的数据容易共享<br>进程间互不影响，但线程出现问题会影响进程</p>
+<h3 id="进程通信的方式"><a href="#进程通信的方式" class="headerlink" title="进程通信的方式"></a>进程通信的方式</h3><p>1.管道<br>    管道一般用于两个不同进程之间的通信。当一个进程创建一个管道，并调用fork创建自己的一个子进程后，父进程关闭读管道端，子进程关闭写管道端，这样 提供了两个进程之间数据流动的一种方式。<br>2.FIFO<br>    FIFO是一种先进先出的队列。它类似于一个管道，只允许数据的单向流动。每个FIFO都有一个名字，允许不相关的进程访问同一个FIFO。因此也成为命名管。<br>3.消息队列<br>    概念：消息队列，是消息的链接表，存放在内核中。一个消息队列由一个标识符（即队列ID）来标识。<br>    特点：<br>        1.消息队列是面向记录的，其中的消息具有特定的格式以及特定的优先级。<br>        2.消息队列独立于发送与接收进程。进程终止时，消息队列及其内容并不会被删除。<br>        3.消息队列可以实现消息的随机查询,消息不一定要以先进先出的次序读取,也可以按消息的类型读取。<br>4.信号量<br>    作为进程间通讯的一种方法，它不是用于交换大批数据，而用于多进程之间的同步（协调对共享存储段的存取）。<br>5.共享内存<br>    概念：<br>         将同一块物理内存一块映射到不同的进程的虚拟地址空间中，实现不同进程间对同一资源的共享。 共享内存可以说是最有用的进程间通信方式，也是最快的IPC形式。<br>    特点：<br>         1.不用从用户态到内核态的频繁切换和拷贝数据，直接从内存中读取就可以。<br>        2.共享内存是临界资源，所以需要操作时必须要保证原子性。使用信号量或者互斥锁都可以。<br>        3.生命周期随内核。  </p>
+<h3 id="tomcat工作原理"><a href="#tomcat工作原理" class="headerlink" title="tomcat工作原理"></a>tomcat工作原理</h3><p>Tomcat最顶层的容器是Server,代表整个服务器，其中可以包含多个Service<br>Service主要包含两个部分：Connector和Container<br>Connector用于处理连接相关的事情，并提供Socket与Request和Response相关的转化<br>Container用于封装和管理Servlet，以及具体处理Request请求<br>一个Service只有一个Container，但可以有多个Connectors<br><img src="https://images2015.cnblogs.com/blog/1078737/201701/1078737-20170109110435088-1621430699.png" alt="image"></p>
+<h3 id="抽象类和接口"><a href="#抽象类和接口" class="headerlink" title="抽象类和接口"></a>抽象类和接口</h3><p>抽象类：<br>    1.被abstract修饰的类是抽象类；<br>    2.含有抽象方法的类一定是抽象类，但是抽象类不一定含有抽象方法,抽象方法必须是public或protected<br>    3.抽象方法中不能有实现<br>    4.抽象类中可以定义自己的成员变量和成员方法，权限没要求<br>    5.抽象方法要被实现，不能是static，也不能是private<br>    6.子类继承抽象类时，必须实现抽象类中的所有抽象方法，否则该子类也要被定义为抽象类<br>    7.抽象类不能被实例化<br>    8.可以有main方法<br>    9.可以有构造器，初始化块，内部类<br>接口：<br>    1.接口中变量类型默认且只能是public staic final<br>    2.接口中声明方法只能是默认的public abstract，没有具体的实现<br>    3.默认的方法没有方法体，但JDK1.8之后默认方法和静态方法是有方法体的<br>    4.可以有main方法，可以使用匿名内部类的方式new一个接口，<br>    5.实现类必须实现所有接口函数<br>    6.不能定义构造器和静态或非静态代码块<br>他们都不能直接实例化，但是可以通过多态的方式进行实例化</p>
+<h3 id="单例设计模式"><a href="#单例设计模式" class="headerlink" title="单例设计模式"></a>单例设计模式</h3><h3 id="html中a标签点击后进入新窗口"><a href="#html中a标签点击后进入新窗口" class="headerlink" title="html中a标签点击后进入新窗口"></a>html中a标签点击后进入新窗口</h3><pre><code>设置target属性值为  &quot;_blank&quot;</code></pre><h3 id="linux常用命令"><a href="#linux常用命令" class="headerlink" title="linux常用命令"></a>linux常用命令</h3><h3 id="mysql优化"><a href="#mysql优化" class="headerlink" title="mysql优化"></a>mysql优化</h3><p>1、选取最适用的字段属性<br>2、使用连接（JOIN）来代替子查询(Sub-Queries)<br>3、使用联合(UNION)来代替手动创建的临时表<br>4、事务<br>5、锁定表<br>6、使用外键<br>7、使用索引<br>8、优化查询语句</p>
+<h3 id="tcp和udp"><a href="#tcp和udp" class="headerlink" title="tcp和udp"></a>tcp和udp</h3><p>1.TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接<br>2.TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP不保证可靠交付<br>3.TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的<br>UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）<br>4.每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信<br>5.TCP首部开销20字节;UDP的首部开销小，只有8个字节<br>6.TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/17/面试题总结01/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Jsp学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/16/Jsp学习笔记/">Jsp学习笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/16/Jsp学习笔记/" class="archive-article-date">
+  	<time datetime="2019-10-16T11:50:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Jsp-gt-本质上就是一个Servlet"><a href="#Jsp-gt-本质上就是一个Servlet" class="headerlink" title="Jsp -&gt; 本质上就是一个Servlet"></a>Jsp -&gt; 本质上就是一个Servlet</h1><p>Java服务端页面 既可以定义    html也可以定义java代码<br>    简化开发</p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>1.page 配置jsp页面<br>    1.contentType：等同于response里的色图Content Type()<br>        1.设置响应体的mime类型和字符集<br>        2.设置当前jsp页面的编码（高级的IDE才能生效，如果是低级的要使用pageEncoding来配置页面编码）<br>    2.language：只支持java<br>    3.buffer：设置缓冲区的大小<br>    4.import：导包<br>    5.errorPage：当前页面发生异常后会自动跳转到指定的错误页面<br>    6.isErrorPage：标识当前页面是否为错误页面，标识为错误页面以后才可以使用exception内置对象，默认值为false（即不是错误页面）<br>2.include 页面包含的。导入页面的资源文件<br>3.taglib 导入资源<br>    引入标签库（eg：jstl标签库）<br>        prefix：定义前缀</p>
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><p>1.&lt;% 代码 %&gt;：定义的java代码，在service方法中，service方法可以定义什么，该脚本就能定义什么<br>2.&lt;%! 代码 %&gt;：定义的java代码，在jsp转换后的java类的成员位置<br>3.&lt;%= 代码 %&gt;：定义的java代码，会输出到页面上</p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>1.&lt;感叹号– –&gt;html注释（浏览器看得到）<br>    只能注释html<br>2.&lt;%– –%&gt;jsp注释 –&gt; 推荐使用（浏览器看不到）<br>    可以注释所有</p>
+<h2 id="内置对象（在jsp中不需要创建可以直接使用的对象）"><a href="#内置对象（在jsp中不需要创建可以直接使用的对象）" class="headerlink" title="内置对象（在jsp中不需要创建可以直接使用的对象）"></a>内置对象（在jsp中不需要创建可以直接使用的对象）</h2><p>普通页面有8个，在声明了isErrorPage的页面有9个（多了一个exception对象）<br>    变量名                真实类型                       作用<br>1.pageContext             PageContext                 当前页面共享数据，还可以获取其他八个内置对象<br>2.request                  HttpServletRequest            一次请求访问的多个资源（转发）<br>3.session                 HttpSession                    一次会话的多个请求间<br>4.application             ServletContext                所有用户间共享数据<br>5.response                 HttpServletResponse            响应对象<br>6.page                     Object                         当前页面（servlet）的对象 this<br>7.out                     JspWriter                    输出对象，输出数据到页面上<br>8.config                 ServletConfig                servlet的配置对象<br>9.exception             Throwable                    异常对象</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JSP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/16/Jsp学习笔记/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-设计模式学习笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -192,177 +349,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/10/13/设计模式学习笔记01/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spring学习笔记02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/13/Spring学习笔记02/">Spring学习笔记02</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/13/Spring学习笔记02/" class="archive-article-date">
-  	<time datetime="2019-10-13T05:44:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="AOP-Aspect-Oriented-Programming"><a href="#AOP-Aspect-Oriented-Programming" class="headerlink" title="AOP Aspect Oriented Programming"></a>AOP Aspect Oriented Programming</h2><p>概念：<br>    通过预编译方式和运行期动态代理实现程序功能统一维护的一种技术。AOP是对OOP的延续，是软件开发中的热点<br>意义：<br>    利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各个部分之间耦合度降低，极高程序的可重用性，同时提高了开发的效率。<br>作用：<br>    在不修改源码的情况下，对已有的方法进行增强<br>优势：<br>    减少重复代码<br>    提高开发效率<br>    维护方便<br>实现方式：<br>    动态代理技术<br><strong>简单的说，AOP就是将程序中重复的代码抽取出来，在需要执行的时候，使用动态代理的技术，在不修改源码的情况下，对现有的方法进行增强</strong></p>
-<h3 id="AOP相关术语"><a href="#AOP相关术语" class="headerlink" title="AOP相关术语"></a>AOP相关术语</h3><p>1.Joinpoint(连接点)<br>    所谓连接点指的是那些被拦截到的点。在Spring中，这些点指的是方法，因为Spring只支持方法类型的连接点<br>2.Pointout(切入点)<br>    切入点是指要对哪些连接点进行拦截的定义(所有的切入点都是连接点，但不是所有的切入点都是连接点)<br>3.Advice(通知/增强)<br>    通知是指拦截到连接点之后要做的事情就是通知<br>    类型：<br>        前置通知：执行切入点方法前的动作<br>        后置通知：执行切入点方法后的动作<br>        异常通知：catch中的动作<br>        最终通知：finally中的动作<br>        环绕通知：整个invoke方法<br>4.Introduction(引介)<br>    引介是一种特殊的通知在不修改类代码的前提下，引介可以在运行期为类动态的添加一些方法或field<br>5.Target(目标对象)<br>    代理的目标对象<br>6.Weaving(织入)<br>    织入是指把增强应用到目标对象来创建新的代理对象的过程<br>7.Proxy(代理)<br>    一个类被AOP织入增强后，就产生一个结果代理类<br>8.Aspect(切面)<br>    是值切入点和通知的结合</p>
-<h3 id="Spring基于XML的AOP"><a href="#Spring基于XML的AOP" class="headerlink" title="Spring基于XML的AOP"></a>Spring基于XML的AOP</h3><p>配置步骤：<br>    1.把通知bean也交给Spring容器来管理<br>    2.使用aop:config来标签表明开始aop的配置<br>    3.使用aop:aspect标签表明配置切面<br>        属性：<br>            id：为切面提供一个唯一标识<br>            ref：指定通知类bean的id<br>    4.在aop:aspect标签内部使用对应标签指定通知的类型<br>        例如前置通知aop:before<br>            属性：<br>                method：指定类中的哪个方法是前置通知<br>                pointcut：用于指定切入点表达式，改表达式的含义指的是对业务层中的哪些代码进行增强。<br>    切入点表达式语法：<br>        关键字：execution(表达式)<br>        表达式：<br>            访问修饰符 返回值类型 包名…类名.方法名(参数列表)<br>            访问修饰符可以省略<br>            返回值可以使用通配符，表示任意返回值<br>            包名可以使用通配符，表示任意包，但是有几级包，就要加几个”※.”<br>            包名可以使用”..”表示当前包及其子包<br>            类名和方法名都可以使用※实现通配<br>            参数列表：<br>                可以直接写数据类型：<br>                    基本类型直接写名称<br>                    引用类型写包名.类名的方式<br>                可以使用通配符表示任意类型，但是必须有参数<br>                可以使用..表示有无参数均可，有参数可以是任意类型<br>        <strong>全通配写法：※ ※..※.※(..)</strong>    </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/13/Spring学习笔记02/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spring学习笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/11/Spring学习笔记01/">Spring学习笔记01</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/11/Spring学习笔记01/" class="archive-article-date">
-  	<time datetime="2019-10-11T12:23:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="IOC：控制反转-–-gt-降低耦合，但不能解除"><a href="#IOC：控制反转-–-gt-降低耦合，但不能解除" class="headerlink" title="IOC：控制反转   –&gt;   降低耦合，但不能解除"></a>IOC：控制反转   –&gt;   降低耦合，但不能解除</h2><h3 id="ApplicationContext的三个常用类"><a href="#ApplicationContext的三个常用类" class="headerlink" title="ApplicationContext的三个常用类"></a>ApplicationContext的三个常用类</h3><p>1.ClassPathXmlApplicationContext:他可以加载类路径下的配置文件，要求配置文件必须在类路径下，不在的话会加载失败（更加常用）<br>2.FileSystemXmlApplicationContext：他可以加载磁盘任意路径下的配置文件（必须有访问权限）<br>3.AnnotationConfigApplicationContext：他是用于读取注解创建容器的。</p>
-<h3 id="核心容器的两个接口"><a href="#核心容器的两个接口" class="headerlink" title="核心容器的两个接口"></a>核心容器的两个接口</h3><p>ApplicationContext：单例对象适用<br>    它在构建核心容器时，采用的是立即加载的方式，也就是说，只要一读取完配置文件马上就创建配置文件中配置的对象。<br>BeanFactory：多例对象适用<br>    它在构建核心容器时，采用的是延迟加载的方式，也就是说，什么时候根据id获取对象，什么时候再真正创建对象。</p>
-<h2 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h2><h3 id="创建bean的三种方式"><a href="#创建bean的三种方式" class="headerlink" title="创建bean的三种方式"></a>创建bean的三种方式</h3><p>1.使用默认构造函数创建bean对象<br>    在spring配置文件中使用bean标签，配以id和class属性后，且没有其他的属性和标签时，采用的就是默认构造函数创建bean对象，此时如果类中没有默认构造函数，则对象就无法创建。<br>2.使用普通工厂中的方法去创建对象（使用某个类中的方法去创建对象，并存入spring容器）<br>3.使用工厂中的静态方法创建对象（使用某个类中的静态方法创建对象，并存入spring容器）</p>
-<h3 id="bean对象的作用范围"><a href="#bean对象的作用范围" class="headerlink" title="bean对象的作用范围"></a>bean对象的作用范围</h3><p>bean中的scope属性：用于指定bean的作用范围<br>    singleton：单例的（默认值）<br>    prototype：多例的<br>    request：作用于web应用的请求范围<br>    session：作用于web应用的会话范围<br>    global-session：作用于集群环境的会话范围（全局会话范围），当不是集群环境时，他就是session</p>
-<h3 id="bean对象的声明周期"><a href="#bean对象的声明周期" class="headerlink" title="bean对象的声明周期"></a>bean对象的声明周期</h3><p>1.单例对象<br>    出生：当容器创建时对象出生<br>    活着：只要容器还在，对象一直活着<br>    死亡：容器销毁，对象消亡<br>    总结：单例对象的生命周期和容器相同<br>2.多例对象<br>    出生：当使用对象时，spring框架帮我们创建<br>    活着：对象只要在使用过程中就一直活着<br>    死亡：当对象长时间不使用且没有对象引用时，由GC回收</p>
-<h2 id="依赖注入-DI"><a href="#依赖注入-DI" class="headerlink" title="依赖注入  DI"></a>依赖注入  DI</h2><p>1.依赖关系的维护交给Spring来做，当当前类需要使用其他类的对象时，由Spring来提供，我们只需要在配置文件中声明即可。这种依赖关系的维护就称之为依赖注入。</p>
-<p>2.如果是经常变化的数据，不适用于依赖注入。</p>
-<h3 id="能注入的数据"><a href="#能注入的数据" class="headerlink" title="能注入的数据"></a>能注入的数据</h3><p>1.基本类型和String<br>2.其他Bean类型（在配置文件或注解中声明的类型）<br>3.复杂类型/集合类</p>
-<h3 id="注入的方式"><a href="#注入的方式" class="headerlink" title="注入的方式"></a>注入的方式</h3><p>1.使用构造方法提供<br>    标签：constructor-arg<br>    标签出现的位置：bean标签的内部<br>    属性：<br>        type:指定要注入的数据的数据类型<br>        index:指定索引为构造函数参数赋值<br>        name:指定构造函数的参数名赋值<br>        value:提供基本类型和String类型的数据<br>        ref:其他bean类型，指的时在SpringIOC核心容器中出现过的bean对象<br>    优点：<br>        获取对象时需要注入数据，否则无法创建对象<br>    缺点：<br>        改变了bean对象的实例化方式，即便是我们不需要的数据，也需要注入<br>2.使用set方法提供 -&gt; 更加常用的方式<br>    标签：property<br>    标签出现的位置：bean标签的内部<br>    属性：<br>        name：指定注入时调用的set方法名称。<br>        value：提供基本数据类型和String<br>        ref：其他bean类型<br>    优点：<br>        创建对象时没有明确的限制，可以使用默认构造函数<br>    缺点：<br>        如果某个成员变量必须有值，则获取对象时set方法可能并没有执行<br>3.对于集合数据的注入 -&gt; 使用set方法<br>    1. 用于给list结构注入的标签:array、list、set<br>    2. 用于给map结构注入的标签:map、props<br>        数组：array标签中嵌套value<br>        List：list标签中嵌套value<br>        Set：set标签中嵌套value<br>        Map：map标签中嵌套entry，entry中设置key和value<br>        Properties：props标签中嵌套prop，prop中设置key和value<br>4.由注解提供</p>
-<h2 id="注解-gt-11个"><a href="#注解-gt-11个" class="headerlink" title="注解  -&gt; 11个"></a>注解  -&gt; 11个</h2><p>0.在bean的配置文件中，加入context名称空间</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        https://www.springframework.org/schema/context/spring-context.xsd&quot;</span><br></pre></td></tr></table></figure>
-
-<p>配置扫描指定包名下的注解</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context:component-scan base-package=&quot;包名&quot;&gt;&lt;/context:component-scan&gt;</span><br></pre></td></tr></table></figure>
-
-<p>1.用于创建对象的注解 -&gt; 相当于xml中配置的bean标签<br>    @Component<br>        作用：用于把当前类对象存入Spring容器中<br>        属性：<br>            value：用于指定bean的id，当我们不指定时，他的默认值是类名且首字母变小写<br>    <strong>对于下面的三个注解，他们的作用与属性与Component是一模一样的，他们三个是Spring框架为我们提供明确的三层使用的注解，使得层次模块更清晰</strong><br>    @Controller：一般用在表现层<br>    @Repository：一般用在持久层<br>    @Service：一般用在业务层<br>2.用于注入数据的注解 -&gt; 相当于xml中bean标签中的property标签<br>    @Autowired<br>        作用：自动按照类型注入，只要容器中有唯一的bean对象类型与要注入的变量类型相匹配就可以注入成功，如果没有一个匹配的就会报错<br>              如果有两个以上的bean对象类型匹配时，他会去匹配id，如果匹配到了则注入成功，否则注入失败<br>        出现位置：可以是变量上，也可以是方法上。<br>        细节：在使用注解注入是，set方法就不是必须的了<br>    @Qualifier<br>        作用：在按照类中注入的基础上再按照名称注入。他在给类成员注入时不能单独使用（要与Autowired配合使用），但是再给方法注入时可以。<br>        属性：<br>            value：用于指定注入bean的id<br>    @Resource<br>        作用：直接按照bean的id注入，可以直接使用<br>        属性：<br>            name：用于指定注入bean的id<br>    <strong>以上三个注解都只能注入其他bean类型，对于基本类型和String无法注入，另外，对于集合类型只能通过xml实现</strong><br>    @Value<br>        作用：用于注入基本数据类型和String类型的数据<br>        属性：<br>            value：用于指定数据的值，可以使用Spring中的spel，${表达式}</p>
-<p>3.用于改变作用范围的注解 -&gt; 相当于bean标签中使用scope属性<br>    @Scope<br>        作用：用于指定bean的作用范围<br>        属性：<br>            value：指定范围的取值，常用取值：singleton  prototype 默认的是单例的<br>4.和生命周期相关的注解 -&gt; 相当于bean标签中的init-method和destroy-method –&gt; 了解即可<br>    @PreDestroy<br>        作用：用于指定销毁方法<br>    @PostConstruct<br>        作用：用于指定初始化方法</p>
-<p><strong>细节：如果注解中的属性只有value时，value可以省略</strong></p>
-<p>5.Spring的新注解</p>
-<p>@Configuration<br>    作用：指定当前类是一个配置类<br>    细节：当配置类作为使用注解创建容器的参数时，改注解可以不写<br>@ComponentScan<br>    作用：用于指定创建容器时要扫描的包<br>    属性：下面两个属性的作用是一样的，都是指定要扫描的包名<br>        value<br>        basePackage<br>@Bean<br>    作用：用于把当前方法的返回值作为bean对象存入Spring的容器中<br>    属性：<br>        name：用于指导bean的id  -&gt; 当不写时，默认值是当前方法的名称<br>@import<br>    作用：用于导入其他的配置类</p>
-<p>@propertySource -&gt; 配置在主配置类上<br>    作用：用于指定properties文件的位置<br>    属性：<br>        value：指定文件的名称和路径<br>            关键字：classpath，表示在类路径下</p>
-<h3 id="Spring整合JUnit"><a href="#Spring整合JUnit" class="headerlink" title="Spring整合JUnit"></a>Spring整合JUnit</h3><p>1.导入Spring整合Junit的jar包<br>2.使用junit提供的@Runwith注解，将原有的main方法替换成spring提供的SpringJunit4ClassRunner.class<br>3.告知spring的运行器，spring和ioc容器的创建是基于xml还是注解，并说明xml文件或配置类的位置<br>    使用@ContextConfiguration注解<br>        属性：<br>            locations：指定xml文件的位置，加上classpath关键字表示在类路径下<br>            classes：指定注解类所在的配置，<br><strong>细节：当我们使用Spring5以上时，要求junit的版本是4.12及以上</strong></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/11/Spring学习笔记01/">展开全文 >></a>
         </p>
       
 
@@ -518,15 +504,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Me</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -534,11 +516,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Me</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
             
             <div class="clearfix"></div>

@@ -143,6 +143,177 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Spring学习笔记02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/13/Spring学习笔记02/">Spring学习笔记02</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/13/Spring学习笔记02/" class="archive-article-date">
+  	<time datetime="2019-10-13T05:44:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="AOP-Aspect-Oriented-Programming"><a href="#AOP-Aspect-Oriented-Programming" class="headerlink" title="AOP Aspect Oriented Programming"></a>AOP Aspect Oriented Programming</h2><p>概念：<br>    通过预编译方式和运行期动态代理实现程序功能统一维护的一种技术。AOP是对OOP的延续，是软件开发中的热点<br>意义：<br>    利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各个部分之间耦合度降低，极高程序的可重用性，同时提高了开发的效率。<br>作用：<br>    在不修改源码的情况下，对已有的方法进行增强<br>优势：<br>    减少重复代码<br>    提高开发效率<br>    维护方便<br>实现方式：<br>    动态代理技术<br><strong>简单的说，AOP就是将程序中重复的代码抽取出来，在需要执行的时候，使用动态代理的技术，在不修改源码的情况下，对现有的方法进行增强</strong></p>
+<h3 id="AOP相关术语"><a href="#AOP相关术语" class="headerlink" title="AOP相关术语"></a>AOP相关术语</h3><p>1.Joinpoint(连接点)<br>    所谓连接点指的是那些被拦截到的点。在Spring中，这些点指的是方法，因为Spring只支持方法类型的连接点<br>2.Pointout(切入点)<br>    切入点是指要对哪些连接点进行拦截的定义(所有的切入点都是连接点，但不是所有的切入点都是连接点)<br>3.Advice(通知/增强)<br>    通知是指拦截到连接点之后要做的事情就是通知<br>    类型：<br>        前置通知：执行切入点方法前的动作<br>        后置通知：执行切入点方法后的动作<br>        异常通知：catch中的动作<br>        最终通知：finally中的动作<br>        环绕通知：整个invoke方法<br>4.Introduction(引介)<br>    引介是一种特殊的通知在不修改类代码的前提下，引介可以在运行期为类动态的添加一些方法或field<br>5.Target(目标对象)<br>    代理的目标对象<br>6.Weaving(织入)<br>    织入是指把增强应用到目标对象来创建新的代理对象的过程<br>7.Proxy(代理)<br>    一个类被AOP织入增强后，就产生一个结果代理类<br>8.Aspect(切面)<br>    是值切入点和通知的结合</p>
+<h3 id="Spring基于XML的AOP"><a href="#Spring基于XML的AOP" class="headerlink" title="Spring基于XML的AOP"></a>Spring基于XML的AOP</h3><p>配置步骤：<br>    1.把通知bean也交给Spring容器来管理<br>    2.使用aop:config来标签表明开始aop的配置<br>    3.使用aop:aspect标签表明配置切面<br>        属性：<br>            id：为切面提供一个唯一标识<br>            ref：指定通知类bean的id<br>    4.在aop:aspect标签内部使用对应标签指定通知的类型<br>        例如前置通知aop:before<br>            属性：<br>                method：指定类中的哪个方法是前置通知<br>                pointcut：用于指定切入点表达式，改表达式的含义指的是对业务层中的哪些代码进行增强。<br>    切入点表达式语法：<br>        关键字：execution(表达式)<br>        表达式：<br>            访问修饰符 返回值类型 包名…类名.方法名(参数列表)<br>            访问修饰符可以省略<br>            返回值可以使用通配符，表示任意返回值<br>            包名可以使用通配符，表示任意包，但是有几级包，就要加几个”※.”<br>            包名可以使用”..”表示当前包及其子包<br>            类名和方法名都可以使用※实现通配<br>            参数列表：<br>                可以直接写数据类型：<br>                    基本类型直接写名称<br>                    引用类型写包名.类名的方式<br>                可以使用通配符表示任意类型，但是必须有参数<br>                可以使用..表示有无参数均可，有参数可以是任意类型<br>        <strong>全通配写法：※ ※..※.※(..)</strong>    </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/13/Spring学习笔记02/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Spring学习笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/11/Spring学习笔记01/">Spring学习笔记01</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/11/Spring学习笔记01/" class="archive-article-date">
+  	<time datetime="2019-10-11T12:23:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="IOC：控制反转-–-gt-降低耦合，但不能解除"><a href="#IOC：控制反转-–-gt-降低耦合，但不能解除" class="headerlink" title="IOC：控制反转   –&gt;   降低耦合，但不能解除"></a>IOC：控制反转   –&gt;   降低耦合，但不能解除</h2><h3 id="ApplicationContext的三个常用类"><a href="#ApplicationContext的三个常用类" class="headerlink" title="ApplicationContext的三个常用类"></a>ApplicationContext的三个常用类</h3><p>1.ClassPathXmlApplicationContext:他可以加载类路径下的配置文件，要求配置文件必须在类路径下，不在的话会加载失败（更加常用）<br>2.FileSystemXmlApplicationContext：他可以加载磁盘任意路径下的配置文件（必须有访问权限）<br>3.AnnotationConfigApplicationContext：他是用于读取注解创建容器的。</p>
+<h3 id="核心容器的两个接口"><a href="#核心容器的两个接口" class="headerlink" title="核心容器的两个接口"></a>核心容器的两个接口</h3><p>ApplicationContext：单例对象适用<br>    它在构建核心容器时，采用的是立即加载的方式，也就是说，只要一读取完配置文件马上就创建配置文件中配置的对象。<br>BeanFactory：多例对象适用<br>    它在构建核心容器时，采用的是延迟加载的方式，也就是说，什么时候根据id获取对象，什么时候再真正创建对象。</p>
+<h2 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h2><h3 id="创建bean的三种方式"><a href="#创建bean的三种方式" class="headerlink" title="创建bean的三种方式"></a>创建bean的三种方式</h3><p>1.使用默认构造函数创建bean对象<br>    在spring配置文件中使用bean标签，配以id和class属性后，且没有其他的属性和标签时，采用的就是默认构造函数创建bean对象，此时如果类中没有默认构造函数，则对象就无法创建。<br>2.使用普通工厂中的方法去创建对象（使用某个类中的方法去创建对象，并存入spring容器）<br>3.使用工厂中的静态方法创建对象（使用某个类中的静态方法创建对象，并存入spring容器）</p>
+<h3 id="bean对象的作用范围"><a href="#bean对象的作用范围" class="headerlink" title="bean对象的作用范围"></a>bean对象的作用范围</h3><p>bean中的scope属性：用于指定bean的作用范围<br>    singleton：单例的（默认值）<br>    prototype：多例的<br>    request：作用于web应用的请求范围<br>    session：作用于web应用的会话范围<br>    global-session：作用于集群环境的会话范围（全局会话范围），当不是集群环境时，他就是session</p>
+<h3 id="bean对象的声明周期"><a href="#bean对象的声明周期" class="headerlink" title="bean对象的声明周期"></a>bean对象的声明周期</h3><p>1.单例对象<br>    出生：当容器创建时对象出生<br>    活着：只要容器还在，对象一直活着<br>    死亡：容器销毁，对象消亡<br>    总结：单例对象的生命周期和容器相同<br>2.多例对象<br>    出生：当使用对象时，spring框架帮我们创建<br>    活着：对象只要在使用过程中就一直活着<br>    死亡：当对象长时间不使用且没有对象引用时，由GC回收</p>
+<h2 id="依赖注入-DI"><a href="#依赖注入-DI" class="headerlink" title="依赖注入  DI"></a>依赖注入  DI</h2><p>1.依赖关系的维护交给Spring来做，当当前类需要使用其他类的对象时，由Spring来提供，我们只需要在配置文件中声明即可。这种依赖关系的维护就称之为依赖注入。</p>
+<p>2.如果是经常变化的数据，不适用于依赖注入。</p>
+<h3 id="能注入的数据"><a href="#能注入的数据" class="headerlink" title="能注入的数据"></a>能注入的数据</h3><p>1.基本类型和String<br>2.其他Bean类型（在配置文件或注解中声明的类型）<br>3.复杂类型/集合类</p>
+<h3 id="注入的方式"><a href="#注入的方式" class="headerlink" title="注入的方式"></a>注入的方式</h3><p>1.使用构造方法提供<br>    标签：constructor-arg<br>    标签出现的位置：bean标签的内部<br>    属性：<br>        type:指定要注入的数据的数据类型<br>        index:指定索引为构造函数参数赋值<br>        name:指定构造函数的参数名赋值<br>        value:提供基本类型和String类型的数据<br>        ref:其他bean类型，指的时在SpringIOC核心容器中出现过的bean对象<br>    优点：<br>        获取对象时需要注入数据，否则无法创建对象<br>    缺点：<br>        改变了bean对象的实例化方式，即便是我们不需要的数据，也需要注入<br>2.使用set方法提供 -&gt; 更加常用的方式<br>    标签：property<br>    标签出现的位置：bean标签的内部<br>    属性：<br>        name：指定注入时调用的set方法名称。<br>        value：提供基本数据类型和String<br>        ref：其他bean类型<br>    优点：<br>        创建对象时没有明确的限制，可以使用默认构造函数<br>    缺点：<br>        如果某个成员变量必须有值，则获取对象时set方法可能并没有执行<br>3.对于集合数据的注入 -&gt; 使用set方法<br>    1. 用于给list结构注入的标签:array、list、set<br>    2. 用于给map结构注入的标签:map、props<br>        数组：array标签中嵌套value<br>        List：list标签中嵌套value<br>        Set：set标签中嵌套value<br>        Map：map标签中嵌套entry，entry中设置key和value<br>        Properties：props标签中嵌套prop，prop中设置key和value<br>4.由注解提供</p>
+<h2 id="注解-gt-11个"><a href="#注解-gt-11个" class="headerlink" title="注解  -&gt; 11个"></a>注解  -&gt; 11个</h2><p>0.在bean的配置文件中，加入context名称空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        https://www.springframework.org/schema/context/spring-context.xsd&quot;</span><br></pre></td></tr></table></figure>
+
+<p>配置扫描指定包名下的注解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context:component-scan base-package=&quot;包名&quot;&gt;&lt;/context:component-scan&gt;</span><br></pre></td></tr></table></figure>
+
+<p>1.用于创建对象的注解 -&gt; 相当于xml中配置的bean标签<br>    @Component<br>        作用：用于把当前类对象存入Spring容器中<br>        属性：<br>            value：用于指定bean的id，当我们不指定时，他的默认值是类名且首字母变小写<br>    <strong>对于下面的三个注解，他们的作用与属性与Component是一模一样的，他们三个是Spring框架为我们提供明确的三层使用的注解，使得层次模块更清晰</strong><br>    @Controller：一般用在表现层<br>    @Repository：一般用在持久层<br>    @Service：一般用在业务层<br>2.用于注入数据的注解 -&gt; 相当于xml中bean标签中的property标签<br>    @Autowired<br>        作用：自动按照类型注入，只要容器中有唯一的bean对象类型与要注入的变量类型相匹配就可以注入成功，如果没有一个匹配的就会报错<br>              如果有两个以上的bean对象类型匹配时，他会去匹配id，如果匹配到了则注入成功，否则注入失败<br>        出现位置：可以是变量上，也可以是方法上。<br>        细节：在使用注解注入是，set方法就不是必须的了<br>    @Qualifier<br>        作用：在按照类中注入的基础上再按照名称注入。他在给类成员注入时不能单独使用（要与Autowired配合使用），但是再给方法注入时可以。<br>        属性：<br>            value：用于指定注入bean的id<br>    @Resource<br>        作用：直接按照bean的id注入，可以直接使用<br>        属性：<br>            name：用于指定注入bean的id<br>    <strong>以上三个注解都只能注入其他bean类型，对于基本类型和String无法注入，另外，对于集合类型只能通过xml实现</strong><br>    @Value<br>        作用：用于注入基本数据类型和String类型的数据<br>        属性：<br>            value：用于指定数据的值，可以使用Spring中的spel，${表达式}</p>
+<p>3.用于改变作用范围的注解 -&gt; 相当于bean标签中使用scope属性<br>    @Scope<br>        作用：用于指定bean的作用范围<br>        属性：<br>            value：指定范围的取值，常用取值：singleton  prototype 默认的是单例的<br>4.和生命周期相关的注解 -&gt; 相当于bean标签中的init-method和destroy-method –&gt; 了解即可<br>    @PreDestroy<br>        作用：用于指定销毁方法<br>    @PostConstruct<br>        作用：用于指定初始化方法</p>
+<p><strong>细节：如果注解中的属性只有value时，value可以省略</strong></p>
+<p>5.Spring的新注解</p>
+<p>@Configuration<br>    作用：指定当前类是一个配置类<br>    细节：当配置类作为使用注解创建容器的参数时，改注解可以不写<br>@ComponentScan<br>    作用：用于指定创建容器时要扫描的包<br>    属性：下面两个属性的作用是一样的，都是指定要扫描的包名<br>        value<br>        basePackage<br>@Bean<br>    作用：用于把当前方法的返回值作为bean对象存入Spring的容器中<br>    属性：<br>        name：用于指导bean的id  -&gt; 当不写时，默认值是当前方法的名称<br>@import<br>    作用：用于导入其他的配置类</p>
+<p>@propertySource -&gt; 配置在主配置类上<br>    作用：用于指定properties文件的位置<br>    属性：<br>        value：指定文件的名称和路径<br>            关键字：classpath，表示在类路径下</p>
+<h3 id="Spring整合JUnit"><a href="#Spring整合JUnit" class="headerlink" title="Spring整合JUnit"></a>Spring整合JUnit</h3><p>1.导入Spring整合Junit的jar包<br>2.使用junit提供的@Runwith注解，将原有的main方法替换成spring提供的SpringJunit4ClassRunner.class<br>3.告知spring的运行器，spring和ioc容器的创建是基于xml还是注解，并说明xml文件或配置类的位置<br>    使用@ContextConfiguration注解<br>        属性：<br>            locations：指定xml文件的位置，加上classpath关键字表示在类路径下<br>            classes：指定注解类所在的配置，<br><strong>细节：当我们使用Spring5以上时，要求junit的版本是4.12及以上</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/11/Spring学习笔记01/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-数据结构复习笔记——图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -191,189 +362,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/10/11/数据结构复习笔记——图/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-数据结构复习笔记——树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/10/数据结构复习笔记——树/">数据结构复习笔记——树</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/10/数据结构复习笔记——树/" class="archive-article-date">
-  	<time datetime="2019-10-10T12:15:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><pre><code>1.节点
-2.根节点
-3.父节点
-4.子节点
-5.叶子节点（没有子节点的节点）
-6.节点的权（节点的值）
-7.路径（从root节点找到该节点的路线）
-8.层 （根节点是第一层）
-9.子树
-10.树的高度（最大层数）
-11.森林</code></pre><h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p>1.每个节点最多只能有两个子节点的一种形式<br>2.二叉树的子节点分为左子节点和右子节点<br>3.满二叉树：<br>    所有叶子节点都在最后一层，并且节点总数=2的n次方-1，n是层数<br>4.完全二叉树：<br>    所有的叶子节点都在最后一层或倒数第二层，并且最后一层的叶子节点在左边连续，倒数第二层的叶子节点在右边连续。<br>5.具有n个节点的完全二叉树的深度为floor(log2n)+1<br>6.深度为k的完全二叉树，节点最少有2的k减1次方个，最多有2的k次方减1个</p>
-<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>首先堆是一种完全二叉树，且具有以下性质：<br>    大顶堆：每个节点的值都大于或等于左右孩子的值（对于左右孩子的大小关系没有要求）<br>    小顶堆：每个节点的值都小于或等于左右孩子的值（对于左右孩子的大小关系没有要求）<br>对于堆排序来说，一般升序采用大顶堆，降序采用小顶堆。<br>    1.将无序队列构建成一个大顶堆。<br>    2.讲根节点，也就是最大的节点与末尾节点交换。<br>    3.重新调整交换后的结构为大顶堆，将第二大的节点交换到根节点上。<br>    4.循环执行，直到整个序列有序。<br>第一个非叶子节点的索引是arr.length/2 - 1</p>
-<h3 id="赫夫曼树-gt-带权路径长度-wpl-最短的树"><a href="#赫夫曼树-gt-带权路径长度-wpl-最短的树" class="headerlink" title="赫夫曼树 -&gt; 带权路径长度(wpl)最短的树"></a>赫夫曼树 -&gt; 带权路径长度(wpl)最短的树</h3><p>权值越大的节点距离根节点就越近</p>
-<h3 id="二叉排序树-gt-BST-Tree"><a href="#二叉排序树-gt-BST-Tree" class="headerlink" title="二叉排序树 -&gt; BST Tree"></a>二叉排序树 -&gt; BST Tree</h3><p>对于任意一个非叶子节点，要求左子节点的值比当前节点的值小，右子节点的值比当前节点的值大。</p>
-<h3 id="平衡二叉树-gt-AVL-Tree"><a href="#平衡二叉树-gt-AVL-Tree" class="headerlink" title="平衡二叉树 -&gt; AVL Tree"></a>平衡二叉树 -&gt; AVL Tree</h3><p>它是一颗孔数或他的左右两个子树的高度差不超过一，并且左右两个子树都是一颗平衡二叉树。平衡二叉树的实现方法有红黑树，伸展树等。</p>
-<p>左旋转：节点右子树与左子树的高度差大于1时<br>    1.创建一个新节点，节点的值就是根节点的值<br>    2.将新节点的左子树指向当前节点的左子树<br>    3.将新节点的右子树指向当前节点的右子树的左子树<br>    4.将当前节点的值换成当前节点的右子节点的值<br>    5.将当前节点的右子树指向右子树的右子树<br>    6.将当前节点的左子树指向新节点</p>
-<p>右旋转：节点的左子树与右子树的高度差大于1<br>    1.创建新节点，新节点的值等于根节点的值<br>    2.将新节点的右子树设置为当前节点的右子树<br>    3.将新节点的左子树设置为当前节点的左子树的右子树<br>    4.将当前节点的值设置为当前节点的左子节点的值<br>    5.将当前节点的左子树设置为当前节点的左子树的左子树<br>    6.将当前节点的右子树设置为新节点</p>
-<p>以上两种方式属于单旋转，但是某些时候进行单旋转并不能完成平衡二叉树的转换</p>
-<p>双旋转：<br>    如果当前节点的左子节点的右子树的高度大于当前节点的左子节点的左子树<br>    则先对当前节点的左子节点进行左旋转，再对当前节点进行右旋转。</p>
-<pre><code>如果当前节点的右子节点的左子树的高度大于当前节点的左子节点的右子树
-则先对当前节点的右子节点进行右旋转，再对当前节点进行左旋转。</code></pre><h3 id="多路查找树"><a href="#多路查找树" class="headerlink" title="多路查找树"></a>多路查找树</h3><p>多叉树：允许每个节点有更多的数据项和更多的子节点。</p>
-<p>优点：通过重新组织节点，减少树的高度，能对二叉树进行优化。</p>
-<h4 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h4><p><strong>所有的叶子节点都在同一层</strong></p>
-<p><strong>B树通过重新组织节点，降低树的高度，并且减少i/o读写次数来提升效率</strong></p>
-<p>1.B树的阶：<br>    节点的最多子节点个数，例如23树的阶是3，234树的阶是4</p>
-<p>2.B树的搜索：<br>    从根节点开始，对节点内的关键字（有序）序列进行二分查找，如果命中则结束，否则进去其儿子节点查询，重复直到所对应的儿子指针为空或已经是叶子节点。<br>3.关键字集合分布在整棵树中，即叶子节点和非叶子节点都存放数据。</p>
-<p>4.搜索有可能在非叶子节点结束</p>
-<p>5.其搜索性能等价于在关键字全集进行一次二分查找。</p>
-<h4 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h4><p>1.B+树与B树的区别：<br>    B+树在进行搜索时只有达到叶子节点才命中，他的性能也等价于在关键字全集进行一次二分查找。<br>2.B+树所有的关键字都出现在叶子节点的链表中，也就是数据只存在于叶子节点中（也叫稠密索引），链表中的数据也是有序的。</p>
-<p>3.非叶子节点相当于叶子节点的索引（稀疏索引），叶子节点相当于存储数据的数据层。</p>
-<p>4.B+树更适合文件索引系统</p>
-<p>5.B树与B+树没有严格的谁好谁坏的区分，根据各自的应用场景。</p>
-<h4 id="B※树"><a href="#B※树" class="headerlink" title="B※树"></a>B※树</h4><p>在B+树的基础上对于非根节点和非叶子节点加入了指向兄弟节点的指针。</p>
-<h4 id="2-3树-gt-最简单的B树"><a href="#2-3树-gt-最简单的B树" class="headerlink" title="2-3树 -&gt; 最简单的B树"></a>2-3树 -&gt; 最简单的B树</h4><p>1.2-3树的所有叶子节点都在同一层<br>2.有两个子节点的节点叫二节点，二节点要么没有子节点，要么有两个子节点<br>3.有三个子节点的节点叫三节点，三节点要么没有子节点，要么有三个子节点<br>4.2-3树是由二节点和三节点组成的</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">datastructure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/10/数据结构复习笔记——树/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-程序员的鸡汤" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/09/程序员的鸡汤/">程序员的鸡汤</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/09/程序员的鸡汤/" class="archive-article-date">
-  	<time datetime="2019-10-09T07:08:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="喝的东西"><a href="#喝的东西" class="headerlink" title="喝的东西"></a>喝的东西</h2><h3 id="我曾七次鄙视自己的灵魂"><a href="#我曾七次鄙视自己的灵魂" class="headerlink" title="我曾七次鄙视自己的灵魂"></a>我曾七次鄙视自己的灵魂</h3><p><em>《我曾七次鄙视自己的灵魂》是 纪伯伦以“自己的灵魂”为名，看穿人性所共有弱点的一首诗。诗句简单有力发人深省，督促人们拥有更高的精神境界，呼吁人们涤荡自己的灵魂，唾弃丑恶，追求高尚。</em></p>
-<p>Seven times have I despised my soul: ——Kahlil Gibran</p>
-<p>The first time when I saw her being meek that she might attain height.<br>第一次，当它本可进取时，却故作谦卑；<br>The second time when I saw her limping before the crippled.<br>第二次，当它在空虚时，用爱欲来填充；<br>The third time when she was given to choose between the hard and the easy, and she chose the easy.<br>第三次，在困难和容易之间，它选择了容易；<br>The fourth time when she committed a wrong, and comforted herself that others also commit wrong.<br>第四次，它犯了错，却借由别人也会犯错来宽慰自己；<br>The fifth time when she forbore for weakness, and attributed her patience to strength.<br>第五次，它自由软弱，却把它认为是生命的坚韧；<br>The sixth time when she despised the ugliness of a face, and knew not that it was one of her own masks.<br>第六次，当它鄙夷一张丑恶的嘴脸时，却不知那正是自己面具中的一副；<br>And the seventh time when she sang a song of praise, and deemed it a virtue.<br>第七次，它侧身于生活的污泥中，虽不甘心，却又畏首畏尾。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Me</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/09/程序员的鸡汤/">展开全文 >></a>
         </p>
       
 
@@ -529,15 +517,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Me</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,11 +529,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Me</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
             
             <div class="clearfix"></div>
