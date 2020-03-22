@@ -143,6 +143,127 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Mybatis学习笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/06/Mybatis学习笔记01/">Mybatis学习笔记01</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/06/Mybatis学习笔记01/" class="archive-article-date">
+  	<time datetime="2019-10-06T09:52:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Mybatis：持久层框架（半ORM）"><a href="#Mybatis：持久层框架（半ORM）" class="headerlink" title="Mybatis：持久层框架（半ORM）"></a>Mybatis：持久层框架（半ORM）</h2><p>将sql语句放在xml映射文件中<br>自动将输入的参数映射到sql的动态参数上<br>自动将结果集生成的内容映射到java对象</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><pre><code>1.配置文件congig.xml
+    1.引入数据库连接配置    --&gt;   db.properties就是我们配置数据库url，driver，username，password的文件。
+        &lt;properties resource=&quot;db.properties&quot;&gt;&lt;/properties&gt;
+    2.定义数据源
+        &lt;environments default=&quot;development&quot;&gt;
+            &lt;environment id=&quot;development&quot;&gt;
+                &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;
+                &lt;datasource&gt;
+                    &lt;properties name=&quot;driver&quot; value=&quot;${jdbc.driver}&quot;/&gt;
+                    &lt;properties name=&quot;url&quot; value=&quot;${jdbc.url}&quot;/&gt;
+                    &lt;properties name=&quot;username&quot; value=&quot;${jdbc.username}&quot;/&gt;
+                    &lt;properties name=&quot;password&quot; value=&quot;${jdbc.password}&quot;/&gt;
+                &lt;/datasource&gt;
+            &lt;/environment&gt;
+        &lt;/environments&gt;
+    3.定义映射文件
+        &lt;mappers&gt;
+            --&gt;第一种方式：   &lt;mapper resource=&quot;实际存放的路径下的映射文件&quot;/&gt;
+            --&gt;第二种方式(更简便)：   &lt;package name=&quot;存放映射文件的包名&quot;/&gt;
+        &lt;/mappers&gt;
+
+2.映射文件mapper.xml
+        &lt;mapper namespace=&quot;包名+接口名(dao层)&quot;&gt;
+            mapper中statement的类型,每一个语句都叫做一个statement
+            &lt;insert&gt;&lt;/insert&gt;
+            &lt;select id=&quot;接口中的方法名&quot; parameterType=&quot;int&quot; resultType=&quot;返回的对象的实体类&quot;&gt;
+                select * from 表名 where id=#{id}
+            &lt;/select&gt;
+            &lt;update&gt;&lt;/update&gt;
+            &lt;delete&gt;&lt;/delete&gt;
+        &lt;/mapper&gt;
+    *注意：
+        1.关于parameterType的注意事项：在每个statement中的参数类型parameterType表示的是映射类型，如果填写的是int的话其实实质上代表的是Integer，如果想要表示真正的int的话应该写_int,其他的数据类型也是同理。
+        2.关于resultType的注意事项：在未定义别名的情况下，返回值类型应该写对象的全类名。
+            如果想要定义别名，应在config.xml文件中定义
+                &lt;typeAliases&gt;
+                    &lt;typeAlias type=&quot;全类名&quot; alias=&quot;别名&quot;/&gt;
+                &lt;/typeAliases&gt;
+            这样以后，在映射文件中就可以使用定义好的别名了，不过这种操作不是必须的，可以直接使用全类名，定义别名还有第二种方式，就是之前也使用过的package方式
+            在&lt;typeAliases&gt;标签中直接声明&lt;package name=&quot;包名&quot;/&gt;这样的话在这个包下的所有实体类都可以直接使用他们的类名来配置resultType
+        3.关于配置好mapper.xml后接口中方法的定义，方法名就是id属性的值，参数类型就是parameterType属性的值，如果参数类型是单值类型(八大基本数据类型加字符串类型)的话对于参数名称没有要求，方法的返回值类型就是resultType属性的值。</code></pre><h3 id="MybatisUtil-–-gt-Mybatis工具类"><a href="#MybatisUtil-–-gt-Mybatis工具类" class="headerlink" title="MybatisUtil –&gt; Mybatis工具类"></a>MybatisUtil –&gt; Mybatis工具类</h3><p>1.定义静态全局SqlSessionFactory对象<br>    private static SqlSessionFactory sqlSessionFactory = null;<br>2.在静态代码块中读取配置文件，初始化SqlSessionFactory对象<br>    static{<br>        //获取字节输入流对象读取配置文件<br>        InputStream in = Resources.getResourceAsStream(“config.xml”);<br>        利用SqlSessionFactoryBuilder中的build方法初始化sqlSessionFactory对象<br>        sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);<br>    }<br>3.定义一个私有的构造函数  –&gt;  将工具类构建成单例的<br>    private MybatisUtil(){}</p>
+<p>4.获取SqlSession对象<br>    public static SqlSession getSqlSession(){<br>        return sqlSessionFactory.openSession();<br>    }</p>
+<h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><h4 id="使用接口的方式"><a href="#使用接口的方式" class="headerlink" title="使用接口的方式"></a>使用接口的方式</h4><p>1.首先利用MybatisUtil获取SqlSession对象</p>
+<p>2.使用SqlSession对象中的getMapper方法，参数是dao层接口的类，返回值就是接口的对象<br>    eg:dao = sqlSession.getMapper(IDao.class);<br>3.使用接口对象调用接口中的方法，并接收返回值</p>
+<p>4.关闭资源<br>    sqlSession.close();</p>
+<h4 id="不使用接口的方式"><a href="#不使用接口的方式" class="headerlink" title="不使用接口的方式"></a>不使用接口的方式</h4><p>1.首先利用MybatisUtil获取SqlSession对象</p>
+<p>2.直接调用sqlSession中的selectOne方法，传入在xml映射文件中配置的namespace属性的值在加上”.方法名”，以及要查询的sql语句的参数。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/06/Mybatis学习笔记01/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ArrayList源码学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -312,84 +433,9 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/02/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/02/hello-world/" class="archive-article-date">
-  	<time datetime="2019-10-02T05:33:51.716Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/02/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
+      <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
     </nav>
   
 
@@ -489,7 +535,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -498,6 +544,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,19 +563,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">

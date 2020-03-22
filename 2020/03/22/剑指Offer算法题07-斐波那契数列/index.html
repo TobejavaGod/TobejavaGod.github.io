@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Spring | The journey of coding</title>
+  <title>剑指Offer算法题07-斐波那契数列 | The journey of coding</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="The journey of coding">
-<meta property="og:url" content="http://yoursite.com/tags/Spring/index.html">
+  <meta name="description" content="问题描述写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项。斐波那契数列的定义如下： F(0) = 0,   F(1) = 1F(N) = F(N - 1) + F(N - 2), 其中 N &amp;gt; 1.斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指Offer算法题07-斐波那契数列">
+<meta property="og:url" content="http://yoursite.com/2020/03/22/剑指Offer算法题07-斐波那契数列/index.html">
 <meta property="og:site_name" content="The journey of coding">
+<meta property="og:description" content="问题描述写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项。斐波那契数列的定义如下： F(0) = 0,   F(1) = 1F(N) = F(N - 1) + F(N - 2), 其中 N &amp;gt; 1.斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-22T13:07:34.713Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The journey of coding">
+<meta name="twitter:title" content="剑指Offer算法题07-斐波那契数列">
+<meta name="twitter:description" content="问题描述写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项。斐波那契数列的定义如下： F(0) = 0,   F(1) = 1F(N) = F(N - 1) + F(N - 2), 其中 N &amp;gt; 1.斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请">
   
     <link rel="alternative" href="/atom.xml" title="The journey of coding" type="application/atom+xml">
   
@@ -141,98 +146,214 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-剑指Offer算法题07-斐波那契数列" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/13/Spring学习笔记02/" class="archive-article-date">
-  	<time datetime="2019-10-13T05:44:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-13</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/13/Spring学习笔记02/">Spring学习笔记02</a>
+    <h1 class="article-title" itemprop="name">
+      剑指Offer算法题07-斐波那契数列
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/03/22/剑指Offer算法题07-斐波那契数列/" class="archive-article-date">
+  	<time datetime="2020-03-22T12:29:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项。斐波那契数列的定义如下：</p>
+<p>F(0) = 0,   F(1) = 1<br>F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.<br>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。</p>
+<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
+<p>示例 1：</p>
+<p>输入：n = 2<br>输出：1<br>示例 2：</p>
+<p>输入：n = 5<br>输出：5</p>
+<p>提示：</p>
+<p>0 &lt;= n &lt;= 100</p>
+<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>因为自己之前了解过斐波那契数列，所以直接使用了递归的方法，但在提交的时候提示超出时间限制，所以并不能此方法。<br>在别人的解法中看到了一副图解，表明递归的方法会有重复计算的问题，因此递归法效率低下，不可取。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public int fib(int n) &#123;</span><br><span class="line">       if(n&lt;=1)&#123;</span><br><span class="line">           return n;</span><br><span class="line">       &#125;</span><br><span class="line">       return fib(n-1)+fib(n-2);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>基于动态规划的思想，根据f(n) = f(n-1)+f(n-2)变形出f(n+1) = f(n)+f(n-1)的公式，代码中求出来的结果赋值给旧的变量解决了递归方法中存在的重复计算的问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public int fib(int n) &#123;</span><br><span class="line">       int a = 0,b=1,sum;</span><br><span class="line">       for(int i = 0;i&lt;n;i++)&#123;</span><br><span class="line">           sum = (a+b)%1000000007;</span><br><span class="line">           a = b;</span><br><span class="line">           b = sum;</span><br><span class="line">       &#125;</span><br><span class="line">       return a;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>还有一种方法是记忆化递归法，也是为了解决纯递归方法中的重复计算问题，将计算出来的值存放在一个数组中，如果之后遇到了就直接拿出来用，虽然这样解决了重复计算的问题，但是由于利用了数组，<br>所以有着消耗额外空间的缺点。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/22/剑指Offer算法题07-斐波那契数列/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/11/Spring学习笔记01/" class="archive-article-date">
-  	<time datetime="2019-10-11T12:23:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-11</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/21/剑指Offer算法题06-用两个栈实现队列/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">剑指Offer算法题06-用两个栈实现队列</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/11/Spring学习笔记01/">Spring学习笔记01</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#问题描述"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#自己的解法"><span class="toc-number">1.1.</span> <span class="toc-text">自己的解法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他解法"><span class="toc-number">1.2.</span> <span class="toc-text">其他解法</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="剑指Offer算法题07-斐波那契数列" data-title="剑指Offer算法题07-斐波那契数列" data-url="http://yoursite.com/2020/03/22/剑指Offer算法题07-斐波那契数列/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -255,9 +376,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
