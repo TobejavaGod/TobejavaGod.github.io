@@ -143,6 +143,101 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Spring学习笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/11/Spring学习笔记01/">Spring学习笔记01</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/11/Spring学习笔记01/" class="archive-article-date">
+  	<time datetime="2019-10-11T12:23:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="IOC：控制反转-–-gt-降低耦合，但不能解除"><a href="#IOC：控制反转-–-gt-降低耦合，但不能解除" class="headerlink" title="IOC：控制反转   –&gt;   降低耦合，但不能解除"></a>IOC：控制反转   –&gt;   降低耦合，但不能解除</h2><h3 id="ApplicationContext的三个常用类"><a href="#ApplicationContext的三个常用类" class="headerlink" title="ApplicationContext的三个常用类"></a>ApplicationContext的三个常用类</h3><p>1.ClassPathXmlApplicationContext:他可以加载类路径下的配置文件，要求配置文件必须在类路径下，不在的话会加载失败（更加常用）<br>2.FileSystemXmlApplicationContext：他可以加载磁盘任意路径下的配置文件（必须有访问权限）<br>3.AnnotationConfigApplicationContext：他是用于读取注解创建容器的。</p>
+<h3 id="核心容器的两个接口"><a href="#核心容器的两个接口" class="headerlink" title="核心容器的两个接口"></a>核心容器的两个接口</h3><p>ApplicationContext：单例对象适用<br>    它在构建核心容器时，采用的是立即加载的方式，也就是说，只要一读取完配置文件马上就创建配置文件中配置的对象。<br>BeanFactory：多例对象适用<br>    它在构建核心容器时，采用的是延迟加载的方式，也就是说，什么时候根据id获取对象，什么时候再真正创建对象。</p>
+<h2 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h2><h3 id="创建bean的三种方式"><a href="#创建bean的三种方式" class="headerlink" title="创建bean的三种方式"></a>创建bean的三种方式</h3><p>1.使用默认构造函数创建bean对象<br>    在spring配置文件中使用bean标签，配以id和class属性后，且没有其他的属性和标签时，采用的就是默认构造函数创建bean对象，此时如果类中没有默认构造函数，则对象就无法创建。<br>2.使用普通工厂中的方法去创建对象（使用某个类中的方法去创建对象，并存入spring容器）<br>3.使用工厂中的静态方法创建对象（使用某个类中的静态方法创建对象，并存入spring容器）</p>
+<h3 id="bean对象的作用范围"><a href="#bean对象的作用范围" class="headerlink" title="bean对象的作用范围"></a>bean对象的作用范围</h3><p>bean中的scope属性：用于指定bean的作用范围<br>    singleton：单例的（默认值）<br>    prototype：多例的<br>    request：作用于web应用的请求范围<br>    session：作用于web应用的会话范围<br>    global-session：作用于集群环境的会话范围（全局会话范围），当不是集群环境时，他就是session</p>
+<h3 id="bean对象的声明周期"><a href="#bean对象的声明周期" class="headerlink" title="bean对象的声明周期"></a>bean对象的声明周期</h3><p>1.单例对象<br>    出生：当容器创建时对象出生<br>    活着：只要容器还在，对象一直活着<br>    死亡：容器销毁，对象消亡<br>    总结：单例对象的生命周期和容器相同<br>2.多例对象<br>    出生：当使用对象时，spring框架帮我们创建<br>    活着：对象只要在使用过程中就一直活着<br>    死亡：当对象长时间不使用且没有对象引用时，由GC回收</p>
+<h2 id="依赖注入-DI"><a href="#依赖注入-DI" class="headerlink" title="依赖注入  DI"></a>依赖注入  DI</h2><p>1.依赖关系的维护交给Spring来做，当当前类需要使用其他类的对象时，由Spring来提供，我们只需要在配置文件中声明即可。这种依赖关系的维护就称之为依赖注入。</p>
+<p>2.如果是经常变化的数据，不适用于依赖注入。</p>
+<h3 id="能注入的数据"><a href="#能注入的数据" class="headerlink" title="能注入的数据"></a>能注入的数据</h3><p>1.基本类型和String<br>2.其他Bean类型（在配置文件或注解中声明的类型）<br>3.复杂类型/集合类</p>
+<h3 id="注入的方式"><a href="#注入的方式" class="headerlink" title="注入的方式"></a>注入的方式</h3><p>1.使用构造方法提供<br>    标签：constructor-arg<br>    标签出现的位置：bean标签的内部<br>    属性：<br>        type:指定要注入的数据的数据类型<br>        index:指定索引为构造函数参数赋值<br>        name:指定构造函数的参数名赋值<br>        value:提供基本类型和String类型的数据<br>        ref:其他bean类型，指的时在SpringIOC核心容器中出现过的bean对象<br>    优点：<br>        获取对象时需要注入数据，否则无法创建对象<br>    缺点：<br>        改变了bean对象的实例化方式，即便是我们不需要的数据，也需要注入<br>2.使用set方法提供 -&gt; 更加常用的方式<br>    标签：property<br>    标签出现的位置：bean标签的内部<br>    属性：<br>        name：指定注入时调用的set方法名称。<br>        value：提供基本数据类型和String<br>        ref：其他bean类型<br>    优点：<br>        创建对象时没有明确的限制，可以使用默认构造函数<br>    缺点：<br>        如果某个成员变量必须有值，则获取对象时set方法可能并没有执行<br>3.对于集合数据的注入 -&gt; 使用set方法<br>    1. 用于给list结构注入的标签:array、list、set<br>    2. 用于给map结构注入的标签:map、props<br>        数组：array标签中嵌套value<br>        List：list标签中嵌套value<br>        Set：set标签中嵌套value<br>        Map：map标签中嵌套entry，entry中设置key和value<br>        Properties：props标签中嵌套prop，prop中设置key和value<br>4.由注解提供</p>
+<h2 id="注解-gt-11个"><a href="#注解-gt-11个" class="headerlink" title="注解  -&gt; 11个"></a>注解  -&gt; 11个</h2><p>0.在bean的配置文件中，加入context名称空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        https://www.springframework.org/schema/context/spring-context.xsd&quot;</span><br></pre></td></tr></table></figure>
+
+<p>配置扫描指定包名下的注解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context:component-scan base-package=&quot;包名&quot;&gt;&lt;/context:component-scan&gt;</span><br></pre></td></tr></table></figure>
+
+<p>1.用于创建对象的注解 -&gt; 相当于xml中配置的bean标签<br>    @Component<br>        作用：用于把当前类对象存入Spring容器中<br>        属性：<br>            value：用于指定bean的id，当我们不指定时，他的默认值是类名且首字母变小写<br>    <strong>对于下面的三个注解，他们的作用与属性与Component是一模一样的，他们三个是Spring框架为我们提供明确的三层使用的注解，使得层次模块更清晰</strong><br>    @Controller：一般用在表现层<br>    @Repository：一般用在持久层<br>    @Service：一般用在业务层<br>2.用于注入数据的注解 -&gt; 相当于xml中bean标签中的property标签<br>    @Autowired<br>        作用：自动按照类型注入，只要容器中有唯一的bean对象类型与要注入的变量类型相匹配就可以注入成功，如果没有一个匹配的就会报错<br>              如果有两个以上的bean对象类型匹配时，他会去匹配id，如果匹配到了则注入成功，否则注入失败<br>        出现位置：可以是变量上，也可以是方法上。<br>        细节：在使用注解注入是，set方法就不是必须的了<br>    @Qualifier<br>        作用：在按照类中注入的基础上再按照名称注入。他在给类成员注入时不能单独使用（要与Autowired配合使用），但是再给方法注入时可以。<br>        属性：<br>            value：用于指定注入bean的id<br>    @Resource<br>        作用：直接按照bean的id注入，可以直接使用<br>        属性：<br>            name：用于指定注入bean的id<br>    <strong>以上三个注解都只能注入其他bean类型，对于基本类型和String无法注入，另外，对于集合类型只能通过xml实现</strong><br>    @Value<br>        作用：用于注入基本数据类型和String类型的数据<br>        属性：<br>            value：用于指定数据的值，可以使用Spring中的spel，${表达式}</p>
+<p>3.用于改变作用范围的注解 -&gt; 相当于bean标签中使用scope属性<br>    @Scope<br>        作用：用于指定bean的作用范围<br>        属性：<br>            value：指定范围的取值，常用取值：singleton  prototype 默认的是单例的<br>4.和生命周期相关的注解 -&gt; 相当于bean标签中的init-method和destroy-method –&gt; 了解即可<br>    @PreDestroy<br>        作用：用于指定销毁方法<br>    @PostConstruct<br>        作用：用于指定初始化方法</p>
+<p><strong>细节：如果注解中的属性只有value时，value可以省略</strong></p>
+<p>5.Spring的新注解</p>
+<p>@Configuration<br>    作用：指定当前类是一个配置类<br>    细节：当配置类作为使用注解创建容器的参数时，改注解可以不写<br>@ComponentScan<br>    作用：用于指定创建容器时要扫描的包<br>    属性：下面两个属性的作用是一样的，都是指定要扫描的包名<br>        value<br>        basePackage<br>@Bean<br>    作用：用于把当前方法的返回值作为bean对象存入Spring的容器中<br>    属性：<br>        name：用于指导bean的id  -&gt; 当不写时，默认值是当前方法的名称<br>@import<br>    作用：用于导入其他的配置类</p>
+<p>@propertySource -&gt; 配置在主配置类上<br>    作用：用于指定properties文件的位置<br>    属性：<br>        value：指定文件的名称和路径<br>            关键字：classpath，表示在类路径下</p>
+<h3 id="Spring整合JUnit"><a href="#Spring整合JUnit" class="headerlink" title="Spring整合JUnit"></a>Spring整合JUnit</h3><p>1.导入Spring整合Junit的jar包<br>2.使用junit提供的@Runwith注解，将原有的main方法替换成spring提供的SpringJunit4ClassRunner.class<br>3.告知spring的运行器，spring和ioc容器的创建是基于xml还是注解，并说明xml文件或配置类的位置<br>    使用@ContextConfiguration注解<br>        属性：<br>            locations：指定xml文件的位置，加上classpath关键字表示在类路径下<br>            classes：指定注解类所在的配置，<br><strong>细节：当我们使用Spring5以上时，要求junit的版本是4.12及以上</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/11/Spring学习笔记01/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-数据结构复习笔记——图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -327,82 +422,6 @@
 
 
   
-    <article id="post-程序员的鸡汤" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/09/程序员的鸡汤/">程序员的鸡汤</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/09/程序员的鸡汤/" class="archive-article-date">
-  	<time datetime="2019-10-09T07:08:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="喝的东西"><a href="#喝的东西" class="headerlink" title="喝的东西"></a>喝的东西</h2><h3 id="我曾七次鄙视自己的灵魂"><a href="#我曾七次鄙视自己的灵魂" class="headerlink" title="我曾七次鄙视自己的灵魂"></a>我曾七次鄙视自己的灵魂</h3><p><em>《我曾七次鄙视自己的灵魂》是 纪伯伦以“自己的灵魂”为名，看穿人性所共有弱点的一首诗。诗句简单有力发人深省，督促人们拥有更高的精神境界，呼吁人们涤荡自己的灵魂，唾弃丑恶，追求高尚。</em></p>
-<p>Seven times have I despised my soul: ——Kahlil Gibran</p>
-<p>The first time when I saw her being meek that she might attain height.<br>第一次，当它本可进取时，却故作谦卑；<br>The second time when I saw her limping before the crippled.<br>第二次，当它在空虚时，用爱欲来填充；<br>The third time when she was given to choose between the hard and the easy, and she chose the easy.<br>第三次，在困难和容易之间，它选择了容易；<br>The fourth time when she committed a wrong, and comforted herself that others also commit wrong.<br>第四次，它犯了错，却借由别人也会犯错来宽慰自己；<br>The fifth time when she forbore for weakness, and attributed her patience to strength.<br>第五次，它自由软弱，却把它认为是生命的坚韧；<br>The sixth time when she despised the ugliness of a face, and knew not that it was one of her own masks.<br>第六次，当它鄙夷一张丑恶的嘴脸时，却不知那正是自己面具中的一副；<br>And the seventh time when she sang a song of praise, and deemed it a virtue.<br>第七次，它侧身于生活的污泥中，虽不甘心，却又畏首畏尾。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Me</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/09/程序员的鸡汤/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
@@ -505,7 +524,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,15 +532,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -533,6 +548,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
@@ -541,11 +560,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color3">Me</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Me</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
