@@ -143,6 +143,89 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-剑指Offer算法题14-二进制中1的个数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/29/剑指Offer算法题14-二进制中1的个数/">剑指Offer算法题14-二进制中1的个数</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/29/剑指Offer算法题14-二进制中1的个数/" class="archive-article-date">
+  	<time datetime="2020-03-29T13:12:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>请实现一个函数，输入一个整数，输出该数二进制表示中 1 的个数。例如，把 9 表示成二进制是 1001，有 2 位是 1。因此，如果输入 9，则该函数输出 2。</p>
+<p>示例 1：</p>
+<p>输入：00000000000000000000000000001011<br>输出：3<br>解释：输入的二进制串 00000000000000000000000000001011 中，共有三位为 ‘1’。<br>示例 2：</p>
+<p>输入：00000000000000000000000010000000<br>输出：1<br>解释：输入的二进制串 00000000000000000000000010000000 中，共有一位为 ‘1’。<br>示例 3：</p>
+<p>输入：11111111111111111111111111111101<br>输出：31<br>解释：输入的二进制串 11111111111111111111111111111101 中，共有 31 位为 ‘1’。</p>
+<h2 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h2><p>自己在看到这道题的时候想到了要用位运算来做，但是具体的实现并不明确</p>
+<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>将传入的数字与1作与运算，如果结果为1则代表该数字二进制的最后一位是1，如果是0则代表该数字二进制的最后一位是0，然后将该数字进行右移一位的操作，因为题中没有明确是正数还是负数，所以采用无符号右移。代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public int hammingWeight(int n) &#123;</span><br><span class="line">       int res = 0;</span><br><span class="line">       while(n != 0)&#123;</span><br><span class="line">       	res += n &amp; 1;</span><br><span class="line">       	n &gt;&gt;&gt;= 1;</span><br><span class="line">       &#125;</span><br><span class="line">       return res;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>另一种思路是使用与n-1的操作，与n-1以后，最后的结果可以消掉原二进制数字的最后一个1，代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public int hammingWeight(int n) &#123;</span><br><span class="line">       int res = 0;</span><br><span class="line">       while(n != 0)&#123;</span><br><span class="line">           res++;  //先加一</span><br><span class="line">           n &amp;= n-1; // 消掉最后的1</span><br><span class="line">       &#125;</span><br><span class="line">       return res;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/29/剑指Offer算法题14-二进制中1的个数/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-剑指Offer算法题13-剪绳子2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -307,91 +390,6 @@
 
 
   
-    <article id="post-剑指Offer算法题11-机器人的运动范围" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/26/剑指Offer算法题11-机器人的运动范围/">剑指Offer算法题11-机器人的运动范围</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/26/剑指Offer算法题11-机器人的运动范围/" class="archive-article-date">
-  	<time datetime="2020-03-26T13:09:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>地上有一个m行n列的方格，从坐标 [0,0] 到坐标 [m-1,n-1] 。一个机器人从坐标 [0, 0] 的格子开始移动，它每次可以向左、右、上、下移动一格（不能移动到方格外），也不能进入行坐标和列坐标的数位之和大于k的格子。例如，当k为18时，机器人能够进入方格 [35, 37] ，因为3+5+3+7=18。但它不能进入方格 [35, 38]，因为3+5+3+8=19。请问该机器人能够到达多少个格子？</p>
-<p>示例 1：</p>
-<p>输入：m = 2, n = 3, k = 1<br>输出：3<br>示例 1：</p>
-<p>输入：m = 3, n = 1, k = 0<br>输出：1<br>提示：</p>
-<p>1 &lt;= n,m &lt;= 100<br>0 &lt;= k &lt;= 20</p>
-<h2 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h2><p> 自己对于这道题考虑的有点少，直接使用双重遍历查看每个位置是否符合条件，没有考虑到是否可达。</p>
-<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>在解法中发现了一种与我的思路一样但是考虑完全，添加了是否可达的条件的解法，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public int movingCount(int m, int n, int k) &#123;</span><br><span class="line">       int size = 1;  //因为起始点是一定可达的，所以设初值为1</span><br><span class="line">       int[][] count = new int[m][n]; //创建二维数组</span><br><span class="line">       count[0][0] = 1; // 将第一个位置设置为1，代表可达</span><br><span class="line">       for(int i = 0;i&lt;m;i++)&#123;</span><br><span class="line">           for(int j=0;j&lt;n;j++)&#123; // 遍历数组的每一个位置</span><br><span class="line">               if(i%10+i/10+j%10+j/10&lt;=k &amp;&amp; (i&gt;0&amp;&amp;count[i-1][j]==1 || j&gt;0&amp;&amp;count[i][j-1]==1</span><br><span class="line">               || i&lt;m-1 &amp;&amp; count[i+1][j]==1 &amp;&amp; j&lt;n-1&amp;&amp;count[i][j+1]==1))&#123;</span><br><span class="line">               	// 如果满足数位之和小于等于规定值且该点有路径可达时，将该点标记为可达，结果数加一</span><br><span class="line">                   size++;</span><br><span class="line">                   count[i][j]=1;        // 标记该点为可达</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return size;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<p>还有一种解法是深度优先遍历，这里需要了解一个数位和的特性，数位和的增量公式，当(x+1)%10 = 0 时，x+1的数位和等于x的数位和-8；当(x+1)%!=0时，x+1的数位和等于x的数位和+1;根据这个性质我们可以进行深度优先的遍历。代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    int m,n,k;</span><br><span class="line">    boolean[][] visited;  //定义一个布尔类型的数组标识数组元素是否访问过</span><br><span class="line">    public int movingCount(int m, int n, int k) &#123;</span><br><span class="line">        this.m = m;</span><br><span class="line">        this.n = n;</span><br><span class="line">        this.k = k;</span><br><span class="line">        this.visited = new boolean[m][n];</span><br><span class="line">        return dfs(0,0,0,0);</span><br><span class="line">    &#125;</span><br><span class="line">    //i和j为下标，si和sj分别代表i与j的数位和</span><br><span class="line">    int dfs(int i,int j,int si,int sj)&#123;</span><br><span class="line">        if(i&lt;0||i&gt;m-1||j&lt;0||j&gt;n-1||k&lt;si+sj||visited[i][j])&#123; //如果下标越界或者数位和大于条件值或当前元素已经访问过，直接返回0</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        visited[i][j] = true; //标记当前位置为已访问</span><br><span class="line">        return 1+dfs(i+1,j,(i+1)%10==0?si-8:si+1,sj)+dfs(i,j+1,si,(j+1)%10==0?sj-8:sj+1); //最终的结果为当前位置的1和向下和向右两个方向的递归值。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/26/剑指Offer算法题11-机器人的运动范围/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -490,15 +488,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -510,6 +504,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
@@ -518,7 +516,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -526,7 +524,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Me</a>
+                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -534,11 +532,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+                <a href="javascript:void(0)" class="js-tag color3">Me</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
               </li>
             
             <div class="clearfix"></div>
