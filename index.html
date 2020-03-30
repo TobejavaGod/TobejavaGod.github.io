@@ -143,6 +143,90 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-剑指Offer算法题15-数值的整数次方" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/30/剑指Offer算法题15-数值的整数次方/">剑指Offer算法题15-数值的整数次方</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/30/剑指Offer算法题15-数值的整数次方/" class="archive-article-date">
+  	<time datetime="2020-03-30T13:17:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>实现函数double Power(double base, int exponent)，求base的exponent次方。不得使用库函数，同时不需要考虑大数问题。</p>
+<p>示例 1:</p>
+<p>输入: 2.00000, 10<br>输出: 1024.00000<br>示例 2:</p>
+<p>输入: 2.10000, 3<br>输出: 9.26100<br>示例 3:</p>
+<p>输入: 2.00000, -2<br>输出: 0.25000<br>解释: 2-2 = 1/22 = 1/4 = 0.25</p>
+<p>说明:</p>
+<p>-100.0 &lt; x &lt; 100.0<br>n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</p>
+<h2 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h2><p>暴力法，循环乘n次，最终超出时间限制，不可取。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public double myPow(double x, int n) &#123;</span><br><span class="line">       if(n==0)&#123; //任何数的0次方都是1</span><br><span class="line">           return 1.0;</span><br><span class="line">       &#125;</span><br><span class="line">       if(n&gt;0)&#123;</span><br><span class="line">           double res = x;</span><br><span class="line">           for(int i = 1;i&lt;n;i++)&#123;</span><br><span class="line">               res*=x; //循环乘n次</span><br><span class="line">           &#125;</span><br><span class="line">           return res;</span><br><span class="line">       &#125;else&#123;</span><br><span class="line">           int m = -n;</span><br><span class="line">           x = 1/x;</span><br><span class="line">           double res = x;</span><br><span class="line">           for(int i=1;i&lt;m;i++)&#123;</span><br><span class="line">               res*=x;</span><br><span class="line">           &#125;</span><br><span class="line">           return res;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>有一种思路是二分法，一个数的整数次幂有两种情况，一种是偶数次幂，一种是奇数次幂。<br>根据二分推导，可通过循环 x = x^2操作，每次把幂从 n 降至 n//2，直至将幂降为 0 ；<br>设 res=1，则初始状态 x^n = x^n x res。在循环二分时，每当 n 为奇数时，将多出的一项 x 乘入 res ，则最终可化至 x^n = x^0 * res = res ，返回 res 即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public double myPow(double x, int n) &#123;</span><br><span class="line">       if(x == 0)&#123;</span><br><span class="line">           return 0; //x为0时，为了保证1/x不抛出异常所以直接返回0</span><br><span class="line">       &#125;</span><br><span class="line">       long b = n;</span><br><span class="line">       double res = 1.0;</span><br><span class="line">       if(n&lt;0)&#123;</span><br><span class="line">           b = -b;</span><br><span class="line">           x = 1 / x;</span><br><span class="line">       &#125;</span><br><span class="line">       while(b&gt;0)&#123;</span><br><span class="line">           if((b&amp;1)==1)res*=x; </span><br><span class="line">           x*=x;</span><br><span class="line">           b&gt;&gt;=1;</span><br><span class="line">       &#125;</span><br><span class="line">       return res;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/30/剑指Offer算法题15-数值的整数次方/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-剑指Offer算法题14-二进制中1的个数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -306,90 +390,6 @@
 
 
   
-    <article id="post-剑指Offer算法题12-剪绳子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/27/剑指Offer算法题12-剪绳子/">剑指Offer算法题12-剪绳子</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/27/剑指Offer算法题12-剪绳子/" class="archive-article-date">
-  	<time datetime="2020-03-27T14:01:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]<em>k[1]</em>…*k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。</p>
-<p>示例 1：</p>
-<p>输入: 2<br>输出: 1<br>解释: 2 = 1 + 1, 1 × 1 = 1<br>示例 2:</p>
-<p>输入: 10<br>输出: 36<br>解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36<br>提示：</p>
-<p>2 &lt;= n &lt;= 58</p>
-<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>此题目涉及到了贪心算法，自己还有没有深入了解过，所以将通过别人的解法，将贪心算法掌握。</p>
-<p>贪心规则：<br>最高优先级： 3 。把绳子尽可能切为多个长度为 3 的片段，留下的最后一段绳子的长度可能为 0,1,2三种情况。<br>次高优先级： 2 。若最后一段绳子长度为 2，则保留，不再拆为 1+1。<br>最低优先级： 1； 若最后一段绳子长度为 1；则应把最后的 3 + 1 替换为2+2，因为 2×2&gt;3×1</p>
-<p>当 n≤3 时，按照贪心规则应直接保留原数字，但由于题目要求必须剪成 m&gt;1 段，因此必须剪出一段长度为 1 的绳子，即返回 n - 1。<br>当 n&gt;3 时，求 nn 除以 33 的 整数部分 a 和 余数部分 b （即 n = 3a + b），并分为以下三种情况：<br>当 b = 0 时，直接返回 3^a<br>当 b = 1 时，要将一个 1+3 转换为 2+2，因此返回 3^{a-1}×4；<br>当 b = 2 时，返回 3^a×2。</p>
-<p>代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public int cuttingRope(int n) &#123;</span><br><span class="line">       if(n&lt;=3)&#123; // 当n小于3时，按道理应该直接返回，但是题目要求必须剪成至少两段，所以直接返回n-1</span><br><span class="line">           return n-1;</span><br><span class="line">       &#125;</span><br><span class="line">       int a = n / 3;  // a为绳子能剪成多少个长为三米的段</span><br><span class="line">       int b = n % 3;  // b为剪成a个三米的段剩余的长度</span><br><span class="line">       if(b == 0)&#123;</span><br><span class="line">           return (int)Math.pow(3,a);</span><br><span class="line">       &#125;</span><br><span class="line">       if(b == 1)&#123;</span><br><span class="line">           return (int)(4*Math.pow(3,a-1));</span><br><span class="line">       &#125;</span><br><span class="line">       return (int)(2*Math.pow(3,a));</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/27/剑指Offer算法题12-剪绳子/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -488,15 +488,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -504,15 +496,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,15 +524,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Me</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Me</a>
               </li>
              
               <li class="article-tag-list-item">

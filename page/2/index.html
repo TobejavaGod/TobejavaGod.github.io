@@ -143,6 +143,90 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-剑指Offer算法题12-剪绳子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/27/剑指Offer算法题12-剪绳子/">剑指Offer算法题12-剪绳子</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/27/剑指Offer算法题12-剪绳子/" class="archive-article-date">
+  	<time datetime="2020-03-27T14:01:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]<em>k[1]</em>…*k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。</p>
+<p>示例 1：</p>
+<p>输入: 2<br>输出: 1<br>解释: 2 = 1 + 1, 1 × 1 = 1<br>示例 2:</p>
+<p>输入: 10<br>输出: 36<br>解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36<br>提示：</p>
+<p>2 &lt;= n &lt;= 58</p>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>此题目涉及到了贪心算法，自己还有没有深入了解过，所以将通过别人的解法，将贪心算法掌握。</p>
+<p>贪心规则：<br>最高优先级： 3 。把绳子尽可能切为多个长度为 3 的片段，留下的最后一段绳子的长度可能为 0,1,2三种情况。<br>次高优先级： 2 。若最后一段绳子长度为 2，则保留，不再拆为 1+1。<br>最低优先级： 1； 若最后一段绳子长度为 1；则应把最后的 3 + 1 替换为2+2，因为 2×2&gt;3×1</p>
+<p>当 n≤3 时，按照贪心规则应直接保留原数字，但由于题目要求必须剪成 m&gt;1 段，因此必须剪出一段长度为 1 的绳子，即返回 n - 1。<br>当 n&gt;3 时，求 nn 除以 33 的 整数部分 a 和 余数部分 b （即 n = 3a + b），并分为以下三种情况：<br>当 b = 0 时，直接返回 3^a<br>当 b = 1 时，要将一个 1+3 转换为 2+2，因此返回 3^{a-1}×4；<br>当 b = 2 时，返回 3^a×2。</p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public int cuttingRope(int n) &#123;</span><br><span class="line">       if(n&lt;=3)&#123; // 当n小于3时，按道理应该直接返回，但是题目要求必须剪成至少两段，所以直接返回n-1</span><br><span class="line">           return n-1;</span><br><span class="line">       &#125;</span><br><span class="line">       int a = n / 3;  // a为绳子能剪成多少个长为三米的段</span><br><span class="line">       int b = n % 3;  // b为剪成a个三米的段剩余的长度</span><br><span class="line">       if(b == 0)&#123;</span><br><span class="line">           return (int)Math.pow(3,a);</span><br><span class="line">       &#125;</span><br><span class="line">       if(b == 1)&#123;</span><br><span class="line">           return (int)(4*Math.pow(3,a-1));</span><br><span class="line">       &#125;</span><br><span class="line">       return (int)(2*Math.pow(3,a));</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/27/剑指Offer算法题12-剪绳子/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-剑指Offer算法题11-机器人的运动范围" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -311,87 +395,6 @@
 
 
   
-    <article id="post-剑指Offer算法题09-旋转数组的最小数字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/24/剑指Offer算法题09-旋转数组的最小数字/">剑指Offer算法题09-旋转数组的最小数字</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/24/剑指Offer算法题09-旋转数组的最小数字/" class="archive-article-date">
-  	<time datetime="2020-03-24T12:46:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组 [3,4,5,1,2] 为 [1,2,3,4,5] 的一个旋转，该数组的最小值为1。  </p>
-<p>示例 1：</p>
-<p>输入：[3,4,5,1,2]<br>输出：1<br>示例 2：</p>
-<p>输入：[2,2,2,0,1]<br>输出：0</p>
-<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>根据自己对于题意的理解，发现这样子的数组是将最小的元素移动至数组的尾部，然后再将次小的元素移动到数组的尾部，通过这样来看的话，只要从数组的尾部遍历数组，查看当前位置的元素与前一个位置元素对的大小关系，如果当前<br>元素大于前一位元素，则讲当前元素替换为前一位元素继续判断，如果当前元素小于前一位元素，则直接返回。 代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public int minArray(int[] numbers) &#123;</span><br><span class="line">       int result = -1; //定义一个变量来存储当前的数组元素值</span><br><span class="line">       for(int i = numbers.length-1;i&gt;=0;i--)&#123; // 从后往前遍历</span><br><span class="line">           result = numbers[i]; // 存储当前下标位置的值</span><br><span class="line">           if(i&gt;=1)&#123; // 这里的判断是防止i为0的时候，下面判断语句的numbers[i-1]越界</span><br><span class="line">               if(result&lt;numbers[i-1])&#123;</span><br><span class="line">                   return result; //如果当前位置的元素的值小于前一个位置的元素的值，则证明当前元素的值即为最小值</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return result;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>在此题的题解中发现了二分法，主要的思路为当数组经过旋转时，会呈现出两个升序的排序数组的现象，我们要寻找的就是右数组的首元素，可以肯定的是左数组中的每一个值一定都大于等于右数组中的任何一个值，因此定义两个值i,j分别为数组的两端，取其中点m，若m处的值大于j处的值，说明m一定是在左数组中，因此将m+1赋值给i，缩小范围，当m处的值小于j处的值时，说明m位于右数组中，因此将m赋值给j(之所以不是m-1，是因为当前的m处元素就有可能是最终的结果)，如果当前的m处的值等于j处的值，则无法判断<br>原因：<br>    例 [1, 0, 1, 1, 1][1,0,1,1,1] ：旋转点 x = 1x=1 ，因此 m = 2m=2 在 右排序数组 中。<br>    例 [1, 1, 1, 0, 1][1,1,1,0,1] ：旋转点 x = 3x=3 ，因此 m = 2m=2 在 左排序数组 中。<br>当遇到这种情况，我们让j–，缩小搜索范围，最终代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public int minArray(int[] numbers) &#123;</span><br><span class="line">       int i = 0;</span><br><span class="line">       int j = numbers.length-1;</span><br><span class="line">       while(i&lt;j)&#123;</span><br><span class="line">           int m = (i+j)/2;</span><br><span class="line">           if(numbers[m]&gt;numbers[j])&#123;</span><br><span class="line">               i = m+1;</span><br><span class="line">           &#125;else if(numbers[m]&lt;numbers[j])&#123;</span><br><span class="line">               j = m;</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">               j--;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return numbers[i];</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/24/剑指Offer算法题09-旋转数组的最小数字/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -490,15 +493,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,15 +501,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -526,15 +529,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Me</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Me</a>
               </li>
              
               <li class="article-tag-list-item">
