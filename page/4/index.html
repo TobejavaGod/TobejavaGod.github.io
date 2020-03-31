@@ -143,6 +143,94 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-剑指Offer算法题07-斐波那契数列" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/22/剑指Offer算法题07-斐波那契数列/">剑指Offer算法题07-斐波那契数列</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/22/剑指Offer算法题07-斐波那契数列/" class="archive-article-date">
+  	<time datetime="2020-03-22T12:29:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项。斐波那契数列的定义如下：</p>
+<p>F(0) = 0,   F(1) = 1<br>F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.<br>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。</p>
+<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
+<p>示例 1：</p>
+<p>输入：n = 2<br>输出：1<br>示例 2：</p>
+<p>输入：n = 5<br>输出：5</p>
+<p>提示：</p>
+<p>0 &lt;= n &lt;= 100</p>
+<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>因为自己之前了解过斐波那契数列，所以直接使用了递归的方法，但在提交的时候提示超出时间限制，所以并不能此方法。<br>在别人的解法中看到了一副图解，表明递归的方法会有重复计算的问题，因此递归法效率低下，不可取。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public int fib(int n) &#123;</span><br><span class="line">       if(n&lt;=1)&#123;</span><br><span class="line">           return n;</span><br><span class="line">       &#125;</span><br><span class="line">       return fib(n-1)+fib(n-2);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>基于动态规划的思想，根据f(n) = f(n-1)+f(n-2)变形出f(n+1) = f(n)+f(n-1)的公式，代码中求出来的结果赋值给旧的变量解决了递归方法中存在的重复计算的问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public int fib(int n) &#123;</span><br><span class="line">       int a = 0,b=1,sum;</span><br><span class="line">       for(int i = 0;i&lt;n;i++)&#123;</span><br><span class="line">           sum = (a+b)%1000000007;</span><br><span class="line">           a = b;</span><br><span class="line">           b = sum;</span><br><span class="line">       &#125;</span><br><span class="line">       return a;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>还有一种方法是记忆化递归法，也是为了解决纯递归方法中的重复计算问题，将计算出来的值存放在一个数组中，如果之后遇到了就直接拿出来用，虽然这样解决了重复计算的问题，但是由于利用了数组，<br>所以有着消耗额外空间的缺点。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/22/剑指Offer算法题07-斐波那契数列/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-剑指Offer算法题06-用两个栈实现队列" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -335,95 +423,9 @@
 
 
   
-    <article id="post-剑指Offer算法题04-从尾到头打印链表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/20/剑指Offer算法题04-从尾到头打印链表/">剑指Offer算法题04-从尾到头打印链表</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/20/剑指Offer算法题04-从尾到头打印链表/" class="archive-article-date">
-  	<time datetime="2020-03-20T11:08:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。</p>
-<p>示例 1：</p>
-<p>输入：head = [1,3,2]<br>输出：[2,3,1]</p>
-<p>限制：</p>
-<p>0 &lt;= 链表长度 &lt;= 10000</p>
-<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>对于这道题，自己的思路是，先将链表顺序输出到一个list集合中，创建一个大小等于集合size的数组，然后倒序遍历这个集合将元素插入到数组中，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public int[] reversePrint(ListNode head) &#123;</span><br><span class="line">       ListNode temp = head;</span><br><span class="line">       List&lt;Integer&gt; array = new ArrayList();</span><br><span class="line">       int i = 0;</span><br><span class="line">       while(temp!=null)&#123;</span><br><span class="line">           array.add(temp.val);</span><br><span class="line">           temp = temp.next;            </span><br><span class="line">       &#125;</span><br><span class="line">       int[] result = new int[array.size()];</span><br><span class="line">       for(int j=array.size()-1;j&gt;=0;j--)&#123;</span><br><span class="line">           result[i++] = array.get(j);</span><br><span class="line">       &#125;</span><br><span class="line">       return result;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="官方解法"><a href="#官方解法" class="headerlink" title="官方解法"></a>官方解法</h2><p>官方的解法是，利用栈的后进先出的特点，将链表元素顺序压入栈中，然后弹栈，就可以实现链表的反向输出。代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public int[] reversePrint(ListNode head) &#123;</span><br><span class="line">       Stack&lt;ListNode&gt; stack = new Stack();</span><br><span class="line">       ListNode temp = head;</span><br><span class="line">       while(temp!=null)&#123;</span><br><span class="line">           stack.push(temp);</span><br><span class="line">           temp = temp.next;</span><br><span class="line">       &#125;</span><br><span class="line">       int size = stack.size();</span><br><span class="line">       int[] array = new int[size];</span><br><span class="line">       for(int i = 0;i&lt;size;i++)&#123;</span><br><span class="line">           array[i] = stack.pop().val;</span><br><span class="line">       &#125;</span><br><span class="line">       return array;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<p>在编写官方解法的代码第一次运行时碰到了一个问题，就是没有使用一个变量来保存栈的size，而是在for循环中使用了stack的size方法，并且在循环体中使用了pop方法，这样的话，栈的大小会改变，输出的结果不对。</p>
-<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>在看别人的解法时发现了一个采用递归的方法，递归到最后一个点向前回溯，将回溯到的节点的值添加到集合中去，最后将集合转换为数组，这种方法比起我自己的方法省去了反转集合的一步，但是也还是要遍历一次，所以结果出入不大。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = new ArrayList();</span><br><span class="line">   public int[] reversePrint(ListNode head) &#123;</span><br><span class="line">       recur(head);</span><br><span class="line">       int size = list.size();</span><br><span class="line">       int[] array = new int[size];</span><br><span class="line">       for(int i = 0;i&lt;size;i++)&#123;</span><br><span class="line">           array[i] = list.get(i);</span><br><span class="line">       &#125;</span><br><span class="line">       return array;</span><br><span class="line">   &#125;</span><br><span class="line">   public void recur(ListNode head)&#123;</span><br><span class="line">       if(head==null)&#123;</span><br><span class="line">           return;</span><br><span class="line">       &#125;</span><br><span class="line">       recur(head.next);</span><br><span class="line">       list.add(head.val);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/20/剑指Offer算法题04-从尾到头打印链表/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 
@@ -523,7 +525,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,7 +537,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -543,11 +549,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -559,15 +561,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
             
             <div class="clearfix"></div>

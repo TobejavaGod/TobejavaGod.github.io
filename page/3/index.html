@@ -143,6 +143,89 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-剑指Offer算法题10-矩阵中的路径" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/25/剑指Offer算法题10-矩阵中的路径/">剑指Offer算法题10-矩阵中的路径</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/25/剑指Offer算法题10-矩阵中的路径/" class="archive-article-date">
+  	<time datetime="2020-03-25T13:05:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一格开始，每一步可以在矩阵中向左、右、上、下移动一格。如果一条路径经过了矩阵的某一格，那么该路径不能再次进入该格子。例如，在下面的3×4的矩阵中包含一条字符串“bfce”的路径（路径中的字母用加粗标出）。</p>
+<p>[[“a”,”b”,”c”,”e”],<br>[“s”,”f”,”c”,”s”],<br>[“a”,”d”,”e”,”e”]]</p>
+<p>但矩阵中不包含字符串“abfb”的路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入这个格子。</p>
+<p>示例 1：</p>
+<p>输入：board = [[“A”,”B”,”C”,”E”],[“S”,”F”,”C”,”S”],[“A”,”D”,”E”,”E”]], word = “ABCCED”<br>输出：true<br>示例 2：</p>
+<p>输入：board = [[“a”,”b”],[“c”,”d”]], word = “abcd”<br>输出：false</p>
+<h2 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h2><p>由于题中指出，路径可以从矩阵中的任意一格，所以需要先遍历矩阵，查看是否存在目标字符串的首字符，如果存在多个还需要分别考虑。还有就是要注意到每个格子只能走一次，且只能向上下左右移动。</p>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>查看别人的解法中发现了这种方法，深度优先矩阵搜索，采用递归的方法，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public boolean exist(char[][] board, String word) &#123;</span><br><span class="line">       char[] words = word.toCharArray(); //将目标字符床转换为字符数组</span><br><span class="line">       for(int i = 0;i&lt;board.length;i++)&#123;</span><br><span class="line">           for(int j = 0;j&lt;board[i].length;j++)&#123;</span><br><span class="line">               if(dfs(board,words,i,j,0))&#123;  //遍历二维数组中的每个元素调用下面的方法尝试能否有一条成功的路径</span><br><span class="line">                   return true;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return false;</span><br><span class="line">   &#125;</span><br><span class="line">   //board表示二维数组，word表示目标字符串转换成的字符数组，i代表二维数组的下标，j代表二维数组中一维数组的下标，k代表目标字符数组的下标 </span><br><span class="line">   boolean dfs(char[][] board,char[] word,int i,int j,int k)&#123;</span><br><span class="line">       if(i&lt;0 || i&gt;=board.length||j&lt;0||j&gt;=board[i].length||board[i][j]!=word[k])&#123; // 如果i或j越界或者当前的元素与目标字符数组的字符不匹配，直接返回false</span><br><span class="line">           return false;</span><br><span class="line">       &#125;</span><br><span class="line">       if(k == word.length-1)&#123; 如果当前已经匹配到最后一个就返回true</span><br><span class="line">           return true;</span><br><span class="line">       &#125;</span><br><span class="line">       char tmp = board[i][j]; 保存当前值</span><br><span class="line">       board[i][j] = &apos;/&apos;; 将当前位置赋值为‘/’，为了防止出现重复走格子。</span><br><span class="line">       boolean res =   dfs(board,word,i+1,j,k+1)||dfs(board,word,i-1,j,k+1)|| //从当前位置，向上下左右四个方向递归搜索通路。使用或是因为只要有一条就可以</span><br><span class="line">                       dfs(board,word,i,j+1,k+1)||dfs(board,word,i,j-1,k+1);</span><br><span class="line">       board[i][j] = tmp; //将当前值重置为之前的值。</span><br><span class="line">       return res; // 返回递归结果</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/25/剑指Offer算法题10-矩阵中的路径/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-剑指Offer算法题09-旋转数组的最小数字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -308,97 +391,9 @@
 
 
   
-    <article id="post-剑指Offer算法题07-斐波那契数列" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/22/剑指Offer算法题07-斐波那契数列/">剑指Offer算法题07-斐波那契数列</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/22/剑指Offer算法题07-斐波那契数列/" class="archive-article-date">
-  	<time datetime="2020-03-22T12:29:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项。斐波那契数列的定义如下：</p>
-<p>F(0) = 0,   F(1) = 1<br>F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.<br>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。</p>
-<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
-<p>示例 1：</p>
-<p>输入：n = 2<br>输出：1<br>示例 2：</p>
-<p>输入：n = 5<br>输出：5</p>
-<p>提示：</p>
-<p>0 &lt;= n &lt;= 100</p>
-<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>因为自己之前了解过斐波那契数列，所以直接使用了递归的方法，但在提交的时候提示超出时间限制，所以并不能此方法。<br>在别人的解法中看到了一副图解，表明递归的方法会有重复计算的问题，因此递归法效率低下，不可取。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public int fib(int n) &#123;</span><br><span class="line">       if(n&lt;=1)&#123;</span><br><span class="line">           return n;</span><br><span class="line">       &#125;</span><br><span class="line">       return fib(n-1)+fib(n-2);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>基于动态规划的思想，根据f(n) = f(n-1)+f(n-2)变形出f(n+1) = f(n)+f(n-1)的公式，代码中求出来的结果赋值给旧的变量解决了递归方法中存在的重复计算的问题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public int fib(int n) &#123;</span><br><span class="line">       int a = 0,b=1,sum;</span><br><span class="line">       for(int i = 0;i&lt;n;i++)&#123;</span><br><span class="line">           sum = (a+b)%1000000007;</span><br><span class="line">           a = b;</span><br><span class="line">           b = sum;</span><br><span class="line">       &#125;</span><br><span class="line">       return a;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<p>还有一种方法是记忆化递归法，也是为了解决纯递归方法中的重复计算问题，将计算出来的值存放在一个数组中，如果之后遇到了就直接拿出来用，虽然这样解决了重复计算的问题，但是由于利用了数组，<br>所以有着消耗额外空间的缺点。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/22/剑指Offer算法题07-斐波那契数列/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
@@ -498,7 +493,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -510,7 +505,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,11 +517,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -534,15 +529,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
             
             <div class="clearfix"></div>
