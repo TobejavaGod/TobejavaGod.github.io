@@ -143,6 +143,90 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-剑指Offer算法题08-青蛙跳台阶问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/23/剑指Offer算法题08-青蛙跳台阶问题/">剑指Offer算法题08-青蛙跳台阶问题</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/23/剑指Offer算法题08-青蛙跳台阶问题/" class="archive-article-date">
+  	<time datetime="2020-03-23T12:51:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。</p>
+<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
+<p>示例 1：</p>
+<p>输入：n = 2<br>输出：2<br>示例 2：</p>
+<p>输入：n = 7<br>输出：21<br>提示：</p>
+<p>0 &lt;= n &lt;= 100</p>
+<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>首先对题目进行分析，跳台阶实质上就是一个累加的过程，总共n层的台阶就是最终的结果，每一次有加一或加二两种选择，计算出有多少种不同的方法。</p>
+<h2 id="别人的解法"><a href="#别人的解法" class="headerlink" title="别人的解法"></a>别人的解法</h2><p>自己对于这道题有一些想法，但是写代码的时候却无从下手，查看了评论中他人的解法，我才发现这道题与昨天的斐波那契数列是一样的，第一时间还没理解清除。<br>我们设n层阶梯共有f(n)种跳法，那么在青蛙的最后一步中，一定只有两种情况，要么跳一层，要么跳两层，如果青蛙选择跳一层，那么它之前经过的n-1层共有f(n-1)<br>种跳法，如果青蛙选择跳两层，那么它之前跳过的n-2层有f(n-2)种跳法，所以两者加起来也就是n层阶梯的总方法数，也就是f(n) = f(n-1)+f(n-2),也就是斐波那契数列的公式，只不过最初的数字有所不同，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public int numWays(int n) &#123;</span><br><span class="line">       int a = 1,b = 1,sum=0;</span><br><span class="line">       for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">           sum = (a+b)%1000000007;</span><br><span class="line">           a = b;</span><br><span class="line">           b = sum;</span><br><span class="line">       &#125;</span><br><span class="line">       return a;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这道题的思考中，由于对斐波那契数列进行了实际化的表述变形，自己没有发现，只是想着有一定的相似性，都是可以通过递归的方法来实现的，今后还要多多加油，冲鸭！</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/23/剑指Offer算法题08-青蛙跳台阶问题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-剑指Offer算法题07-斐波那契数列" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -343,86 +427,6 @@
 
 
   
-    <article id="post-剑指Offer算法题05-重建二叉树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/21/剑指Offer算法题05-重建二叉树/">剑指Offer算法题05-重建二叉树</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/21/剑指Offer算法题05-重建二叉树/" class="archive-article-date">
-  	<time datetime="2020-03-21T13:02:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。</p>
-<p>例如，给出</p>
-<p>前序遍历 preorder = [3,9,20,15,7]<br>中序遍历 inorder = [9,3,15,20,7]<br>返回如下的二叉树：</p>
-<pre><code>3、</code></pre><p>   / <br>  9  20<br>    /  <br>   15   7</p>
-<p>限制：</p>
-<p>0 &lt;= 节点个数 &lt;= 5000</p>
-<h2 id="官方解法"><a href="#官方解法" class="headerlink" title="官方解法"></a>官方解法</h2><p>由于自己对于二叉树的知识只停留在概念的阶段，于是本题将对官方的解法进行学习分析。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/21/剑指Offer算法题05-重建二叉树/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -525,11 +529,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -541,19 +549,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
+                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
+                <a href="javascript:void(0)" class="js-tag color2">Thread</a>
               </li>
              
               <li class="article-tag-list-item">
