@@ -143,130 +143,35 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-剑指Offer算法题02-二维数组中的查找" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-剑指Offer算法题10-矩阵中的路径" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/18/剑指Offer算法题02-二维数组中的查找/">剑指Offer算法题02-二维数组中的查找</a>
+      <a class="article-title" href="/2020/03/25/剑指Offer算法题10-矩阵中的路径/">剑指Offer算法题10-矩阵中的路径</a>
     </h1>
   
 
         
-        <a href="/2020/03/18/剑指Offer算法题02-二维数组中的查找/" class="archive-article-date">
-  	<time datetime="2020-03-18T12:51:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-18</time>
+        <a href="/2020/03/25/剑指Offer算法题10-矩阵中的路径/" class="archive-article-date">
+  	<time datetime="2020-03-25T13:05:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h1><p>在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
-<p>示例:</p>
-<p>现有矩阵 matrix 如下：</p>
-<p>[<br>  [1,   4,  7, 11, 15],<br>  [2,   5,  8, 12, 19],<br>  [3,   6,  9, 16, 22],<br>  [10, 13, 14, 17, 24],<br>  [18, 21, 23, 26, 30]<br>]<br>给定 target = 5，返回 true。</p>
-<p>给定 target = 20，返回 false。</p>
-<p>限制：</p>
-<p>0 &lt;= n &lt;= 1000</p>
-<p>0 &lt;= m &lt;= 1000</p>
-<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>第一时间想到的解法还是两次遍历，遍历数组中的每个元素，如果遇到相同的就返回true，如果没有就返回false，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public boolean findNumberIn2DArray(int[][] matrix, int target) &#123;</span><br><span class="line">       for(int i=0;i&lt;matrix.length;i++)&#123;</span><br><span class="line">           for(int j = 0;j&lt;matrix[i].length;j++)&#123;</span><br><span class="line">               if(matrix[i][j]==target)&#123;</span><br><span class="line">                   return true;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return false;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="官方解法"><a href="#官方解法" class="headerlink" title="官方解法"></a>官方解法</h2><p>由于题目中所给的数组具有从左到右、从上到下都是递增的特性，但是我自己的暴力法并没有利用到这一特性，显然暴力法不是最优解，官方给出的解法是，从数组的<br>右上角出发，与当前的目标数字进行判断，如果相等直接返回true，如果当前位置的数字小于目标数字，则移到下面一行继续判断，如果当前位置的数字大于目标数字，则移到左边一行继续判断，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public boolean findNumberIn2DArray(int[][] matrix, int target) &#123;</span><br><span class="line">       if(matrix==null||matrix.length==0||matrix[0].length==0)&#123;</span><br><span class="line">           return false;</span><br><span class="line">       &#125; </span><br><span class="line">       int row = 0;</span><br><span class="line">       int col = matrix[0].length-1;</span><br><span class="line">       while(row&lt;matrix.length &amp;&amp; col&gt;=0)&#123;</span><br><span class="line">           if(matrix[row][col]==target)&#123;</span><br><span class="line">               return true;</span><br><span class="line">           &#125;</span><br><span class="line">           else if(matrix[row][col]&gt;target)&#123;</span><br><span class="line">               col--;</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">               row++;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return false;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>在解法中查看了他人的解法，有一种是从数组的左下角开始遍历的，但实质上与从右上角遍历是一样的，都是在每一次判断后能够消除一行或一列，在这里就不多赘述了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/18/剑指Offer算法题02-二维数组中的查找/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-剑指Offer算法题01-数组中的重复数字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/17/剑指Offer算法题01-数组中的重复数字/">剑指Offer算法题01-数组中的重复数字.md</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/17/剑指Offer算法题01-数组中的重复数字/" class="archive-article-date">
-  	<time datetime="2020-03-17T14:11:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h1><p>找出数组中重复的数字。</p>
-<p>在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。</p>
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一格开始，每一步可以在矩阵中向左、右、上、下移动一格。如果一条路径经过了矩阵的某一格，那么该路径不能再次进入该格子。例如，在下面的3×4的矩阵中包含一条字符串“bfce”的路径（路径中的字母用加粗标出）。</p>
+<p>[[“a”,”b”,”c”,”e”],<br>[“s”,”f”,”c”,”s”],<br>[“a”,”d”,”e”,”e”]]</p>
+<p>但矩阵中不包含字符串“abfb”的路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入这个格子。</p>
 <p>示例 1：</p>
-<p>输入：<br>[2, 3, 1, 0, 2, 5, 3]<br>输出：2 或 3 </p>
-<p>限制：</p>
-<p>2 &lt;= n &lt;= 100000</p>
-<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>第一时间想到的是两次遍历，每一次从数组的第i个位置取出元素，将它与后面剩余的元素进行判断，如果相同就返回。代码如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public int findRepeatNumber(int[] nums) &#123;</span><br><span class="line">  for(int i=0;i&lt;nums.length;i++)&#123;</span><br><span class="line">      int num = nums[i];</span><br><span class="line">      for(int j=i+1;j&lt;nums.length;j++)&#123;</span><br><span class="line">          if(num==nums[j])&#123;</span><br><span class="line">              return num;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样下来算法的时间复杂度为O(n2)</p>
-<h2 id="官方解法"><a href="#官方解法" class="headerlink" title="官方解法"></a>官方解法</h2><p>官方解法是利用了Set集合的元素不重复性，遍历数组将元素添加到Set集合中，如果添加失败了说明重复了，则返回这个添加失败的数字。代码如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public int findRepeatNumber(int[] nums) &#123;</span><br><span class="line">    HashSet&lt;Integer&gt; hashSet = new HashSet();</span><br><span class="line">    for(int num : nums)&#123;</span><br><span class="line">        if(!hashSet.add(num))&#123;</span><br><span class="line">            return num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return -1;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>官方的解法中我学习到的是HashSet的add函数，在查阅Api文档之后，发现他的返回值是Boolean类型的，代表是否插入成功。</p>
-<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>在其他解法中发现了一个思路巧妙的交换方法，我也是思考了一下才明白的，主要的思想就是，整个数组的长度是n，其中元素的大小在0~n-1之间，假如对数组进行排序之后，那么数字为0的位置应该在数组下标为0的位置，<br>所以根据这个条件，我们循环判断如果数字i所在的位置不是下标为i的位置时，就将其与数组下标为i的位置的数字进行交换，如果在交换的过程中发现重复就返回。代码如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public int findRepeatNumber(int[] nums) &#123;</span><br><span class="line">       int temp;</span><br><span class="line">       for(int i = 0;i&lt;nums.length;i++)&#123;</span><br><span class="line">       	// 如果当前位置的数字与下标不符时进入循环</span><br><span class="line">           while(nums[i]!=i)&#123;</span><br><span class="line">               if(nums[i]==nums[nums[i]])&#123;</span><br><span class="line">               	// 如果当前位置数字与它应该存在的位置的数字重复就返回</span><br><span class="line">                   return nums[i];</span><br><span class="line">               &#125;</span><br><span class="line">               // 将当前元素存放到应该存放的位置</span><br><span class="line">               temp = nums[i];</span><br><span class="line">               nums[i] = nums[temp];</span><br><span class="line">               nums[temp] = temp;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return -1;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>输入：board = [[“A”,”B”,”C”,”E”],[“S”,”F”,”C”,”S”],[“A”,”D”,”E”,”E”]], word = “ABCCED”<br>输出：true<br>示例 2：</p>
+<p>输入：board = [[“a”,”b”],[“c”,”d”]], word = “abcd”<br>输出：false</p>
+<h2 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h2><p>由于题中指出，路径可以从矩阵中的任意一格，所以需要先遍历矩阵，查看是否存在目标字符串的首字符，如果存在多个还需要分别考虑。还有就是要注意到每个格子只能走一次，且只能向上下左右移动。</p>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>查看别人的解法中发现了这种方法，深度优先矩阵搜索，采用递归的方法，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public boolean exist(char[][] board, String word) &#123;</span><br><span class="line">       char[] words = word.toCharArray(); //将目标字符床转换为字符数组</span><br><span class="line">       for(int i = 0;i&lt;board.length;i++)&#123;</span><br><span class="line">           for(int j = 0;j&lt;board[i].length;j++)&#123;</span><br><span class="line">               if(dfs(board,words,i,j,0))&#123;  //遍历二维数组中的每个元素调用下面的方法尝试能否有一条成功的路径</span><br><span class="line">                   return true;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return false;</span><br><span class="line">   &#125;</span><br><span class="line">   //board表示二维数组，word表示目标字符串转换成的字符数组，i代表二维数组的下标，j代表二维数组中一维数组的下标，k代表目标字符数组的下标 </span><br><span class="line">   boolean dfs(char[][] board,char[] word,int i,int j,int k)&#123;</span><br><span class="line">       if(i&lt;0 || i&gt;=board.length||j&lt;0||j&gt;=board[i].length||board[i][j]!=word[k])&#123; // 如果i或j越界或者当前的元素与目标字符数组的字符不匹配，直接返回false</span><br><span class="line">           return false;</span><br><span class="line">       &#125;</span><br><span class="line">       if(k == word.length-1)&#123; 如果当前已经匹配到最后一个就返回true</span><br><span class="line">           return true;</span><br><span class="line">       &#125;</span><br><span class="line">       char tmp = board[i][j]; 保存当前值</span><br><span class="line">       board[i][j] = &apos;/&apos;; 将当前位置赋值为‘/’，为了防止出现重复走格子。</span><br><span class="line">       boolean res =   dfs(board,word,i+1,j,k+1)||dfs(board,word,i-1,j,k+1)|| //从当前位置，向上下左右四个方向递归搜索通路。使用或是因为只要有一条就可以</span><br><span class="line">                       dfs(board,word,i,j+1,k+1)||dfs(board,word,i,j-1,k+1);</span><br><span class="line">       board[i][j] = tmp; //将当前值重置为之前的值。</span><br><span class="line">       return res; // 返回递归结果</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -291,7 +196,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/17/剑指Offer算法题01-数组中的重复数字/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/25/剑指Offer算法题10-矩阵中的路径/">展开全文 >></a>
         </p>
       
 
@@ -321,68 +226,118 @@
 
 
   
-    <article id="post-FastDFS学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-剑指Offer算法题09-旋转数组的最小数字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/09/FastDFS学习笔记/">FastDFS学习笔记</a>
+      <a class="article-title" href="/2020/03/24/剑指Offer算法题09-旋转数组的最小数字/">剑指Offer算法题09-旋转数组的最小数字</a>
     </h1>
   
 
         
-        <a href="/2020/01/09/FastDFS学习笔记/" class="archive-article-date">
-  	<time datetime="2020-01-09T09:24:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-09</time>
+        <a href="/2020/03/24/剑指Offer算法题09-旋转数组的最小数字/" class="archive-article-date">
+  	<time datetime="2020-03-24T12:46:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-FastDFS简介"><a href="#1-FastDFS简介" class="headerlink" title="1 FastDFS简介"></a>1 FastDFS简介</h1><p><strong>FastDFS</strong>是一款类Google FS开源的轻量级分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及FastDFS、mogileFS、HDFS、TFS等类Google FS都不是系统级的分布式文件系统，而是应用级的分布式文件存储服务。</p>
-<p>FastDFS是为互联网应用量身定做的分布式文件系统，充分考虑了<strong>冗余备份、负载均衡、线性扩容</strong>等机制，并注重高可用、高性能等指标，使用FastDFS很容易搭建一套高性能的文件服务器集群提供文件上传、下载等服务。</p>
-<h2 id="1-1-功能包括："><a href="#1-1-功能包括：" class="headerlink" title="1.1 功能包括："></a><code>1.1</code> 功能包括：</h2><p>文件存储、文件同步、文件访问（文件上传、文件下载）等，解决了大容量存储和负载均衡的问题。特别适合以文件（建议范围：4KB &lt; file_size &lt;500MB）为载体的在线服务，如相册网站、视频网站等等。</p>
-<h2 id="1-2-对比"><a href="#1-2-对比" class="headerlink" title="1.2 对比"></a>1.2 对比</h2><p>和现有的类Google FS分布式文件系统相比，FastDFS的架构和设计理念有其独到之处，主要体现在轻量级、分组方式和对等结构三个方面。</p>
-<h3 id="1-2-1-轻量级"><a href="#1-2-1-轻量级" class="headerlink" title="1.2.1 轻量级"></a>1.2.1 轻量级</h3><p>关键信息：<br>1）Tracker不记录文件索引信息，占用内存小<br>2）FastDFS不对文件进行分块存储<br>3）客户端上传的文件和Storage server上的文件一一对应<br>4）文件索引，直接根据返回的文件ID定位文件</p>
-<p>FastDFS只有两个角色：Tracker server和Storage server。Tracker server作为中心结点，其主要作用是负载均衡和调度。Tracker server在内存中记录分组和Storage server的状态等信息，不记录文件索引信息，占用的内存量很少。另外，客户端（应用）和Storage server访问Tracker server时，Tracker server扫描内存中的分组和Storage server信息，然后给出应答。由此可以看出Tracker server非常轻量化，不会成为系统瓶颈。</p>
-<p>FastDFS中的Storage server在其他文件系统中通常称作Trunk server或Data server。Storage server直接利用OS的文件系统存储文件。FastDFS不会对文件进行分块存储，客户端上传的文件和Storage server上的文件一一对应。</p>
-<p>在FastDFS中，客户端上传文件时，文件ID不是由客户端指定，而是由Storage server生成后返回给客户端的。文件ID中包含了组名、文件相对路径和文件名，Storage server可以根据文件ID直接定位到文件。因此FastDFS集群中根本不需要存储文件索引信息，这是FastDFS比较轻量级的一个例证。而其他文件系统则需要存储文件索引信息，这样的角色通常称作NameServer。其中mogileFS采用MySQL数据库来存储文件索引以及系统相关的信息，其局限性显而易见，MySQL将成为整个系统的瓶颈。</p>
-<p>FastDFS轻量级的另外一个体现是代码量较小。</p>
-<h3 id="1-2-2-分组方式"><a href="#1-2-2-分组方式" class="headerlink" title="1.2.2 分组方式"></a>1.2.2 分组方式</h3><p>关键信息：<br>1）备份配置一致性强，管理简单<br>2）可控性强，容易组内扩容和组间扩容<br>3）FastDFS对文件进行管理，Web server进行文件传输</p>
-<p>类Google FS都支持文件冗余备份，例如Google FS、TFS的备份数是3。一个文件存储到哪几个存储结点，通常采用动态分配的方式。采用这种方式，一个文件存储到的结点是不确定的。举例说明，文件备份数是3，集群中有A、B、C、D四个存储结点。文件1可能存储在A、B、C三个结点，文件2可能存储在B、C、D三个结点，文件3可能存储在A、B、D三个结点。</p>
-<p>FastDFS采用了分组存储方式。集群由一个或多个组构成，集群存储总容量为集群中所有组的存储容量之和。一个组由一台或多台存储服务器组成，同组内的多台Storage server之间是互备关系，同组存储服务器上的文件是完全一致的。文件上传、下载、删除等操作可以在组内任意一台Storage server上进行。类似木桶短板效应，一个组的存储容量为该组内存储服务器容量最小的那个，由此可见组内存储服务器的软硬件配置最好是一致的。</p>
-<p>采用分组存储方式的好处是灵活、可控性较强。比如上传文件时，可以由客户端直接指定上传到的组。一个分组的存储服务器访问压力较大时，可以在该组增加存储服务器来扩充服务能力（纵向扩容）。当系统容量不足时，可以增加组来扩充存储容量（横向扩容）。采用这样的分组存储方式，可以使用FastDFS对文件进行管理，使用主流的Web server如Apache、nginx等进行文件下载。</p>
-<h3 id="1-2-3-对等结构"><a href="#1-2-3-对等结构" class="headerlink" title="1.2.3 对等结构"></a>1.2.3 对等结构</h3><p>关键信息：<br>1）和传统的Master-Slave相比，逻辑简单<br>2）Tracker和Storage都存在对等的架构</p>
-<p>FastDFS集群中的Tracker server也可以有多台，Tracker server和Storage server均不存在单点问题。Tracker server之间是对等关系，组内的Storage server之间也是对等关系。传统的Master-Slave结构中的Master是单点，写操作仅针对Master。如果Master失效，需要将Slave提升为Master，实现逻辑会比较复杂。和Master-Slave结构相比，对等结构中所有结点的地位是相同的，每个结点都是Master，不存在单点问题。</p>
-<h1 id="2-术语"><a href="#2-术语" class="headerlink" title="2 术语"></a>2 术语</h1><p>FastDFS两个主要的角色：Tracker Server 和 Storage Server</p>
-<p>Tracker Server：跟踪服务器，主要负责调度storage节点与client通信，在访问上起负载均衡的作用，和记录storage节点的运行状态，是连接client和storage节点的枢纽。</p>
-<p>Storage Server：存储服务器，保存文件和文件的meta data</p>
-<p>Group：文件组，也可以称为卷(volume)。同组内服务器上的文件是完全相同的，做集群时往往一个组会有多台服务器，上传一个文件到同组内的一台机器上后，FastDFS会将该文件即时同步到同组内的其它所有机器上，起到备份的作用。</p>
-<p>meta data：文件相关属性，键值对（Key Value Pair）方式，如：width=1024, height=768。</p>
-<h1 id="3-FastDFS系统架构"><a href="#3-FastDFS系统架构" class="headerlink" title="3 FastDFS系统架构"></a>3 FastDFS系统架构</h1><p>FastDFS服务端有三个角色：</p>
-<p><strong>跟踪器-tracker）</strong>：跟踪服务器，主要做调度工作，起负载均衡的作用。在内存中记录集群中所有存储组和存储服务器的状态信息，是客户端和数据服务器交互的枢纽。<br><strong>存储节点-storage</strong>：存储服务器（又称：存储节点或数据服务器），文件和文件属性（meta data）都保存到存储服务器上。Storage server直接利用OS的文件系统调用管理文件。<br><strong>客户端-client</strong>：作为业务请求的发起方，通过专有接口，使用TCP/IP协议与跟踪器服务器或存储节点进行数据交互。<br>Tracker相当于FastDFS的大脑，不论是上传还是下载都是通过tracker来分配资源；客户端一般可以使用ngnix等静态服务器来调用或者做一部分的缓存；存储服务器内部分为卷（或者叫做组），卷于卷之间是平行的关系，可以根据资源的时候情况随时增加，卷内服务器文件相互同步备份，以达到容灾的目的</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/5959612-ff4ecd58dcc6b128.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/655/format/webp" alt="img">             </p>
-<p>​                                                            <u>FastDFS系统架构</u><br>从FastDFS系统架构图可以看出，Tracker server之间相互独立，不存在直接联系。</p>
-<p>客户端和Storage server主动连接Tracker server。Storage server主动向Tracker server报告其状态信息，包括磁盘剩余空间、文件同步状况、文件上传下载次数等统计信息。Storage server会连接集群中所有的Tracker server，向他们报告自己的状态。Storage server启动一个单独的线程来完成对一台Tracker server的连接和定时报告。需要说明的是，一个组包含的Storage server不是通过配置文件设定的，而是通过Tracker server获取到的。<br>不同组的Storage server之间不会相互通信，同组内的Storage server之间会相互连接进行文件同步。</p>
-<p>Storage server采用binlog文件记录文件上传、删除等更新操作。binlog中只记录文件名，不记录文件内容。</p>
-<p>文件同步只在同组内的Storage server之间进行，采用push方式，即源头服务器同步给目标服务器。只有源头数据才需要同步，备份数据并不需要再次同步，否则就构成环路了。有个例外，就是新增加一台Storage server时，由已有的一台Storage server将已有的所有数据（包括源头数据和备份数据）同步给该新增服务器。</p>
-<p>也即就是：文件上传到一个组内的某台服务器，然后此服务器就开启线程，对应用组内其他的服务器，将新增的文件同步到上面。</p>
-<p>Storage server中由专门的线程根据binlog进行文件同步。为了最大程度地避免相互影响以及出于系统简洁性考虑，Storage server对组内除自己以外的每台服务器都会启动一个线程来进行文件同步。</p>
-<p>文件同步采用增量同步方式，系统记录已同步的位置（binlog文件偏移量）到标识文件中。标识文件名格式：{dest storage IP}_{port}.mark，例如：192.168.1.14_23000.mark。</p>
-<h1 id="4-文件上传和下载的交互过程"><a href="#4-文件上传和下载的交互过程" class="headerlink" title="4 文件上传和下载的交互过程"></a>4 文件上传和下载的交互过程</h1><h2 id="4-1-FastDFS文件上传流程"><a href="#4-1-FastDFS文件上传流程" class="headerlink" title="4.1 FastDFS文件上传流程"></a>4.1 FastDFS文件上传流程</h2><p><img src="https://upload-images.jianshu.io/upload_images/5959612-bd7250d11210b100.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/542/format/webp" alt="img"></p>
-<p>FastDFS文件上传流程</p>
-<p>1、 Client询问Tracker server上传到的Storage server<br>2、 Tracker server返回一台可用的Storage server，返回的数据为该Storage server的IP地址和端口<br>3、Client直接和该Storage server建立连接，进行文件上传，Storage server返回新生成的文件ID，文件上传结束。</p>
-<h2 id="4-2-FastDFS文件下载流程"><a href="#4-2-FastDFS文件下载流程" class="headerlink" title="4.2 FastDFS文件下载流程"></a>4.2 FastDFS文件下载流程</h2><p><img src="https://upload-images.jianshu.io/upload_images/5959612-ade344b10f0dd462.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/548/format/webp" alt="img"></p>
-<p>FastDFS文件下载流程</p>
-<p>1、Client询问Tracker server可以下载指定文件的Storage server，参数为文件ID（包含组名和文件名）<br>2、Tracker server返回一台可用的Storage server<br>3、Client直接和该Storage server建立连接，完成文件下载。</p>
-<h1 id="5-HTTP访问支持"><a href="#5-HTTP访问支持" class="headerlink" title="5 HTTP访问支持"></a>5 HTTP访问支持</h1><p>我们在使用FastDFS部署一个分布式文件系统的时候，通过FastDFS的客户端API来进行文件的上传、下载、删除等操作。同时通过FastDFS的HTTP服务器来提供HTTP服务。但是FastDFS的HTTP服务较为简单，无法提供负载均衡等高性能的服务，所以FastDFS的开发者——淘宝的架构师余庆同学，为我们提供在FastDFS使用Nginx模块(fastdfs-nginx-module)。可以重定向连接到源服务器取文件,避免客户端由于复制延迟的问题,出现错误。<br><img src="https://upload-images.jianshu.io/upload_images/5959612-0d186a0083a51af1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/837/format/webp" alt="img"></p>
-<p>​                                                                <u>HTTP下载</u></p>
-<h1 id="6-FastDFS原理"><a href="#6-FastDFS原理" class="headerlink" title="6 FastDFS原理"></a>6 FastDFS原理</h1><p>存储节点采用了分组（group）的方式。存储系统由一个或多个group组成，group与group之间的文件是*相互独立的，所有group的文件容量累加就是整个存储系统中的文件容量。一个group可以由一台或多台存储服务器组成，一个group下的存储服务器中的文件都是相同的，group中的多台存储服务器起到了冗余备份和负载均衡的作用（一个组的存储容量为该组内存储服务器容量最小的那个，不同组的Storage server之间不会相互通信，同组内的Storage server之间会相互连接进行文件同步）。</p>
-<p>动态添加group<br>在group中增加服务器时，同步已有的文件由系统自动完成，同步完成后，系统自动将新增服务器切换到线上提供服务。</p>
-<p>当存储空间不足或即将耗尽时，可以动态添加group。只需要增加一台或多台服务器，并将它们配置为一个新的group，这样就扩大了存储系统的容量。</p>
-<p>FastDFS中的Storage server在其他文件系统中通常称作Trunk server或Data server。Storage server直接利用OS的文件系统存储文件。FastDFS不会对文件进行分块存储，客户端上传的文件和Storage server上的文件一一对应（FastDFS中的文件标识分为两个部分：组名和文件名，二者缺一不可）<br>注意：<br>1.group2同组的Storage2和Storage3 FastDFS服务端口必须一致.<br>2.一台服务器可以装多个组(group)但不能装同组的多个Storage,日志会报错误，日志报错原因是”注意1”<br>3.Version 4.05之前fastdfs内部绑定了libevent作为http服务器.Version 4.05之后的版本删除了内置的web http服务，内置的web http服务是个累赘，需整合Nginx作为web http服务。<br>4.启动storage server时，一直处于僵死状态.启动storage server，storage将连接tracker server，如果连不上，将一直重试。直到连接成功，启动才算真正完成!如果集群中有2台tracker server，而其中一台tracker没有启动，可能会导致storage server一直处于僵死状态</p>
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组 [3,4,5,1,2] 为 [1,2,3,4,5] 的一个旋转，该数组的最小值为1。  </p>
+<p>示例 1：</p>
+<p>输入：[3,4,5,1,2]<br>输出：1<br>示例 2：</p>
+<p>输入：[2,2,2,0,1]<br>输出：0</p>
+<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>根据自己对于题意的理解，发现这样子的数组是将最小的元素移动至数组的尾部，然后再将次小的元素移动到数组的尾部，通过这样来看的话，只要从数组的尾部遍历数组，查看当前位置的元素与前一个位置元素对的大小关系，如果当前<br>元素大于前一位元素，则讲当前元素替换为前一位元素继续判断，如果当前元素小于前一位元素，则直接返回。 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public int minArray(int[] numbers) &#123;</span><br><span class="line">       int result = -1; //定义一个变量来存储当前的数组元素值</span><br><span class="line">       for(int i = numbers.length-1;i&gt;=0;i--)&#123; // 从后往前遍历</span><br><span class="line">           result = numbers[i]; // 存储当前下标位置的值</span><br><span class="line">           if(i&gt;=1)&#123; // 这里的判断是防止i为0的时候，下面判断语句的numbers[i-1]越界</span><br><span class="line">               if(result&lt;numbers[i-1])&#123;</span><br><span class="line">                   return result; //如果当前位置的元素的值小于前一个位置的元素的值，则证明当前元素的值即为最小值</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return result;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>在此题的题解中发现了二分法，主要的思路为当数组经过旋转时，会呈现出两个升序的排序数组的现象，我们要寻找的就是右数组的首元素，可以肯定的是左数组中的每一个值一定都大于等于右数组中的任何一个值，因此定义两个值i,j分别为数组的两端，取其中点m，若m处的值大于j处的值，说明m一定是在左数组中，因此将m+1赋值给i，缩小范围，当m处的值小于j处的值时，说明m位于右数组中，因此将m赋值给j(之所以不是m-1，是因为当前的m处元素就有可能是最终的结果)，如果当前的m处的值等于j处的值，则无法判断<br>原因：<br>    例 [1, 0, 1, 1, 1][1,0,1,1,1] ：旋转点 x = 1x=1 ，因此 m = 2m=2 在 右排序数组 中。<br>    例 [1, 1, 1, 0, 1][1,1,1,0,1] ：旋转点 x = 3x=3 ，因此 m = 2m=2 在 左排序数组 中。<br>当遇到这种情况，我们让j–，缩小搜索范围，最终代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public int minArray(int[] numbers) &#123;</span><br><span class="line">       int i = 0;</span><br><span class="line">       int j = numbers.length-1;</span><br><span class="line">       while(i&lt;j)&#123;</span><br><span class="line">           int m = (i+j)/2;</span><br><span class="line">           if(numbers[m]&gt;numbers[j])&#123;</span><br><span class="line">               i = m+1;</span><br><span class="line">           &#125;else if(numbers[m]&lt;numbers[j])&#123;</span><br><span class="line">               j = m;</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">               j--;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return numbers[i];</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/24/剑指Offer算法题09-旋转数组的最小数字/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-剑指Offer算法题08-青蛙跳台阶问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/23/剑指Offer算法题08-青蛙跳台阶问题/">剑指Offer算法题08-青蛙跳台阶问题</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/23/剑指Offer算法题08-青蛙跳台阶问题/" class="archive-article-date">
+  	<time datetime="2020-03-23T12:51:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。</p>
+<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
+<p>示例 1：</p>
+<p>输入：n = 2<br>输出：2<br>示例 2：</p>
+<p>输入：n = 7<br>输出：21<br>提示：</p>
+<p>0 &lt;= n &lt;= 100</p>
+<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>首先对题目进行分析，跳台阶实质上就是一个累加的过程，总共n层的台阶就是最终的结果，每一次有加一或加二两种选择，计算出有多少种不同的方法。</p>
+<h2 id="别人的解法"><a href="#别人的解法" class="headerlink" title="别人的解法"></a>别人的解法</h2><p>自己对于这道题有一些想法，但是写代码的时候却无从下手，查看了评论中他人的解法，我才发现这道题与昨天的斐波那契数列是一样的，第一时间还没理解清除。<br>我们设n层阶梯共有f(n)种跳法，那么在青蛙的最后一步中，一定只有两种情况，要么跳一层，要么跳两层，如果青蛙选择跳一层，那么它之前经过的n-1层共有f(n-1)<br>种跳法，如果青蛙选择跳两层，那么它之前跳过的n-2层有f(n-2)种跳法，所以两者加起来也就是n层阶梯的总方法数，也就是f(n) = f(n-1)+f(n-2),也就是斐波那契数列的公式，只不过最初的数字有所不同，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public int numWays(int n) &#123;</span><br><span class="line">       int a = 1,b = 1,sum=0;</span><br><span class="line">       for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">           sum = (a+b)%1000000007;</span><br><span class="line">           a = b;</span><br><span class="line">           b = sum;</span><br><span class="line">       &#125;</span><br><span class="line">       return a;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这道题的思考中，由于对斐波那契数列进行了实际化的表述变形，自己没有发现，只是想着有一定的相似性，都是可以通过递归的方法来实现的，今后还要多多加油，冲鸭！</p>
 
       
 
@@ -396,7 +351,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">FastDFS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		
 		</ul>
@@ -406,7 +361,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/09/FastDFS学习笔记/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/23/剑指Offer算法题08-青蛙跳台阶问题/">展开全文 >></a>
         </p>
       
 
@@ -438,7 +393,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
     </nav>
   
 
@@ -534,11 +489,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -546,11 +501,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -562,11 +513,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
               </li>
              
               <li class="article-tag-list-item">

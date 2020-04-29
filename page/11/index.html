@@ -143,72 +143,31 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Mybatis学习笔记02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-设计模式学习笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/07/Mybatis学习笔记02/">Mybatis学习笔记02</a>
+      <a class="article-title" href="/2019/10/13/设计模式学习笔记01/">设计模式学习笔记01</a>
     </h1>
   
 
         
-        <a href="/2019/10/07/Mybatis学习笔记02/" class="archive-article-date">
-  	<time datetime="2019-10-07T04:39:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-07</time>
+        <a href="/2019/10/13/设计模式学习笔记01/" class="archive-article-date">
+  	<time datetime="2019-10-13T07:36:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="列名和属性名不一致的情况"><a href="#列名和属性名不一致的情况" class="headerlink" title="列名和属性名不一致的情况"></a>列名和属性名不一致的情况</h3><h4 id="使用别名"><a href="#使用别名" class="headerlink" title="使用别名"></a>使用别名</h4><p>编写sql语句时，直接将数据库中的列起上实体类中对应属性的别名</p>
-<h4 id="使用resultMap"><a href="#使用resultMap" class="headerlink" title="使用resultMap"></a>使用resultMap</h4><pre><code>在xml映射文件中配置
-&lt;resultMap type=&quot;实体类全类名（没有起别名的情况下）&quot; id=&quot;XXXresultMap&quot;&gt;
-    &lt;!-- 其中填写不一致的列,jdbcType可写可不写，Mybatis自动识别--&gt;
-    &lt;result column=&quot;数据库中列名&quot; property=&quot;实体类中属性名&quot; jdbcType=&quot;Integer&quot;/&gt;
-&lt;/resultMap&gt;
-在配置了resultMap以后相应的在select中的resultType属性就要改为resultMap，它的值为resultMap的id。
-
-细节：在配置resultMap以后，一般会将表的主键也加入，因为之后主键可能会与其他的表有关联，这是一种良好的编程习惯。
-    &lt;id column=&quot;id&quot; property=&quot;id&quot; jdbcType=&quot;Integer&quot;/&gt;</code></pre><h3 id="和-的区别"><a href="#和-的区别" class="headerlink" title="#和$的区别"></a>#和$的区别</h3><p>1.使用#传参：使用占位符的方式<br>2.使用$传参：使用字符串拼接的方式<br>    –&gt;！注意：如果参数是单值类型（简单类型），且只有一个参数，那么参数必须使用value占位！！！，并且如果参数是字符串要使用引号~<br>    尽量使用#而不是$，但是如果参数是表名或者列名的时候，只能使用$。</p>
-<h3 id="不区分大小写的查询"><a href="#不区分大小写的查询" class="headerlink" title="不区分大小写的查询"></a>不区分大小写的查询</h3><p>利用mysql中的upper或lower函数实现不区分大小写的模糊查询<br>eg: select * from 表名 where lower（列名） like ‘${value}’;</p>
-<h3 id="多参数传递-gt-分页查询"><a href="#多参数传递-gt-分页查询" class="headerlink" title="多参数传递 -&gt; 分页查询"></a>多参数传递 -&gt; 分页查询</h3><p>1.使用索引：<br>    按照参数的顺序，从0开始<br>    select * from tablename limit #{0},#{1}<br>2.使用注解：<br>    在接口声明处使用注解<br>    返回值类型 方法名(@Param(value=”offset”) int offset,@Param(value=”pagesize”) int pagesize)<br>    对应的映射文件中<br>        select * from tablename limit #{offset},#{pagesize} -&gt; 注意此处的占位参数要和注解中value的值相对应，方法中的参数名可以任意<br>3.使用map<br>    映射文件中的语句不变<br>    将参数变为map，使用时map的键就是映射文件中的占位参数，对应的值就是要传入的值。</p>
-<h3 id="插入-获取刚插入的记录的id（自增id）"><a href="#插入-获取刚插入的记录的id（自增id）" class="headerlink" title="插入 - 获取刚插入的记录的id（自增id）"></a>插入 - 获取刚插入的记录的id（自增id）</h3><p>插入语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;方法名&quot; parameterType=&quot;插入的对象&quot;&gt;</span><br><span class="line">	insert into tablename(属性) values (#&#123;属性&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
-
-<p>通过这种插入的方式，打印插入的记录会显示id为null</p>
-<p>解决方式一：<br>    在insert节点的属性中加入useGeneratedKeys=true keyProperties=”id”<br>解决方式二：<br>    在全局配置 -&gt; config文件中配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;settings&gt;</span><br><span class="line">	&lt;setting name=&quot;useGeneratedKeys&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">&lt;/settings&gt;</span><br></pre></td></tr></table></figure>
-
-<pre><code>这样方式一中的userGeneratedKeys就可以省略了，但是后面的keyProperties还需要声明</code></pre><p>解决方式三：适用于没有主键的数据库，比如Oracle<br>    在insert语句内部配置selectKey选项<br>Oracle:    <selectkey resulttype="java.lang.Integer" order="BEFORE" keyproperties="id"><br>        select seq.nextval as id from dual<br>        </selectkey></p>
-<p>Mysql”    <selectkey resulttype="java.lang.Integer" order="AFTER" keyproperties="id"><br>        select last_insert_id()<br>        </selectkey></p>
-<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><h4 id="修改记录的所有属性-gt-通过记录的id来修改"><a href="#修改记录的所有属性-gt-通过记录的id来修改" class="headerlink" title="修改记录的所有属性 -&gt; 通过记录的id来修改"></a>修改记录的所有属性 -&gt; 通过记录的id来修改</h4><p>new 一个对象，设置他的id为要修改的id，然后设置所有属性为要修改的属性，执行sql<br>update tablename set ‘字段’=#{对象中的属性} where ‘id’=#{id}</p>
-<h4 id="修改记录的某几条属性"><a href="#修改记录的某几条属性" class="headerlink" title="修改记录的某几条属性"></a>修改记录的某几条属性</h4><p>1.先查询再修改<br>    通过select方法先查出对应id的记录并返回其对象，然后修改对象中要修改的属性，最后执行update方法</p>
-<p>2.动态sql<br>    在set标签中嵌套多个if，条件是非空的时候修改，修改指定的列，未指定的不修改</p>
-<h3 id="删除-gt-通过id删除记录"><a href="#删除-gt-通过id删除记录" class="headerlink" title="删除 -&gt; 通过id删除记录"></a>删除 -&gt; 通过id删除记录</h3><p>delete from tablename where id=#{id}</p>
-<h3 id="动态sql"><a href="#动态sql" class="headerlink" title="动态sql"></a>动态sql</h3><h4 id="if"><a href="#if" class="headerlink" title="if"></a>if</h4><pre><code>&lt;if test=&quot;boolean类型值或表达式&quot;&gt;
-    test为true的时候执行if语句中的内容
-&lt;/if&gt;</code></pre><h4 id="choose-when-otherwise"><a href="#choose-when-otherwise" class="headerlink" title="choose when otherwise"></a>choose when otherwise</h4><pre><code>&lt;choose&gt;
-    &lt;when&gt;&lt;/when&gt;
-    &lt;when&gt;&lt;/when&gt;
-    ……
-    &lt;otherwise&gt;&lt;/otherwise&gt;
-&lt;/choose&gt;</code></pre><h4 id="where"><a href="#where" class="headerlink" title="where"></a>where</h4><pre><code>多条件查询 -&gt; 自动修补查询条件，查询语句中的where关键字使用where标签替代
-&lt;where&gt;
-
-&lt;/where&gt;    
-注意：不能省略多条件查询中的and或者or</code></pre><h4 id="set"><a href="#set" class="headerlink" title="set"></a>set</h4><pre><code>动态处理更新操作，自动去掉语句后面多余的逗号
-&lt;set&gt;
-&lt;/set&gt;</code></pre><h4 id="trim"><a href="#trim" class="headerlink" title="trim"></a>trim</h4><pre><code>可以代替set和where
-&lt;trim prefix=&quot;where&quot; prefixOverrides=&quot;and / or&quot;&gt;   -&gt; 忽略前面的and或or
-&lt;/trim&gt;              
-
-&lt;trim prefix=&quot;set&quot; suffixOverrides=&quot;,&quot;&gt;   -&gt; 忽略后面的逗号
-&lt;/trim&gt;</code></pre><h4 id="foreach-gt-批量删除"><a href="#foreach-gt-批量删除" class="headerlink" title="foreach  -&gt; 批量删除"></a>foreach  -&gt; 批量删除</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">delete from tablename where id in</span><br><span class="line">&lt;foreach collection=&quot;list&quot; item=&quot;item&quot; open=&quot;(&quot; close=&quot;)&quot; separator=&quot;,&quot;&gt;</span><br><span class="line">	#&#123;item&#125;</span><br><span class="line">&lt;/foreach&gt;</span><br></pre></td></tr></table></figure>
-
-<pre><code>可以传递一个list或数组，对应的collection属性的值分别是list和array</code></pre><h4 id="sql片段-重用sql语句片段"><a href="#sql片段-重用sql语句片段" class="headerlink" title="sql片段  重用sql语句片段"></a>sql片段  重用sql语句片段</h4><p>1.定义：<br>    <sql id="baseid"></sql><br>2.引用：<br>    <include refid="baseid"></include></p>
+        <h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><h2 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h2><h3 id="核心作用："><a href="#核心作用：" class="headerlink" title="核心作用："></a>核心作用：</h3><p>1.通过代理，控制对对象的访问<br>2.可以详细的控制访问某个类(对象)的方法，在调用方法前做前置处理，调用后做后置处理（即AOP的微观实现）<br>3.代理模式是面向切面编程的核心实现机制</p>
+<h4 id="核心角色："><a href="#核心角色：" class="headerlink" title="核心角色："></a>核心角色：</h4><p>1.抽象角色：<br>    定义代理角色与真实角色的公共对外方法<br>2.真实角色：<br>    实现抽象角色，定义真实角色要实现的业务逻辑供代理角色调用<br>    <strong>关注真正的业务逻辑</strong><br>3.代理角色：<br>    实现抽象角色，是对于真实角色的代理，通过真实角色的业务逻辑方法来实现抽象方法，并可以选择性的附加自己的操作。<br>    <strong>将统一的流程控制放到代理角色中处理</strong></p>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>1.安全代理：<br>    屏蔽对真实角色的直接访问<br>2.远程代理：<br>    通过代理类处理远程方法的调用<br>3.延迟加载：<br>    先加载轻量级的代理对象，当真正需要时再加载真实对象</p>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>1.静态代理（静态定义代理类）</p>
+<p>2.动态代理（动态定义代理类） -&gt; 常用<br>    * JDK自带的动态代理<br>    * javaassist字节码操作库实现<br>    * CGLIB<br>    * ASM（底层使用指令，可维护性较差）</p>
 
       
 
@@ -222,7 +181,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
         		</li>
       		
 		</ul>
@@ -232,7 +191,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/07/Mybatis学习笔记02/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/13/设计模式学习笔记01/">展开全文 >></a>
         </p>
       
 
@@ -262,74 +221,29 @@
 
 
   
-    <article id="post-Mybatis学习笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Spring学习笔记02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/06/Mybatis学习笔记01/">Mybatis学习笔记01</a>
+      <a class="article-title" href="/2019/10/13/Spring学习笔记02/">Spring学习笔记02</a>
     </h1>
   
 
         
-        <a href="/2019/10/06/Mybatis学习笔记01/" class="archive-article-date">
-  	<time datetime="2019-10-06T09:52:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
+        <a href="/2019/10/13/Spring学习笔记02/" class="archive-article-date">
+  	<time datetime="2019-10-13T05:44:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Mybatis：持久层框架（半ORM）"><a href="#Mybatis：持久层框架（半ORM）" class="headerlink" title="Mybatis：持久层框架（半ORM）"></a>Mybatis：持久层框架（半ORM）</h2><p>将sql语句放在xml映射文件中<br>自动将输入的参数映射到sql的动态参数上<br>自动将结果集生成的内容映射到java对象</p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><pre><code>1.配置文件congig.xml
-    1.引入数据库连接配置    --&gt;   db.properties就是我们配置数据库url，driver，username，password的文件。
-        &lt;properties resource=&quot;db.properties&quot;&gt;&lt;/properties&gt;
-    2.定义数据源
-        &lt;environments default=&quot;development&quot;&gt;
-            &lt;environment id=&quot;development&quot;&gt;
-                &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;
-                &lt;datasource&gt;
-                    &lt;properties name=&quot;driver&quot; value=&quot;${jdbc.driver}&quot;/&gt;
-                    &lt;properties name=&quot;url&quot; value=&quot;${jdbc.url}&quot;/&gt;
-                    &lt;properties name=&quot;username&quot; value=&quot;${jdbc.username}&quot;/&gt;
-                    &lt;properties name=&quot;password&quot; value=&quot;${jdbc.password}&quot;/&gt;
-                &lt;/datasource&gt;
-            &lt;/environment&gt;
-        &lt;/environments&gt;
-    3.定义映射文件
-        &lt;mappers&gt;
-            --&gt;第一种方式：   &lt;mapper resource=&quot;实际存放的路径下的映射文件&quot;/&gt;
-            --&gt;第二种方式(更简便)：   &lt;package name=&quot;存放映射文件的包名&quot;/&gt;
-        &lt;/mappers&gt;
-
-2.映射文件mapper.xml
-        &lt;mapper namespace=&quot;包名+接口名(dao层)&quot;&gt;
-            mapper中statement的类型,每一个语句都叫做一个statement
-            &lt;insert&gt;&lt;/insert&gt;
-            &lt;select id=&quot;接口中的方法名&quot; parameterType=&quot;int&quot; resultType=&quot;返回的对象的实体类&quot;&gt;
-                select * from 表名 where id=#{id}
-            &lt;/select&gt;
-            &lt;update&gt;&lt;/update&gt;
-            &lt;delete&gt;&lt;/delete&gt;
-        &lt;/mapper&gt;
-    *注意：
-        1.关于parameterType的注意事项：在每个statement中的参数类型parameterType表示的是映射类型，如果填写的是int的话其实实质上代表的是Integer，如果想要表示真正的int的话应该写_int,其他的数据类型也是同理。
-        2.关于resultType的注意事项：在未定义别名的情况下，返回值类型应该写对象的全类名。
-            如果想要定义别名，应在config.xml文件中定义
-                &lt;typeAliases&gt;
-                    &lt;typeAlias type=&quot;全类名&quot; alias=&quot;别名&quot;/&gt;
-                &lt;/typeAliases&gt;
-            这样以后，在映射文件中就可以使用定义好的别名了，不过这种操作不是必须的，可以直接使用全类名，定义别名还有第二种方式，就是之前也使用过的package方式
-            在&lt;typeAliases&gt;标签中直接声明&lt;package name=&quot;包名&quot;/&gt;这样的话在这个包下的所有实体类都可以直接使用他们的类名来配置resultType
-        3.关于配置好mapper.xml后接口中方法的定义，方法名就是id属性的值，参数类型就是parameterType属性的值，如果参数类型是单值类型(八大基本数据类型加字符串类型)的话对于参数名称没有要求，方法的返回值类型就是resultType属性的值。</code></pre><h3 id="MybatisUtil-–-gt-Mybatis工具类"><a href="#MybatisUtil-–-gt-Mybatis工具类" class="headerlink" title="MybatisUtil –&gt; Mybatis工具类"></a>MybatisUtil –&gt; Mybatis工具类</h3><p>1.定义静态全局SqlSessionFactory对象<br>    private static SqlSessionFactory sqlSessionFactory = null;<br>2.在静态代码块中读取配置文件，初始化SqlSessionFactory对象<br>    static{<br>        //获取字节输入流对象读取配置文件<br>        InputStream in = Resources.getResourceAsStream(“config.xml”);<br>        利用SqlSessionFactoryBuilder中的build方法初始化sqlSessionFactory对象<br>        sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);<br>    }<br>3.定义一个私有的构造函数  –&gt;  将工具类构建成单例的<br>    private MybatisUtil(){}</p>
-<p>4.获取SqlSession对象<br>    public static SqlSession getSqlSession(){<br>        return sqlSessionFactory.openSession();<br>    }</p>
-<h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><h4 id="使用接口的方式"><a href="#使用接口的方式" class="headerlink" title="使用接口的方式"></a>使用接口的方式</h4><p>1.首先利用MybatisUtil获取SqlSession对象</p>
-<p>2.使用SqlSession对象中的getMapper方法，参数是dao层接口的类，返回值就是接口的对象<br>    eg:dao = sqlSession.getMapper(IDao.class);<br>3.使用接口对象调用接口中的方法，并接收返回值</p>
-<p>4.关闭资源<br>    sqlSession.close();</p>
-<h4 id="不使用接口的方式"><a href="#不使用接口的方式" class="headerlink" title="不使用接口的方式"></a>不使用接口的方式</h4><p>1.首先利用MybatisUtil获取SqlSession对象</p>
-<p>2.直接调用sqlSession中的selectOne方法，传入在xml映射文件中配置的namespace属性的值在加上”.方法名”，以及要查询的sql语句的参数。</p>
+        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="AOP-Aspect-Oriented-Programming"><a href="#AOP-Aspect-Oriented-Programming" class="headerlink" title="AOP Aspect Oriented Programming"></a>AOP Aspect Oriented Programming</h2><p>概念：<br>    通过预编译方式和运行期动态代理实现程序功能统一维护的一种技术。AOP是对OOP的延续，是软件开发中的热点<br>意义：<br>    利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各个部分之间耦合度降低，极高程序的可重用性，同时提高了开发的效率。<br>作用：<br>    在不修改源码的情况下，对已有的方法进行增强<br>优势：<br>    减少重复代码<br>    提高开发效率<br>    维护方便<br>实现方式：<br>    动态代理技术<br><strong>简单的说，AOP就是将程序中重复的代码抽取出来，在需要执行的时候，使用动态代理的技术，在不修改源码的情况下，对现有的方法进行增强</strong></p>
+<h3 id="AOP相关术语"><a href="#AOP相关术语" class="headerlink" title="AOP相关术语"></a>AOP相关术语</h3><p>1.Joinpoint(连接点)<br>    所谓连接点指的是那些被拦截到的点。在Spring中，这些点指的是方法，因为Spring只支持方法类型的连接点<br>2.Pointout(切入点)<br>    切入点是指要对哪些连接点进行拦截的定义(所有的切入点都是连接点，但不是所有的切入点都是连接点)<br>3.Advice(通知/增强)<br>    通知是指拦截到连接点之后要做的事情就是通知<br>    类型：<br>        前置通知：执行切入点方法前的动作<br>        后置通知：执行切入点方法后的动作<br>        异常通知：catch中的动作<br>        最终通知：finally中的动作<br>        环绕通知：整个invoke方法<br>4.Introduction(引介)<br>    引介是一种特殊的通知在不修改类代码的前提下，引介可以在运行期为类动态的添加一些方法或field<br>5.Target(目标对象)<br>    代理的目标对象<br>6.Weaving(织入)<br>    织入是指把增强应用到目标对象来创建新的代理对象的过程<br>7.Proxy(代理)<br>    一个类被AOP织入增强后，就产生一个结果代理类<br>8.Aspect(切面)<br>    是值切入点和通知的结合</p>
+<h3 id="Spring基于XML的AOP"><a href="#Spring基于XML的AOP" class="headerlink" title="Spring基于XML的AOP"></a>Spring基于XML的AOP</h3><p>配置步骤：<br>    1.把通知bean也交给Spring容器来管理<br>    2.使用aop:config来标签表明开始aop的配置<br>    3.使用aop:aspect标签表明配置切面<br>        属性：<br>            id：为切面提供一个唯一标识<br>            ref：指定通知类bean的id<br>    4.在aop:aspect标签内部使用对应标签指定通知的类型<br>        例如前置通知aop:before<br>            属性：<br>                method：指定类中的哪个方法是前置通知<br>                pointcut：用于指定切入点表达式，改表达式的含义指的是对业务层中的哪些代码进行增强。<br>    切入点表达式语法：<br>        关键字：execution(表达式)<br>        表达式：<br>            访问修饰符 返回值类型 包名…类名.方法名(参数列表)<br>            访问修饰符可以省略<br>            返回值可以使用通配符，表示任意返回值<br>            包名可以使用通配符，表示任意包，但是有几级包，就要加几个”※.”<br>            包名可以使用”..”表示当前包及其子包<br>            类名和方法名都可以使用※实现通配<br>            参数列表：<br>                可以直接写数据类型：<br>                    基本类型直接写名称<br>                    引用类型写包名.类名的方式<br>                可以使用通配符表示任意类型，但是必须有参数<br>                可以使用..表示有无参数均可，有参数可以是任意类型<br>        <strong>全通配写法：※ ※..※.※(..)</strong>    </p>
 
       
 
@@ -343,7 +257,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
         		</li>
       		
 		</ul>
@@ -353,7 +267,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/06/Mybatis学习笔记01/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/13/Spring学习笔记02/">展开全文 >></a>
         </p>
       
 
@@ -383,40 +297,48 @@
 
 
   
-    <article id="post-ArrayList源码学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Spring学习笔记01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/03/ArrayList源码学习笔记/">ArrayList源码学习笔记</a>
+      <a class="article-title" href="/2019/10/11/Spring学习笔记01/">Spring学习笔记01</a>
     </h1>
   
 
         
-        <a href="/2019/10/03/ArrayList源码学习笔记/" class="archive-article-date">
-  	<time datetime="2019-10-03T06:52:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-03</time>
+        <a href="/2019/10/11/Spring学习笔记01/" class="archive-article-date">
+  	<time datetime="2019-10-11T12:23:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="集合源码篇笔记"><a href="#集合源码篇笔记" class="headerlink" title="集合源码篇笔记"></a>集合源码篇笔记</h1><h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><h3 id="初始容量"><a href="#初始容量" class="headerlink" title="初始容量"></a>初始容量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static final int DEFAULT_CAPACITY = 10;</span><br></pre></td></tr></table></figure>
+        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="IOC：控制反转-–-gt-降低耦合，但不能解除"><a href="#IOC：控制反转-–-gt-降低耦合，但不能解除" class="headerlink" title="IOC：控制反转   –&gt;   降低耦合，但不能解除"></a>IOC：控制反转   –&gt;   降低耦合，但不能解除</h2><h3 id="ApplicationContext的三个常用类"><a href="#ApplicationContext的三个常用类" class="headerlink" title="ApplicationContext的三个常用类"></a>ApplicationContext的三个常用类</h3><p>1.ClassPathXmlApplicationContext:他可以加载类路径下的配置文件，要求配置文件必须在类路径下，不在的话会加载失败（更加常用）<br>2.FileSystemXmlApplicationContext：他可以加载磁盘任意路径下的配置文件（必须有访问权限）<br>3.AnnotationConfigApplicationContext：他是用于读取注解创建容器的。</p>
+<h3 id="核心容器的两个接口"><a href="#核心容器的两个接口" class="headerlink" title="核心容器的两个接口"></a>核心容器的两个接口</h3><p>ApplicationContext：单例对象适用<br>    它在构建核心容器时，采用的是立即加载的方式，也就是说，只要一读取完配置文件马上就创建配置文件中配置的对象。<br>BeanFactory：多例对象适用<br>    它在构建核心容器时，采用的是延迟加载的方式，也就是说，什么时候根据id获取对象，什么时候再真正创建对象。</p>
+<h2 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h2><h3 id="创建bean的三种方式"><a href="#创建bean的三种方式" class="headerlink" title="创建bean的三种方式"></a>创建bean的三种方式</h3><p>1.使用默认构造函数创建bean对象<br>    在spring配置文件中使用bean标签，配以id和class属性后，且没有其他的属性和标签时，采用的就是默认构造函数创建bean对象，此时如果类中没有默认构造函数，则对象就无法创建。<br>2.使用普通工厂中的方法去创建对象（使用某个类中的方法去创建对象，并存入spring容器）<br>3.使用工厂中的静态方法创建对象（使用某个类中的静态方法创建对象，并存入spring容器）</p>
+<h3 id="bean对象的作用范围"><a href="#bean对象的作用范围" class="headerlink" title="bean对象的作用范围"></a>bean对象的作用范围</h3><p>bean中的scope属性：用于指定bean的作用范围<br>    singleton：单例的（默认值）<br>    prototype：多例的<br>    request：作用于web应用的请求范围<br>    session：作用于web应用的会话范围<br>    global-session：作用于集群环境的会话范围（全局会话范围），当不是集群环境时，他就是session</p>
+<h3 id="bean对象的声明周期"><a href="#bean对象的声明周期" class="headerlink" title="bean对象的声明周期"></a>bean对象的声明周期</h3><p>1.单例对象<br>    出生：当容器创建时对象出生<br>    活着：只要容器还在，对象一直活着<br>    死亡：容器销毁，对象消亡<br>    总结：单例对象的生命周期和容器相同<br>2.多例对象<br>    出生：当使用对象时，spring框架帮我们创建<br>    活着：对象只要在使用过程中就一直活着<br>    死亡：当对象长时间不使用且没有对象引用时，由GC回收</p>
+<h2 id="依赖注入-DI"><a href="#依赖注入-DI" class="headerlink" title="依赖注入  DI"></a>依赖注入  DI</h2><p>1.依赖关系的维护交给Spring来做，当当前类需要使用其他类的对象时，由Spring来提供，我们只需要在配置文件中声明即可。这种依赖关系的维护就称之为依赖注入。</p>
+<p>2.如果是经常变化的数据，不适用于依赖注入。</p>
+<h3 id="能注入的数据"><a href="#能注入的数据" class="headerlink" title="能注入的数据"></a>能注入的数据</h3><p>1.基本类型和String<br>2.其他Bean类型（在配置文件或注解中声明的类型）<br>3.复杂类型/集合类</p>
+<h3 id="注入的方式"><a href="#注入的方式" class="headerlink" title="注入的方式"></a>注入的方式</h3><p>1.使用构造方法提供<br>    标签：constructor-arg<br>    标签出现的位置：bean标签的内部<br>    属性：<br>        type:指定要注入的数据的数据类型<br>        index:指定索引为构造函数参数赋值<br>        name:指定构造函数的参数名赋值<br>        value:提供基本类型和String类型的数据<br>        ref:其他bean类型，指的时在SpringIOC核心容器中出现过的bean对象<br>    优点：<br>        获取对象时需要注入数据，否则无法创建对象<br>    缺点：<br>        改变了bean对象的实例化方式，即便是我们不需要的数据，也需要注入<br>2.使用set方法提供 -&gt; 更加常用的方式<br>    标签：property<br>    标签出现的位置：bean标签的内部<br>    属性：<br>        name：指定注入时调用的set方法名称。<br>        value：提供基本数据类型和String<br>        ref：其他bean类型<br>    优点：<br>        创建对象时没有明确的限制，可以使用默认构造函数<br>    缺点：<br>        如果某个成员变量必须有值，则获取对象时set方法可能并没有执行<br>3.对于集合数据的注入 -&gt; 使用set方法<br>    1. 用于给list结构注入的标签:array、list、set<br>    2. 用于给map结构注入的标签:map、props<br>        数组：array标签中嵌套value<br>        List：list标签中嵌套value<br>        Set：set标签中嵌套value<br>        Map：map标签中嵌套entry，entry中设置key和value<br>        Properties：props标签中嵌套prop，prop中设置key和value<br>4.由注解提供</p>
+<h2 id="注解-gt-11个"><a href="#注解-gt-11个" class="headerlink" title="注解  -&gt; 11个"></a>注解  -&gt; 11个</h2><p>0.在bean的配置文件中，加入context名称空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        https://www.springframework.org/schema/context/spring-context.xsd&quot;</span><br></pre></td></tr></table></figure>
 
-<h3 id="最大容量"><a href="#最大容量" class="headerlink" title="最大容量"></a>最大容量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;</span><br></pre></td></tr></table></figure>
+<p>配置扫描指定包名下的注解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context:component-scan base-package=&quot;包名&quot;&gt;&lt;/context:component-scan&gt;</span><br></pre></td></tr></table></figure>
 
-<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><h4 id="无参构造"><a href="#无参构造" class="headerlink" title="无参构造"></a>无参构造</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public ArrayList() &#123;</span><br><span class="line">        this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;  //直接返回大小为10的Object数组</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="带参构造（给定容量）"><a href="#带参构造（给定容量）" class="headerlink" title="带参构造（给定容量）"></a>带参构造（给定容量）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public ArrayList(int initialCapacity) &#123;</span><br><span class="line">        if (initialCapacity &gt; 0) &#123;   //判断传入的初始容量大小是否合法（大于0）</span><br><span class="line">            this.elementData = new Object[initialCapacity];   //如果合法的话直接初始化一个给定大小的Object数组</span><br><span class="line">        &#125; else if (initialCapacity == 0) &#123;</span><br><span class="line">            this.elementData = EMPTY_ELEMENTDATA;   //如果初始化容量设定为0的话将容器大小初始化称大小为0的空数组</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            throw new IllegalArgumentException(&quot;Illegal Capacity: &quot;+  //如果传参非法的话会抛出非法参数异常</span><br><span class="line">                                               initialCapacity);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="带参构造（给定拷贝的容器）"><a href="#带参构造（给定拷贝的容器）" class="headerlink" title="带参构造（给定拷贝的容器）"></a>带参构造（给定拷贝的容器）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public ArrayList(Collection&lt;? extends E&gt; c) &#123; //参数容器的泛型应是当前容器泛型的子类</span><br><span class="line">        elementData = c.toArray();  //将参数转为数组</span><br><span class="line">        if ((size = elementData.length) != 0) &#123;</span><br><span class="line">            // c.toArray might (incorrectly) not return Object[] (see 6260652)  --&gt;   bug</span><br><span class="line">            // 上面的是JDK源码当中的注释，说明将参数转化为数组的toArray方法并不一定返回的是Object类型的数组，如果不是的话，则要将其拷贝到一个Object数组中</span><br><span class="line">            if (elementData.getClass() != Object[].class)</span><br><span class="line">                elementData = Arrays.copyOf(elementData, size, Object[].class);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // replace with empty array.</span><br><span class="line">            this.elementData = EMPTY_ELEMENTDATA;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h4 id="trimToSize-–-gt-将当前的数组大小变为数组实际元素数量的大小，减小了内存的浪费"><a href="#trimToSize-–-gt-将当前的数组大小变为数组实际元素数量的大小，减小了内存的浪费" class="headerlink" title="trimToSize –&gt; 将当前的数组大小变为数组实际元素数量的大小，减小了内存的浪费"></a>trimToSize –&gt; 将当前的数组大小变为数组实际元素数量的大小，减小了内存的浪费</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public void trimToSize() &#123;</span><br><span class="line">       modCount++;</span><br><span class="line">       if (size &lt; elementData.length) &#123;</span><br><span class="line">           elementData = (size == 0)</span><br><span class="line">             ? EMPTY_ELEMENTDATA</span><br><span class="line">             : Arrays.copyOf(elementData, size);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="grow-–-gt-数组扩容方法"><a href="#grow-–-gt-数组扩容方法" class="headerlink" title="grow  –&gt; 数组扩容方法"></a>grow  –&gt; 数组扩容方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">private void grow(int minCapacity) &#123;</span><br><span class="line">       // overflow-conscious code</span><br><span class="line">       int oldCapacity = elementData.length;</span><br><span class="line">       int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);  //从这行我们可以看出ArrayList的扩容是原容量的1.5倍</span><br><span class="line">       if (newCapacity - minCapacity &lt; 0)</span><br><span class="line">           newCapacity = minCapacity;</span><br><span class="line">       if (newCapacity - MAX_ARRAY_SIZE &gt; 0)</span><br><span class="line">           newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">       // minCapacity is usually close to size, so this is a win:</span><br><span class="line">       elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
+<p>1.用于创建对象的注解 -&gt; 相当于xml中配置的bean标签<br>    @Component<br>        作用：用于把当前类对象存入Spring容器中<br>        属性：<br>            value：用于指定bean的id，当我们不指定时，他的默认值是类名且首字母变小写<br>    <strong>对于下面的三个注解，他们的作用与属性与Component是一模一样的，他们三个是Spring框架为我们提供明确的三层使用的注解，使得层次模块更清晰</strong><br>    @Controller：一般用在表现层<br>    @Repository：一般用在持久层<br>    @Service：一般用在业务层<br>2.用于注入数据的注解 -&gt; 相当于xml中bean标签中的property标签<br>    @Autowired<br>        作用：自动按照类型注入，只要容器中有唯一的bean对象类型与要注入的变量类型相匹配就可以注入成功，如果没有一个匹配的就会报错<br>              如果有两个以上的bean对象类型匹配时，他会去匹配id，如果匹配到了则注入成功，否则注入失败<br>        出现位置：可以是变量上，也可以是方法上。<br>        细节：在使用注解注入是，set方法就不是必须的了<br>    @Qualifier<br>        作用：在按照类中注入的基础上再按照名称注入。他在给类成员注入时不能单独使用（要与Autowired配合使用），但是再给方法注入时可以。<br>        属性：<br>            value：用于指定注入bean的id<br>    @Resource<br>        作用：直接按照bean的id注入，可以直接使用<br>        属性：<br>            name：用于指定注入bean的id<br>    <strong>以上三个注解都只能注入其他bean类型，对于基本类型和String无法注入，另外，对于集合类型只能通过xml实现</strong><br>    @Value<br>        作用：用于注入基本数据类型和String类型的数据<br>        属性：<br>            value：用于指定数据的值，可以使用Spring中的spel，${表达式}</p>
+<p>3.用于改变作用范围的注解 -&gt; 相当于bean标签中使用scope属性<br>    @Scope<br>        作用：用于指定bean的作用范围<br>        属性：<br>            value：指定范围的取值，常用取值：singleton  prototype 默认的是单例的<br>4.和生命周期相关的注解 -&gt; 相当于bean标签中的init-method和destroy-method –&gt; 了解即可<br>    @PreDestroy<br>        作用：用于指定销毁方法<br>    @PostConstruct<br>        作用：用于指定初始化方法</p>
+<p><strong>细节：如果注解中的属性只有value时，value可以省略</strong></p>
+<p>5.Spring的新注解</p>
+<p>@Configuration<br>    作用：指定当前类是一个配置类<br>    细节：当配置类作为使用注解创建容器的参数时，改注解可以不写<br>@ComponentScan<br>    作用：用于指定创建容器时要扫描的包<br>    属性：下面两个属性的作用是一样的，都是指定要扫描的包名<br>        value<br>        basePackage<br>@Bean<br>    作用：用于把当前方法的返回值作为bean对象存入Spring的容器中<br>    属性：<br>        name：用于指导bean的id  -&gt; 当不写时，默认值是当前方法的名称<br>@import<br>    作用：用于导入其他的配置类</p>
+<p>@propertySource -&gt; 配置在主配置类上<br>    作用：用于指定properties文件的位置<br>    属性：<br>        value：指定文件的名称和路径<br>            关键字：classpath，表示在类路径下</p>
+<h3 id="Spring整合JUnit"><a href="#Spring整合JUnit" class="headerlink" title="Spring整合JUnit"></a>Spring整合JUnit</h3><p>1.导入Spring整合Junit的jar包<br>2.使用junit提供的@Runwith注解，将原有的main方法替换成spring提供的SpringJunit4ClassRunner.class<br>3.告知spring的运行器，spring和ioc容器的创建是基于xml还是注解，并说明xml文件或配置类的位置<br>    使用@ContextConfiguration注解<br>        属性：<br>            locations：指定xml文件的位置，加上classpath关键字表示在类路径下<br>            classes：指定注解类所在的配置，<br><strong>细节：当我们使用Spring5以上时，要求junit的版本是4.12及以上</strong></p>
 
       
 
@@ -425,11 +347,22 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/03/ArrayList源码学习笔记/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/11/Spring学习笔记01/">展开全文 >></a>
         </p>
       
 
@@ -461,7 +394,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
     </nav>
   
 
@@ -557,11 +490,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -569,11 +502,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -585,11 +514,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
               </li>
              
               <li class="article-tag-list-item">

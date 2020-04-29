@@ -143,29 +143,29 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-程序员的鸡汤" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-SpringMVC学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/09/程序员的鸡汤/">程序员的鸡汤</a>
+      <a class="article-title" href="/2019/10/18/SpringMVC学习笔记/">SpringMVC学习笔记</a>
     </h1>
   
 
         
-        <a href="/2019/10/09/程序员的鸡汤/" class="archive-article-date">
-  	<time datetime="2019-10-09T07:08:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-09</time>
+        <a href="/2019/10/18/SpringMVC学习笔记/" class="archive-article-date">
+  	<time datetime="2019-10-18T00:18:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="喝的东西"><a href="#喝的东西" class="headerlink" title="喝的东西"></a>喝的东西</h2><h3 id="我曾七次鄙视自己的灵魂"><a href="#我曾七次鄙视自己的灵魂" class="headerlink" title="我曾七次鄙视自己的灵魂"></a>我曾七次鄙视自己的灵魂</h3><p><em>《我曾七次鄙视自己的灵魂》是 纪伯伦以“自己的灵魂”为名，看穿人性所共有弱点的一首诗。诗句简单有力发人深省，督促人们拥有更高的精神境界，呼吁人们涤荡自己的灵魂，唾弃丑恶，追求高尚。</em></p>
-<p>Seven times have I despised my soul: ——Kahlil Gibran</p>
-<p>The first time when I saw her being meek that she might attain height.<br>第一次，当它本可进取时，却故作谦卑；<br>The second time when I saw her limping before the crippled.<br>第二次，当它在空虚时，用爱欲来填充；<br>The third time when she was given to choose between the hard and the easy, and she chose the easy.<br>第三次，在困难和容易之间，它选择了容易；<br>The fourth time when she committed a wrong, and comforted herself that others also commit wrong.<br>第四次，它犯了错，却借由别人也会犯错来宽慰自己；<br>The fifth time when she forbore for weakness, and attributed her patience to strength.<br>第五次，它自由软弱，却把它认为是生命的坚韧；<br>The sixth time when she despised the ugliness of a face, and knew not that it was one of her own masks.<br>第六次，当它鄙夷一张丑恶的嘴脸时，却不知那正是自己面具中的一副；<br>And the seventh time when she sang a song of praise, and deemed it a virtue.<br>第七次，它侧身于生活的污泥中，虽不甘心，却又畏首畏尾。</p>
+        <p>#SpringMVC -&gt; 模块化</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>SpringMVC是一种基于MVC设计模型的轻量级的Web框架<br>1.优势：<br>    * 清晰的角色划分<br>        前端控制器(DispatcherServlet)<br>        请求到处理器的映射(HandlerMapping)<br>        处理器适配器(HandlerAdpater)<br>        处理器或页面控制器(ViewResolver)<br>        验证器(Validator)<br>        命令对象(Command 请求参数绑定到的对象)<br>        表单对象(Form Object 提供给表单展示和提交的对象)<br>    * 分工明确，易扩展<br>    * 命令对象是一个pojo，无序继承框架，可以直接使用对象作为业务对象<br>    * 与Spirng框架无缝集成<br>    * 可适配，通过处理器适配器可以支持任意的类作为处理器<br>    * 强大的jsp标签库，简化jsp编写<br>2.与struts2的比较<br>    共同点：<br>        都是表现层框架，都是基于MVC设计模型实现的<br>        都离不开原始的ServletAPI<br>        处理请求的机制都是一个核心控制器<br>    区别：<br>        SpringMVC的入口是Servlet，而Struts2是Filter<br>        SpringMVC是基于方法设计的，Structs2是基于类的，Structs2每次执行都会创建一个动作类。所以SpringMVC会比Structs2快<br>        SpringMVC使用更加简洁</p>
+<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><p>1.DispatcherServlet：前端控制器<br>    用户请求到达前端控制器，相当于mvc中的c，他是整个流程控制的中心，由它调用其他组件处理用户的请求，他的存在降低了组件间的耦合性<br>2.HandlerMapping：处理器映射器<br>    根据用户请求找到Handler，SpringMVC提供了不同的映射器实现不同的映射方式，如：配置文件方式，实现接口方式，注解方式等。<br>3.Handler：处理器<br>    开发中要编写的具体业务控制器，由前端控制器将请求转发到handler，handler对其请求进行处理<br>4.HandlerAdapter：处理器适配器<br>    通过HandlerAdapter对处理器进行执行，是适配器模式的应用，通过扩展适配器能够对更多类型的处理器进行执行。<br>5.View Resolver：视图解析器<br>    负责将处理结果生成View视图，View Resolver首先根据逻辑视图名解析成物理视图也就是具体的页面地址，再生成View视图对象，最后对View进行渲染将处理结果通过页面展示给用户。<br>6.View：视图<br>    SpringMVC提供了很多的视图类型的支持，包括：jstlView、freeMarker、pdfView等，我们最常用的视图就是jsp。<br>    一般情况下需要通过页面标签或页面模板技术将模型数据通过页面展示给用户，需要程序员根据蓄妾开发具体的页面。</p>
 
       
 
@@ -179,7 +179,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Me</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SpringMVC</a>
         		</li>
       		
 		</ul>
@@ -189,7 +189,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/09/程序员的鸡汤/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/18/SpringMVC学习笔记/">展开全文 >></a>
         </p>
       
 
@@ -219,62 +219,32 @@
 
 
   
-    <article id="post-Redis学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-面试题总结01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/09/Redis学习笔记/">Redis学习笔记</a>
+      <a class="article-title" href="/2019/10/17/面试题总结01/">面试题总结01</a>
     </h1>
   
 
         
-        <a href="/2019/10/09/Redis学习笔记/" class="archive-article-date">
-  	<time datetime="2019-10-09T04:08:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-09</time>
+        <a href="/2019/10/17/面试题总结01/" class="archive-article-date">
+  	<time datetime="2019-10-17T00:35:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="概念-gt-一款高性能的NOSQL系列的非关系型数据库"><a href="#概念-gt-一款高性能的NOSQL系列的非关系型数据库" class="headerlink" title="概念 -&gt; 一款高性能的NOSQL系列的非关系型数据库"></a>概念 -&gt; 一款高性能的NOSQL系列的非关系型数据库</h2><p>关系型数据库(Mysql、Oracle……)：表的形式<br>    1.数据之间有关联关系<br>    2.数据存储在硬盘的文件上<br>非关系型数据库(Redis、Hbase、MangoDB……)：键值对的形式<br>    1.数据之间没有关联关系<br>    2.数据存储在内存中<br>NOSQL:<br>    Not Only Sql,意为不仅仅是sql，是一项全新的数据库理念，泛指非关系型数据库。他的产生是为了解决大规模数据集合多重数据种类带来的挑战。<br>Redis：<br>    Redis是用C语言开发的一个开源的高性能键值对数据库。</p>
-<p>应用场景：<br>    缓存<br>    聊天室的在线好友列表<br>    任务队列（秒杀，抢购）<br>    分布式集群架构中的session分离<br>    网站访问统计<br>    数据过期处理（能够精确到ms）</p>
-<p>总结：一般会将数据存储在关系型数据库中，而nosql数据库中备份关系型数据库。</p>
-<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>在官网上下载的是linux版本的，如果想要下载Windows版本的话要去Github下载。<br>    <a href="https://github.com/microsoftarchive/redis" target="_blank" rel="noopener">github地址</a><br>    往下拉找到release page选项点击，</p>
-<h2 id="命令操作"><a href="#命令操作" class="headerlink" title="命令操作"></a>命令操作</h2><h3 id="redis的数据结构"><a href="#redis的数据结构" class="headerlink" title="redis的数据结构"></a>redis的数据结构</h3><p>redis存储的是键值对形式的数据，其中键都是字符串，值有五种不同数据结构<br>    1.字符串类型 String<br>        存储：set key value<br>        获取：get key<br>        删除：del key<br>    2.哈希类型 hash：map格式<br>        存储：hset key field value<br>        获取：<br>            * hget key field：获取指定的field对应的值<br>            * hgetall key：获取所有的field和value<br>        删除：hdel key field：删除指定的field，对应的value也会被删除<br>    3.列表类型 list：linkedlist格式 允许重复<br>        存储：<br>            * lpush key value<br>            * rpush key value<br>        获取：<br>            * lrange key start end<br>                获取所有：lrange key 0 -1<br>        删除：<br>            * lpop key：删除列表最左边的元素并返回<br>            * rpop key：删除列表最右边的元素并返回<br>    4.集合类型 set：hashset格式 不允许重复<br>        存储：sadd key value<br>        获取：smenbers key:获取set集合中所有的元素<br>        删除：srem key value:删除set集合中的某个元素<br>    5.有序集合类型 sortedset：不允许重复且自动排序<br>        存储：zadd key score value:存储数据以及数据对应的分数(通过分数进行集合成员的排序)<br>        获取：<br>            * zrange key start end<br>            * zrange key start end withscores(带分数获取元素)<br>        删除：zrem key value<br>    6.通用命令：<br>        1. keys * :查询所有的键<br>        2. type key:获取键对应的value类型<br>        3. del key:删除指定的key value</p>
-<h2 id="持久化操作"><a href="#持久化操作" class="headerlink" title="持久化操作"></a>持久化操作</h2><pre><code>1.redis是一个内存数据库，当redis服务器重启或电脑重启时，数据会丢失。我们可以将内存中的数据持久化到硬盘文件中。
-2.redis持久化机制：
-    1.RDB：默认方式，不需要进行配置
-        在一定的间隔时间中，检测key的变化情况，然后持久化数据
-        可以修改redis.windows.conf文件中的
-        save 900 1  两个数字，前一个是指等待的秒数，后一个是最少key的变化数量
-        这个例子的意思是说再默认的持久化方式下，在900秒内有至少一次的key改变就进行持久化，可以更改其中的配置，重新启动服务器，并指定配置文件的名称,指定的位置下运行 redis-server.exe redis.windows.conf
-
-        结果：会在redis的目录下生成后缀名为.rdb的文件
-
-    2.AOF(影响性能)：日志记录的方式，可以记录每一条命令的操作，每一次操作后持久化数据。
-        在配置文件中将appendonly no该成yes
-            # appendfsync always  每一次操作持久化一次
-            appendfsync everysec 每一秒持久化一次（默认方式）
-            # appendfsync no 不执行持久化
-
-        结果：会生成appendonly.aof文件</code></pre><h2 id="使用Java客户端操作Redis-Jedis-一款java操作redis数据库的工具-gt-需要jar包"><a href="#使用Java客户端操作Redis-Jedis-一款java操作redis数据库的工具-gt-需要jar包" class="headerlink" title="使用Java客户端操作Redis Jedis 一款java操作redis数据库的工具  -&gt; 需要jar包"></a>使用Java客户端操作Redis Jedis 一款java操作redis数据库的工具  -&gt; 需要jar包</h2><h3 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h3><p>1.获取连接<br>空参构造默认的就是localhost下的6379端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Jedis jedis = new Jedis(&quot;localhost&quot;,6379)</span><br></pre></td></tr></table></figure>
-
-<p>2.操作<br>普通的get和和set方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jedis.set(&quot;username&quot;,&quot;zhangsan&quot;)</span><br><span class="line">jedis.get(&quot;username&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>使用setex指定失效时间<br>jedis.setex(“username”,20,”zhangsan”) -&gt; 20秒后自动删除<br>3.关闭连接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jedis.close()</span><br></pre></td></tr></table></figure>
-
-<h3 id="Jedis连接池-：JedisPool"><a href="#Jedis连接池-：JedisPool" class="headerlink" title="Jedis连接池 ：JedisPool"></a>Jedis连接池 ：JedisPool</h3><p> 0.创建配置对象(可选)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JedisPoolConfig config = new JedisPoolConfig()</span><br><span class="line">config.setMaxTotal() //最大允许连接数</span><br><span class="line">config.setMaxIdle() //最大空闲连接</span><br></pre></td></tr></table></figure>
-
-<p> 1.创建连接池对象<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JedispPool jedispool = new JedisPool()</span><br><span class="line">//JedispPool jedispool = new JedisPool(config,&quot;localhost&quot;,6379)  通过配置来创建连接池对象</span><br></pre></td></tr></table></figure></p>
-<p> 2.获取连接对象<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Jedis jedis = jedispool.getResource()</span><br></pre></td></tr></table></figure></p>
-<p> 3.进行操作<br> 4.关闭连接，归还到连接池中</p>
+        <h1 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h1><h2 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h2><h3 id="线程与进程的区别"><a href="#线程与进程的区别" class="headerlink" title="线程与进程的区别"></a>线程与进程的区别</h3><p>线程是cpu调度的最小单位，进程是资源分配的最小单位<br>一个进程可以包含多个线程，线程是在进程中执行的<br>每个线程都运行在进程的上下文中，并共享全局数据<br>不同进程间的数据难以共享，同一个进程中的不同线程间的数据容易共享<br>进程间互不影响，但线程出现问题会影响进程</p>
+<h3 id="进程通信的方式"><a href="#进程通信的方式" class="headerlink" title="进程通信的方式"></a>进程通信的方式</h3><p>1.管道<br>    管道一般用于两个不同进程之间的通信。当一个进程创建一个管道，并调用fork创建自己的一个子进程后，父进程关闭读管道端，子进程关闭写管道端，这样 提供了两个进程之间数据流动的一种方式。<br>2.FIFO<br>    FIFO是一种先进先出的队列。它类似于一个管道，只允许数据的单向流动。每个FIFO都有一个名字，允许不相关的进程访问同一个FIFO。因此也成为命名管。<br>3.消息队列<br>    概念：消息队列，是消息的链接表，存放在内核中。一个消息队列由一个标识符（即队列ID）来标识。<br>    特点：<br>        1.消息队列是面向记录的，其中的消息具有特定的格式以及特定的优先级。<br>        2.消息队列独立于发送与接收进程。进程终止时，消息队列及其内容并不会被删除。<br>        3.消息队列可以实现消息的随机查询,消息不一定要以先进先出的次序读取,也可以按消息的类型读取。<br>4.信号量<br>    作为进程间通讯的一种方法，它不是用于交换大批数据，而用于多进程之间的同步（协调对共享存储段的存取）。<br>5.共享内存<br>    概念：<br>         将同一块物理内存一块映射到不同的进程的虚拟地址空间中，实现不同进程间对同一资源的共享。 共享内存可以说是最有用的进程间通信方式，也是最快的IPC形式。<br>    特点：<br>         1.不用从用户态到内核态的频繁切换和拷贝数据，直接从内存中读取就可以。<br>        2.共享内存是临界资源，所以需要操作时必须要保证原子性。使用信号量或者互斥锁都可以。<br>        3.生命周期随内核。  </p>
+<h3 id="tomcat工作原理"><a href="#tomcat工作原理" class="headerlink" title="tomcat工作原理"></a>tomcat工作原理</h3><p>Tomcat最顶层的容器是Server,代表整个服务器，其中可以包含多个Service<br>Service主要包含两个部分：Connector和Container<br>Connector用于处理连接相关的事情，并提供Socket与Request和Response相关的转化<br>Container用于封装和管理Servlet，以及具体处理Request请求<br>一个Service只有一个Container，但可以有多个Connectors<br><img src="https://images2015.cnblogs.com/blog/1078737/201701/1078737-20170109110435088-1621430699.png" alt="image"></p>
+<h3 id="抽象类和接口"><a href="#抽象类和接口" class="headerlink" title="抽象类和接口"></a>抽象类和接口</h3><p>抽象类：<br>    1.被abstract修饰的类是抽象类；<br>    2.含有抽象方法的类一定是抽象类，但是抽象类不一定含有抽象方法,抽象方法必须是public或protected<br>    3.抽象方法中不能有实现<br>    4.抽象类中可以定义自己的成员变量和成员方法，权限没要求<br>    5.抽象方法要被实现，不能是static，也不能是private<br>    6.子类继承抽象类时，必须实现抽象类中的所有抽象方法，否则该子类也要被定义为抽象类<br>    7.抽象类不能被实例化<br>    8.可以有main方法<br>    9.可以有构造器，初始化块，内部类<br>接口：<br>    1.接口中变量类型默认且只能是public staic final<br>    2.接口中声明方法只能是默认的public abstract，没有具体的实现<br>    3.默认的方法没有方法体，但JDK1.8之后默认方法和静态方法是有方法体的<br>    4.可以有main方法，可以使用匿名内部类的方式new一个接口，<br>    5.实现类必须实现所有接口函数<br>    6.不能定义构造器和静态或非静态代码块<br>他们都不能直接实例化，但是可以通过多态的方式进行实例化</p>
+<h3 id="单例设计模式"><a href="#单例设计模式" class="headerlink" title="单例设计模式"></a>单例设计模式</h3><h3 id="html中a标签点击后进入新窗口"><a href="#html中a标签点击后进入新窗口" class="headerlink" title="html中a标签点击后进入新窗口"></a>html中a标签点击后进入新窗口</h3><pre><code>设置target属性值为  &quot;_blank&quot;</code></pre><h3 id="linux常用命令"><a href="#linux常用命令" class="headerlink" title="linux常用命令"></a>linux常用命令</h3><h3 id="mysql优化"><a href="#mysql优化" class="headerlink" title="mysql优化"></a>mysql优化</h3><p>1、选取最适用的字段属性<br>2、使用连接（JOIN）来代替子查询(Sub-Queries)<br>3、使用联合(UNION)来代替手动创建的临时表<br>4、事务<br>5、锁定表<br>6、使用外键<br>7、使用索引<br>8、优化查询语句</p>
+<h3 id="tcp和udp"><a href="#tcp和udp" class="headerlink" title="tcp和udp"></a>tcp和udp</h3><p>1.TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接<br>2.TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP不保证可靠交付<br>3.TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的<br>UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）<br>4.每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信<br>5.TCP首部开销20字节;UDP的首部开销小，只有8个字节<br>6.TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</p>
 
       
 
@@ -288,7 +258,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
         		</li>
       		
 		</ul>
@@ -298,7 +268,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/09/Redis学习笔记/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/17/面试题总结01/">展开全文 >></a>
         </p>
       
 
@@ -328,38 +298,31 @@
 
 
   
-    <article id="post-并发编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Jsp学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/08/并发编程/">并发编程</a>
+      <a class="article-title" href="/2019/10/16/Jsp学习笔记/">Jsp学习笔记</a>
     </h1>
   
 
         
-        <a href="/2019/10/08/并发编程/" class="archive-article-date">
-  	<time datetime="2019-10-08T11:46:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-08</time>
+        <a href="/2019/10/16/Jsp学习笔记/" class="archive-article-date">
+  	<time datetime="2019-10-16T11:50:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="并发编程存在的bug源头"><a href="#并发编程存在的bug源头" class="headerlink" title="并发编程存在的bug源头"></a>并发编程存在的bug源头</h2><h3 id="缓存导致的可见性问题"><a href="#缓存导致的可见性问题" class="headerlink" title="缓存导致的可见性问题"></a>缓存导致的可见性问题</h3><p>可见性：一个线程对于共享变量的修改，另一个线程能够立刻看到。</p>
-<p>多核Cpu中，当多个线程在不同的 CPU 上执行时，这些线程操作的是不同的 CPU 缓存。此时线程间的操作就不具备可见性了。</p>
-<h3 id="线程切换导致的原子性问题"><a href="#线程切换导致的原子性问题" class="headerlink" title="线程切换导致的原子性问题"></a>线程切换导致的原子性问题</h3><p>原子性：一个或者多个操作在 CPU 执行的过程中不被中断的特性</p>
-<p>在多线程执行操作的过程中，指令执行未完成，发生了线程切换，这种情况下就会导致原子性问题。</p>
-<h3 id="编译器优化导致的有序性问题"><a href="#编译器优化导致的有序性问题" class="headerlink" title="编译器优化导致的有序性问题"></a>编译器优化导致的有序性问题</h3><p>有序性：程序按照代码的先后顺序执行</p>
-<p>实际程序中指令的运行顺序可能被编译器优化之后发生了改变，比较典型的就是单例模式中通过双重检测索是实现的方式会发生的问题。</p>
-<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><pre><code>1.解决可见性、有序性最直接的办法就是禁用缓存和编译优化，但是这样在解决问题的同时，程序的性能也大大降低了。合理的方案应该是按需禁用缓存以及编译优化。所谓“按需禁用”其实就是指按照程序员的要求来禁用。所以，为了解决可见性和有序性问题，只需要提供给程序员按需禁用缓存和编译优化的方法即可。
-2.Java 内存模型是个很复杂的规范，可以从不同的视角来解读，站在我们这些程序员的视角，本质上可以理解为，Java 内存模型规范了 JVM 如何提供按需禁用缓存和编译优化的方法。具体来说，这些方法包括 volatile、synchronized 和 final 三个关键字，以及六项 Happens-Before 规则</code></pre><h3 id="volatile关键字-gt-它最原始的意义就是禁用-CPU-缓存"><a href="#volatile关键字-gt-它最原始的意义就是禁用-CPU-缓存" class="headerlink" title="volatile关键字 -&gt; 它最原始的意义就是禁用 CPU 缓存"></a>volatile关键字 -&gt; 它最原始的意义就是禁用 CPU 缓存</h3><p>对于声明了volatile关键字的变量，告诉编译器，对这个变量的读写，不能使用 CPU 缓存，必须从内存中读取或者写入。</p>
-<pre><code>有如下程序
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class VolatileExample &#123;</span><br><span class="line">  int x = 0;</span><br><span class="line">  volatile boolean v = false;</span><br><span class="line">  public void writer() &#123;</span><br><span class="line">    x = 42;</span><br><span class="line">    v = true;</span><br><span class="line">  &#125;</span><br><span class="line">  public void reader() &#123;</span><br><span class="line">    if (v == true) &#123;</span><br><span class="line">      // 这里 x 会是多少呢？</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre><p>结论：根据Java的版本，如果在低于1.5版本上运行，x可能是42，也有可能是0；如果在1.5以上的版本上运行，x就是等于42。因为在Java1.5中，对于volatile语义进行了增强。增强的内容就是Happens-before规则</p>
-<h3 id="Happens-before规则-gt-前面一个操作的结果对后续操作是可见的"><a href="#Happens-before规则-gt-前面一个操作的结果对后续操作是可见的" class="headerlink" title="Happens-before规则 -&gt; 前面一个操作的结果对后续操作是可见的"></a>Happens-before规则 -&gt; 前面一个操作的结果对后续操作是可见的</h3><p>1.程序的顺序性规则<br>    按照程序顺序，前面的操作 Happens-Before 于后续的任意操作。<br>2.volatile变量规则<br>    对一个 volatile 变量的写操作， Happens-Before 于后续对这个 volatile 变量的读操作。<br>3.传递性<br>    如果 A Happens-Before B，且 B Happens-Before C，那么 A Happens-Before C。<br>4.管程中锁的规则<br>    对一个锁的解锁 Happens-Before 于后续对这个锁的加锁。<br>5.线程 start() 规则<br>    主线程 A 启动子线程 B 后，子线程 B 能够看到主线程在启动子线程 B 前的操作。<br>6.线程 join() 规则<br>    如果在线程 A 中，调用线程 B 的 join() 并成功返回，那么线程 B 中的任意操作 Happens-Before 于该 join() 操作的返回</p>
-<h3 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h3><p>final关键字的初衷是告诉编译器，该变量生而不变，可以随意优化。</p>
+        <h1 id="Jsp-gt-本质上就是一个Servlet"><a href="#Jsp-gt-本质上就是一个Servlet" class="headerlink" title="Jsp -&gt; 本质上就是一个Servlet"></a>Jsp -&gt; 本质上就是一个Servlet</h1><p>Java服务端页面 既可以定义    html也可以定义java代码<br>    简化开发</p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>1.page 配置jsp页面<br>    1.contentType：等同于response里的色图Content Type()<br>        1.设置响应体的mime类型和字符集<br>        2.设置当前jsp页面的编码（高级的IDE才能生效，如果是低级的要使用pageEncoding来配置页面编码）<br>    2.language：只支持java<br>    3.buffer：设置缓冲区的大小<br>    4.import：导包<br>    5.errorPage：当前页面发生异常后会自动跳转到指定的错误页面<br>    6.isErrorPage：标识当前页面是否为错误页面，标识为错误页面以后才可以使用exception内置对象，默认值为false（即不是错误页面）<br>2.include 页面包含的。导入页面的资源文件<br>3.taglib 导入资源<br>    引入标签库（eg：jstl标签库）<br>        prefix：定义前缀</p>
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><p>1.&lt;% 代码 %&gt;：定义的java代码，在service方法中，service方法可以定义什么，该脚本就能定义什么<br>2.&lt;%! 代码 %&gt;：定义的java代码，在jsp转换后的java类的成员位置<br>3.&lt;%= 代码 %&gt;：定义的java代码，会输出到页面上</p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>1.&lt;感叹号– –&gt;html注释（浏览器看得到）<br>    只能注释html<br>2.&lt;%– –%&gt;jsp注释 –&gt; 推荐使用（浏览器看不到）<br>    可以注释所有</p>
+<h2 id="内置对象（在jsp中不需要创建可以直接使用的对象）"><a href="#内置对象（在jsp中不需要创建可以直接使用的对象）" class="headerlink" title="内置对象（在jsp中不需要创建可以直接使用的对象）"></a>内置对象（在jsp中不需要创建可以直接使用的对象）</h2><p>普通页面有8个，在声明了isErrorPage的页面有9个（多了一个exception对象）<br>    变量名                真实类型                       作用<br>1.pageContext             PageContext                 当前页面共享数据，还可以获取其他八个内置对象<br>2.request                  HttpServletRequest            一次请求访问的多个资源（转发）<br>3.session                 HttpSession                    一次会话的多个请求间<br>4.application             ServletContext                所有用户间共享数据<br>5.response                 HttpServletResponse            响应对象<br>6.page                     Object                         当前页面（servlet）的对象 this<br>7.out                     JspWriter                    输出对象，输出数据到页面上<br>8.config                 ServletConfig                servlet的配置对象<br>9.exception             Throwable                    异常对象</p>
 
       
 
@@ -373,7 +336,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Thread</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JSP</a>
         		</li>
       		
 		</ul>
@@ -383,7 +346,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/08/并发编程/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/16/Jsp学习笔记/">展开全文 >></a>
         </p>
       
 
@@ -415,7 +378,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
     </nav>
   
 
@@ -511,11 +474,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -523,11 +486,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -539,11 +498,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
               </li>
              
               <li class="article-tag-list-item">

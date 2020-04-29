@@ -143,37 +143,33 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-剑指Offer算法题17-删除链表的节点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-剑指Offer算法题25-二叉树的镜像" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/01/剑指Offer算法题17-删除链表的节点/">剑指Offer算法题17-删除链表的节点</a>
+      <a class="article-title" href="/2020/04/29/剑指Offer算法题25-二叉树的镜像/">剑指Offer算法题25-二叉树的镜像</a>
     </h1>
   
 
         
-        <a href="/2020/04/01/剑指Offer算法题17-删除链表的节点/" class="archive-article-date">
-  	<time datetime="2020-04-01T11:51:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-01</time>
+        <a href="/2020/04/29/剑指Offer算法题25-二叉树的镜像/" class="archive-article-date">
+  	<time datetime="2020-04-29T14:04:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。</p>
-<p>返回删除后的链表的头节点。</p>
-<p>注意：此题对比原题有改动</p>
-<p>示例 1:</p>
-<p>输入: head = [4,5,1,9], val = 5<br>输出: [4,1,9]<br>解释: 给定你链表中值为 5 的第二个节点，那么在调用了你的函数之后，该链表应变为 4 -&gt; 1 -&gt; 9.<br>示例 2:</p>
-<p>输入: head = [4,5,1,9], val = 1<br>输出: [4,5,9]<br>解释: 给定你链表中值为 1 的第三个节点，那么在调用了你的函数之后，该链表应变为 4 -&gt; 5 -&gt; 9.</p>
-<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>自己使用的方法就是遍历然后删除，最终结果超出时间限制，因为自己在实现的过程中没有定义辅助节点，只使用头节点进行操作，改变了头节点的指向，最终导致结果不正确，且实现的过程中，在链表值未命中时未将链表后移才导致了超时。</p>
-<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>定义两个辅助节点，一个标识前驱结点，一个标识当前节点，当前节点的值符合条件时，将当前节点的next赋值给前驱节点的next,代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public ListNode deleteNode(ListNode head, int val) &#123;</span><br><span class="line">       if(head.val==val)&#123;</span><br><span class="line">           return head.next; //如果要删除的是头节点的话直接返回头节点的next</span><br><span class="line">       &#125;</span><br><span class="line">       ListNode pre = head;  //定义前驱节点</span><br><span class="line">       ListNode cur = head.next; // 定义当前节点</span><br><span class="line">       while(cur!=null)&#123;</span><br><span class="line">           if(cur.val==val)&#123;</span><br><span class="line">               pre.next = cur.next; //命中就返回</span><br><span class="line">               return head;</span><br><span class="line">           &#125;</span><br><span class="line">           pre = pre.next; // 前驱结点后移</span><br><span class="line">           cur = cur.next; // 当前节点后移</span><br><span class="line">       &#125;</span><br><span class="line">       return head;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>请完成一个函数，输入一个二叉树，该函数输出它的镜像。</p>
+<p>例如输入：</p>
+<pre><code>4</code></pre><p>   /   <br>  2     7<br> / \   / <br>1   3 6   9<br>镜像输出：</p>
+<pre><code>4</code></pre><p>   /   <br>  7     2<br> / \   / <br>9   6 3   1</p>
+<p>示例 1：</p>
+<p>输入：root = [4,2,7,1,3,6,9]<br>输出：[4,7,2,9,6,3,1]</p>
+<h1 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h1>
       
 
       
@@ -196,7 +192,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/01/剑指Offer算法题17-删除链表的节点/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/04/29/剑指Offer算法题25-二叉树的镜像/">展开全文 >></a>
         </p>
       
 
@@ -226,36 +222,38 @@
 
 
   
-    <article id="post-剑指Offer算法题16-打印从1到最大的n位数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-剑指Offer算法题24-树的子结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/31/剑指Offer算法题16-打印从1到最大的n位数/">剑指Offer算法题16-打印从1到最大的n位数</a>
+      <a class="article-title" href="/2020/04/12/剑指Offer算法题24-树的子结构/">剑指Offer算法题24-树的子结构</a>
     </h1>
   
 
         
-        <a href="/2020/03/31/剑指Offer算法题16-打印从1到最大的n位数/" class="archive-article-date">
-  	<time datetime="2020-03-31T13:04:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-31</time>
+        <a href="/2020/04/12/剑指Offer算法题24-树的子结构/" class="archive-article-date">
+  	<time datetime="2020-04-12T13:39:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>输入数字 n，按顺序打印出从 1 到最大的 n 位十进制数。比如输入 3，则打印出 1、2、3 一直到最大的 3 位数 999。</p>
-<p>示例 1:</p>
-<p>输入: n = 1<br>输出: [1,2,3,4,5,6,7,8,9]</p>
-<p>说明：</p>
-<p>用返回一个整数列表来代替打印<br>n 为正整数</p>
-<h2 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h2><p>输入的数字是几，就是从1到10的几次方减一，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public int[] printNumbers(int n) &#123;</span><br><span class="line">       if(n==0)&#123;</span><br><span class="line">           return new int[1];  // 输入不合法直接返回空数组</span><br><span class="line">       &#125;</span><br><span class="line">       int size = (int)Math.pow(10,n);  // 计算数组的大小</span><br><span class="line">       int[] result = new int[size-1];  // 创建数组</span><br><span class="line">       for(int i=1;i&lt;size;i++)&#123;</span><br><span class="line">           result[i-1]=i;  // 添加元素</span><br><span class="line">       &#125;</span><br><span class="line">       return result;  //返回结果</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>发现一个解法与我的基本相同，但是对于数组的大小的值的计算方法不同，通过计算出每一位的数字然后累加来计算的，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public int[] printNumbers(int n) &#123;</span><br><span class="line">       int ans = 0;</span><br><span class="line">       for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">           ans+=9*Math.pow(10,i);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       int[] res = new int[ans];</span><br><span class="line">       for(int i=0;i&lt;ans;i++)&#123;</span><br><span class="line">           res[i] = i+1;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       return res;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>输入两棵二叉树A和B，判断B是不是A的子结构。(约定空树不是任意一个树的子结构)</p>
+<p>B是A的子结构， 即 A中有出现和B相同的结构和节点值。</p>
+<p>例如:<br>给定的树 A:</p>
+<pre><code> 3
+/ \</code></pre><p>   4   5<br>  / <br> 1   2<br>给定的树 B：</p>
+<p>   4<br>  /<br> 1<br>返回 true，因为 B 与 A 的一个子树拥有相同的结构和节点值。</p>
+<p>示例 1：</p>
+<p>输入：A = [1,2,3], B = [3,1]<br>输出：false<br>示例 2：</p>
+<p>输入：A = [3,4,5,1,2], B = [4,1]<br>输出：true<br>限制：</p>
+<p>0 &lt;= 节点个数 &lt;= 10000</p>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>这道题的思路是通过先序遍历到达A树的每个节点，在每个节点判断当前节点作为根的子树是否包含B树，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public boolean isSubStructure(TreeNode A, TreeNode B) &#123;</span><br><span class="line">       return (A!=null&amp;&amp;B!=null)&amp;&amp;(recur(A,B)||isSubStructure(A.left,B)||isSubStructure(A.right,B)); // 判断当前节点为根节点或当前节点的左子节点或右子节点为根节点是能否与树B匹配</span><br><span class="line">   &#125;</span><br><span class="line">   public boolean recur(TreeNode A,TreeNode B)&#123; // 递归判断是否匹配</span><br><span class="line">       if(B==null)return true; // 如果B为空说明B树已经全部在A树种匹配，返回true</span><br><span class="line">       if(A==null||A.val!=B.val)return false;  // 如果A为空，说明A未完全匹配B，返回false 如果当前A节点的值与B节点的值不相等也说明B不是A的子结构，返回false</span><br><span class="line">       return recur(A.left,B.left)&amp;&amp;recur(A.right,B.right); 递归比较树A与树B的子节点的值</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -280,7 +278,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/31/剑指Offer算法题16-打印从1到最大的n位数/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/04/12/剑指Offer算法题24-树的子结构/">展开全文 >></a>
         </p>
       
 
@@ -310,38 +308,32 @@
 
 
   
-    <article id="post-剑指Offer算法题15-数值的整数次方" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-剑指Offer算法题23-合并两个排序的链表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/30/剑指Offer算法题15-数值的整数次方/">剑指Offer算法题15-数值的整数次方</a>
+      <a class="article-title" href="/2020/04/07/剑指Offer算法题23-合并两个排序的链表/">剑指Offer算法题23-合并两个排序的链表</a>
     </h1>
   
 
         
-        <a href="/2020/03/30/剑指Offer算法题15-数值的整数次方/" class="archive-article-date">
-  	<time datetime="2020-03-30T13:17:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
+        <a href="/2020/04/07/剑指Offer算法题23-合并两个排序的链表/" class="archive-article-date">
+  	<time datetime="2020-04-07T11:18:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>实现函数double Power(double base, int exponent)，求base的exponent次方。不得使用库函数，同时不需要考虑大数问题。</p>
-<p>示例 1:</p>
-<p>输入: 2.00000, 10<br>输出: 1024.00000<br>示例 2:</p>
-<p>输入: 2.10000, 3<br>输出: 9.26100<br>示例 3:</p>
-<p>输入: 2.00000, -2<br>输出: 0.25000<br>解释: 2-2 = 1/22 = 1/4 = 0.25</p>
-<p>说明:</p>
-<p>-100.0 &lt; x &lt; 100.0<br>n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</p>
-<h2 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h2><p>暴力法，循环乘n次，最终超出时间限制，不可取。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public double myPow(double x, int n) &#123;</span><br><span class="line">       if(n==0)&#123; //任何数的0次方都是1</span><br><span class="line">           return 1.0;</span><br><span class="line">       &#125;</span><br><span class="line">       if(n&gt;0)&#123;</span><br><span class="line">           double res = x;</span><br><span class="line">           for(int i = 1;i&lt;n;i++)&#123;</span><br><span class="line">               res*=x; //循环乘n次</span><br><span class="line">           &#125;</span><br><span class="line">           return res;</span><br><span class="line">       &#125;else&#123;</span><br><span class="line">           int m = -n;</span><br><span class="line">           x = 1/x;</span><br><span class="line">           double res = x;</span><br><span class="line">           for(int i=1;i&lt;m;i++)&#123;</span><br><span class="line">               res*=x;</span><br><span class="line">           &#125;</span><br><span class="line">           return res;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>有一种思路是二分法，一个数的整数次幂有两种情况，一种是偶数次幂，一种是奇数次幂。<br>根据二分推导，可通过循环 x = x^2操作，每次把幂从 n 降至 n//2，直至将幂降为 0 ；<br>设 res=1，则初始状态 x^n = x^n x res。在循环二分时，每当 n 为奇数时，将多出的一项 x 乘入 res ，则最终可化至 x^n = x^0 * res = res ，返回 res 即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public double myPow(double x, int n) &#123;</span><br><span class="line">       if(x == 0)&#123;</span><br><span class="line">           return 0; //x为0时，为了保证1/x不抛出异常所以直接返回0</span><br><span class="line">       &#125;</span><br><span class="line">       long b = n;</span><br><span class="line">       double res = 1.0;</span><br><span class="line">       if(n&lt;0)&#123;</span><br><span class="line">           b = -b;</span><br><span class="line">           x = 1 / x;</span><br><span class="line">       &#125;</span><br><span class="line">       while(b&gt;0)&#123;</span><br><span class="line">           if((b&amp;1)==1)res*=x; </span><br><span class="line">           x*=x;</span><br><span class="line">           b&gt;&gt;=1;</span><br><span class="line">       &#125;</span><br><span class="line">       return res;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。</p>
+<p>示例1：</p>
+<p>输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4<br>输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4<br>限制：</p>
+<p>0 &lt;= 链表长度 &lt;= 1000</p>
+<h2 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h2><p>定义两个指针分别指向两条链表的首部，每次进行比较，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public ListNode mergeTwoLists(ListNode l1, ListNode l2) &#123;</span><br><span class="line">       ListNode result = new ListNode(-1);</span><br><span class="line">       ListNode temp = result;</span><br><span class="line">       while(l1!=null&amp;&amp;l2!=null)&#123; // 当两条链表都不为空的时候进行比较</span><br><span class="line">           if(l1.val&lt;l2.val)&#123; // </span><br><span class="line">               temp.next = l1;</span><br><span class="line">               l1 = l1.next;</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">               temp.next = l2;</span><br><span class="line">               l2 = l2.next;</span><br><span class="line">           &#125;</span><br><span class="line">           temp = temp.next;</span><br><span class="line">       &#125;</span><br><span class="line">       temp.next=l1==null?l2:l1;</span><br><span class="line">       return result.next;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -364,7 +356,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/30/剑指Offer算法题15-数值的整数次方/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/04/07/剑指Offer算法题23-合并两个排序的链表/">展开全文 >></a>
         </p>
       
 
@@ -396,7 +388,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -492,11 +484,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -504,11 +496,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -520,11 +508,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
               </li>
              
               <li class="article-tag-list-item">

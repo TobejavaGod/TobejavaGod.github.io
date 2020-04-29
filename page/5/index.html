@@ -143,34 +143,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-剑指Offer算法题05-重建二叉树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-剑指Offer算法题13-剪绳子2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/21/剑指Offer算法题05-重建二叉树/">剑指Offer算法题05-重建二叉树</a>
+      <a class="article-title" href="/2020/03/28/剑指Offer算法题13-剪绳子2/">剑指Offer算法题13-剪绳子2</a>
     </h1>
   
 
         
-        <a href="/2020/03/21/剑指Offer算法题05-重建二叉树/" class="archive-article-date">
-  	<time datetime="2020-03-21T13:02:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-21</time>
+        <a href="/2020/03/28/剑指Offer算法题13-剪绳子2/" class="archive-article-date">
+  	<time datetime="2020-03-28T12:51:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。</p>
-<p>例如，给出</p>
-<p>前序遍历 preorder = [3,9,20,15,7]<br>中序遍历 inorder = [9,3,15,20,7]<br>返回如下的二叉树：</p>
-<pre><code>3、</code></pre><p>   / <br>  9  20<br>    /  <br>   15   7</p>
-<p>限制：</p>
-<p>0 &lt;= 节点个数 &lt;= 5000</p>
-<h2 id="官方解法"><a href="#官方解法" class="headerlink" title="官方解法"></a>官方解法</h2><p>由于自己对于二叉树的知识只停留在概念的阶段，于是本题将对官方的解法进行学习分析。</p>
-
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]<em>k[1]</em>…*k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。</p>
+<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
+<p>示例 1：</p>
+<p>输入: 2<br>输出: 1<br>解释: 2 = 1 + 1, 1 × 1 = 1<br>示例 2:</p>
+<p>输入: 10<br>输出: 36<br>解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36</p>
+<p>提示：</p>
+<p>2 &lt;= n &lt;= 1000</p>
+<h2 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h2>
       
 
       
@@ -193,7 +193,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/21/剑指Offer算法题05-重建二叉树/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/28/剑指Offer算法题13-剪绳子2/">展开全文 >></a>
         </p>
       
 
@@ -223,40 +223,38 @@
 
 
   
-    <article id="post-剑指Offer算法题04-从尾到头打印链表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-剑指Offer算法题12-剪绳子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/20/剑指Offer算法题04-从尾到头打印链表/">剑指Offer算法题04-从尾到头打印链表</a>
+      <a class="article-title" href="/2020/03/27/剑指Offer算法题12-剪绳子/">剑指Offer算法题12-剪绳子</a>
     </h1>
   
 
         
-        <a href="/2020/03/20/剑指Offer算法题04-从尾到头打印链表/" class="archive-article-date">
-  	<time datetime="2020-03-20T11:08:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-20</time>
+        <a href="/2020/03/27/剑指Offer算法题12-剪绳子/" class="archive-article-date">
+  	<time datetime="2020-03-27T14:01:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。</p>
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]<em>k[1]</em>…*k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。</p>
 <p>示例 1：</p>
-<p>输入：head = [1,3,2]<br>输出：[2,3,1]</p>
-<p>限制：</p>
-<p>0 &lt;= 链表长度 &lt;= 10000</p>
-<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>对于这道题，自己的思路是，先将链表顺序输出到一个list集合中，创建一个大小等于集合size的数组，然后倒序遍历这个集合将元素插入到数组中，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public int[] reversePrint(ListNode head) &#123;</span><br><span class="line">       ListNode temp = head;</span><br><span class="line">       List&lt;Integer&gt; array = new ArrayList();</span><br><span class="line">       int i = 0;</span><br><span class="line">       while(temp!=null)&#123;</span><br><span class="line">           array.add(temp.val);</span><br><span class="line">           temp = temp.next;            </span><br><span class="line">       &#125;</span><br><span class="line">       int[] result = new int[array.size()];</span><br><span class="line">       for(int j=array.size()-1;j&gt;=0;j--)&#123;</span><br><span class="line">           result[i++] = array.get(j);</span><br><span class="line">       &#125;</span><br><span class="line">       return result;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>输入: 2<br>输出: 1<br>解释: 2 = 1 + 1, 1 × 1 = 1<br>示例 2:</p>
+<p>输入: 10<br>输出: 36<br>解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36<br>提示：</p>
+<p>2 &lt;= n &lt;= 58</p>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>此题目涉及到了贪心算法，自己还有没有深入了解过，所以将通过别人的解法，将贪心算法掌握。</p>
+<p>贪心规则：<br>最高优先级： 3 。把绳子尽可能切为多个长度为 3 的片段，留下的最后一段绳子的长度可能为 0,1,2三种情况。<br>次高优先级： 2 。若最后一段绳子长度为 2，则保留，不再拆为 1+1。<br>最低优先级： 1； 若最后一段绳子长度为 1；则应把最后的 3 + 1 替换为2+2，因为 2×2&gt;3×1</p>
+<p>当 n≤3 时，按照贪心规则应直接保留原数字，但由于题目要求必须剪成 m&gt;1 段，因此必须剪出一段长度为 1 的绳子，即返回 n - 1。<br>当 n&gt;3 时，求 nn 除以 33 的 整数部分 a 和 余数部分 b （即 n = 3a + b），并分为以下三种情况：<br>当 b = 0 时，直接返回 3^a<br>当 b = 1 时，要将一个 1+3 转换为 2+2，因此返回 3^{a-1}×4；<br>当 b = 2 时，返回 3^a×2。</p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public int cuttingRope(int n) &#123;</span><br><span class="line">       if(n&lt;=3)&#123; // 当n小于3时，按道理应该直接返回，但是题目要求必须剪成至少两段，所以直接返回n-1</span><br><span class="line">           return n-1;</span><br><span class="line">       &#125;</span><br><span class="line">       int a = n / 3;  // a为绳子能剪成多少个长为三米的段</span><br><span class="line">       int b = n % 3;  // b为剪成a个三米的段剩余的长度</span><br><span class="line">       if(b == 0)&#123;</span><br><span class="line">           return (int)Math.pow(3,a);</span><br><span class="line">       &#125;</span><br><span class="line">       if(b == 1)&#123;</span><br><span class="line">           return (int)(4*Math.pow(3,a-1));</span><br><span class="line">       &#125;</span><br><span class="line">       return (int)(2*Math.pow(3,a));</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="官方解法"><a href="#官方解法" class="headerlink" title="官方解法"></a>官方解法</h2><p>官方的解法是，利用栈的后进先出的特点，将链表元素顺序压入栈中，然后弹栈，就可以实现链表的反向输出。代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public int[] reversePrint(ListNode head) &#123;</span><br><span class="line">       Stack&lt;ListNode&gt; stack = new Stack();</span><br><span class="line">       ListNode temp = head;</span><br><span class="line">       while(temp!=null)&#123;</span><br><span class="line">           stack.push(temp);</span><br><span class="line">           temp = temp.next;</span><br><span class="line">       &#125;</span><br><span class="line">       int size = stack.size();</span><br><span class="line">       int[] array = new int[size];</span><br><span class="line">       for(int i = 0;i&lt;size;i++)&#123;</span><br><span class="line">           array[i] = stack.pop().val;</span><br><span class="line">       &#125;</span><br><span class="line">       return array;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
-<p>在编写官方解法的代码第一次运行时碰到了一个问题，就是没有使用一个变量来保存栈的size，而是在for循环中使用了stack的size方法，并且在循环体中使用了pop方法，这样的话，栈的大小会改变，输出的结果不对。</p>
-<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>在看别人的解法时发现了一个采用递归的方法，递归到最后一个点向前回溯，将回溯到的节点的值添加到集合中去，最后将集合转换为数组，这种方法比起我自己的方法省去了反转集合的一步，但是也还是要遍历一次，所以结果出入不大。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = new ArrayList();</span><br><span class="line">   public int[] reversePrint(ListNode head) &#123;</span><br><span class="line">       recur(head);</span><br><span class="line">       int size = list.size();</span><br><span class="line">       int[] array = new int[size];</span><br><span class="line">       for(int i = 0;i&lt;size;i++)&#123;</span><br><span class="line">           array[i] = list.get(i);</span><br><span class="line">       &#125;</span><br><span class="line">       return array;</span><br><span class="line">   &#125;</span><br><span class="line">   public void recur(ListNode head)&#123;</span><br><span class="line">       if(head==null)&#123;</span><br><span class="line">           return;</span><br><span class="line">       &#125;</span><br><span class="line">       recur(head.next);</span><br><span class="line">       list.add(head.val);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -279,7 +277,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/20/剑指Offer算法题04-从尾到头打印链表/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/27/剑指Offer算法题12-剪绳子/">展开全文 >></a>
         </p>
       
 
@@ -309,42 +307,39 @@
 
 
   
-    <article id="post-剑指Offer算法题03-替换空格" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-剑指Offer算法题11-机器人的运动范围" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/19/剑指Offer算法题03-替换空格/">剑指Offer算法题03-替换空格</a>
+      <a class="article-title" href="/2020/03/26/剑指Offer算法题11-机器人的运动范围/">剑指Offer算法题11-机器人的运动范围</a>
     </h1>
   
 
         
-        <a href="/2020/03/19/剑指Offer算法题03-替换空格/" class="archive-article-date">
-  	<time datetime="2020-03-19T13:43:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-19</time>
+        <a href="/2020/03/26/剑指Offer算法题11-机器人的运动范围/" class="archive-article-date">
+  	<time datetime="2020-03-26T13:09:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-26</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>请实现一个函数，把字符串 s 中的每个空格替换成”%20”。</p>
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>地上有一个m行n列的方格，从坐标 [0,0] 到坐标 [m-1,n-1] 。一个机器人从坐标 [0, 0] 的格子开始移动，它每次可以向左、右、上、下移动一格（不能移动到方格外），也不能进入行坐标和列坐标的数位之和大于k的格子。例如，当k为18时，机器人能够进入方格 [35, 37] ，因为3+5+3+7=18。但它不能进入方格 [35, 38]，因为3+5+3+8=19。请问该机器人能够到达多少个格子？</p>
 <p>示例 1：</p>
-<p>输入：s = “We are happy.”<br>输出：”We%20are%20happy.”</p>
-<p>限制：</p>
-<p>0 &lt;= s 的长度 &lt;= 10000</p>
-<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>看到这个题目，脑海中的第一反应就是String类中的replace函数，查阅了Api文档了解了replace函数的具体用法，发现replace与replaceAll函数都能够实现这样的需求，所以分别使用了这两个函数函数，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public String replaceSpace(String s) &#123;</span><br><span class="line">       return s.replaceAll(&quot; &quot;,&quot;%20&quot;);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   public String replaceSpace(String s) &#123;</span><br><span class="line">       return s.replace(&quot; &quot;,&quot;%20&quot;);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>输入：m = 2, n = 3, k = 1<br>输出：3<br>示例 1：</p>
+<p>输入：m = 3, n = 1, k = 0<br>输出：1<br>提示：</p>
+<p>1 &lt;= n,m &lt;= 100<br>0 &lt;= k &lt;= 20</p>
+<h2 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h2><p> 自己对于这道题考虑的有点少，直接使用双重遍历查看每个位置是否符合条件，没有考虑到是否可达。</p>
+<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>在解法中发现了一种与我的思路一样但是考虑完全，添加了是否可达的条件的解法，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public int movingCount(int m, int n, int k) &#123;</span><br><span class="line">       int size = 1;  //因为起始点是一定可达的，所以设初值为1</span><br><span class="line">       int[][] count = new int[m][n]; //创建二维数组</span><br><span class="line">       count[0][0] = 1; // 将第一个位置设置为1，代表可达</span><br><span class="line">       for(int i = 0;i&lt;m;i++)&#123;</span><br><span class="line">           for(int j=0;j&lt;n;j++)&#123; // 遍历数组的每一个位置</span><br><span class="line">               if(i%10+i/10+j%10+j/10&lt;=k &amp;&amp; (i&gt;0&amp;&amp;count[i-1][j]==1 || j&gt;0&amp;&amp;count[i][j-1]==1</span><br><span class="line">               || i&lt;m-1 &amp;&amp; count[i+1][j]==1 &amp;&amp; j&lt;n-1&amp;&amp;count[i][j+1]==1))&#123;</span><br><span class="line">               	// 如果满足数位之和小于等于规定值且该点有路径可达时，将该点标记为可达，结果数加一</span><br><span class="line">                   size++;</span><br><span class="line">                   count[i][j]=1;        // 标记该点为可达</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return size;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
-<p>结果中replace函数的运行时间为0ms，而replaceAll函数的运行时间为3ms</p>
-<p>查看了replace方法的源码，发现他是先从头找到第一个存在的需要替换的位置，将要替换位置之前的字符移动到新的字符数组中，然后从需要替换的第一个位置开始向后遍历，遇到需要替换的就替换掉，不需要替换掉的就直接添加的新数组中，<br>最后返回。</p>
-<h3 id="官方的解法"><a href="#官方的解法" class="headerlink" title="官方的解法"></a>官方的解法</h3><p>由于改题目是将空格替换为%20，所以替换后的字符串的长度不会超过原长度的三倍，因此创建一个原字符串长度三倍的字符数组进行实现，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public String replaceSpace(String s) &#123;</span><br><span class="line">       int length = s.length();</span><br><span class="line">       char[] str = new char[length*3];</span><br><span class="line">       int size = 0;</span><br><span class="line">       for(int i=0;i&lt;length;i++)&#123;</span><br><span class="line">           char c = s.charAt(i);</span><br><span class="line">           if(c == &apos; &apos;)&#123;</span><br><span class="line">               str[size++] = &apos;%&apos;;</span><br><span class="line">               str[size++] = &apos;2&apos;;</span><br><span class="line">               str[size++] = &apos;0&apos;;</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">               str[size++] = c;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return new String(str,0,size);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>还有一种解法是深度优先遍历，这里需要了解一个数位和的特性，数位和的增量公式，当(x+1)%10 = 0 时，x+1的数位和等于x的数位和-8；当(x+1)%!=0时，x+1的数位和等于x的数位和+1;根据这个性质我们可以进行深度优先的遍历。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    int m,n,k;</span><br><span class="line">    boolean[][] visited;  //定义一个布尔类型的数组标识数组元素是否访问过</span><br><span class="line">    public int movingCount(int m, int n, int k) &#123;</span><br><span class="line">        this.m = m;</span><br><span class="line">        this.n = n;</span><br><span class="line">        this.k = k;</span><br><span class="line">        this.visited = new boolean[m][n];</span><br><span class="line">        return dfs(0,0,0,0);</span><br><span class="line">    &#125;</span><br><span class="line">    //i和j为下标，si和sj分别代表i与j的数位和</span><br><span class="line">    int dfs(int i,int j,int si,int sj)&#123;</span><br><span class="line">        if(i&lt;0||i&gt;m-1||j&lt;0||j&gt;n-1||k&lt;si+sj||visited[i][j])&#123; //如果下标越界或者数位和大于条件值或当前元素已经访问过，直接返回0</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        visited[i][j] = true; //标记当前位置为已访问</span><br><span class="line">        return 1+dfs(i+1,j,(i+1)%10==0?si-8:si+1,sj)+dfs(i,j+1,si,(j+1)%10==0?sj-8:sj+1); //最终的结果为当前位置的1和向下和向右两个方向的递归值。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在使用官方的解法时，自己在编写的过程中出现了很多低级错误，比如char类型的字符使用equals方法进行比较，char类型的字符可以直接使用==号比较ASCII码，还有就是char类型的字符使用单引号包裹。<br>最后一行中的创建字符串所用的构造函数，第一个参数是字符数组，第二个是偏移量，代表从字符数组的什么位置开始构建字符床，第三个是字符串的长度。</p>
-<h3 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h3><p>有一种方法是利用StringBuilder的append方法，遍历整个字符串，遇到非空格就直接append到Stringbuilder的对象中，如果遇到空格就append %20，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public String replaceSpace(String s) &#123;</span><br><span class="line">       StringBuilder str = new StringBuilder();</span><br><span class="line">       for(Character c : s.toCharArray())&#123;</span><br><span class="line">           if(c == &apos; &apos;)&#123;</span><br><span class="line">               str.append(&quot;%20&quot;);</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">               str.append(c);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return str.toString();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -367,7 +362,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/19/剑指Offer算法题03-替换空格/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/26/剑指Offer算法题11-机器人的运动范围/">展开全文 >></a>
         </p>
       
 
@@ -399,7 +394,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
     </nav>
   
 
@@ -495,11 +490,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,11 +502,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -523,11 +514,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
               </li>
              
               <li class="article-tag-list-item">

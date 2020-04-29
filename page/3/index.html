@@ -143,39 +143,29 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-剑指Offer算法题11-机器人的运动范围" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-剑指Offer算法题19-表示数值的字符串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/26/剑指Offer算法题11-机器人的运动范围/">剑指Offer算法题11-机器人的运动范围</a>
+      <a class="article-title" href="/2020/04/03/剑指Offer算法题19-表示数值的字符串/">剑指Offer算法题19-表示数值的字符串</a>
     </h1>
   
 
         
-        <a href="/2020/03/26/剑指Offer算法题11-机器人的运动范围/" class="archive-article-date">
-  	<time datetime="2020-03-26T13:09:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-26</time>
+        <a href="/2020/04/03/剑指Offer算法题19-表示数值的字符串/" class="archive-article-date">
+  	<time datetime="2020-04-03T13:28:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>地上有一个m行n列的方格，从坐标 [0,0] 到坐标 [m-1,n-1] 。一个机器人从坐标 [0, 0] 的格子开始移动，它每次可以向左、右、上、下移动一格（不能移动到方格外），也不能进入行坐标和列坐标的数位之和大于k的格子。例如，当k为18时，机器人能够进入方格 [35, 37] ，因为3+5+3+7=18。但它不能进入方格 [35, 38]，因为3+5+3+8=19。请问该机器人能够到达多少个格子？</p>
-<p>示例 1：</p>
-<p>输入：m = 2, n = 3, k = 1<br>输出：3<br>示例 1：</p>
-<p>输入：m = 3, n = 1, k = 0<br>输出：1<br>提示：</p>
-<p>1 &lt;= n,m &lt;= 100<br>0 &lt;= k &lt;= 20</p>
-<h2 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h2><p> 自己对于这道题考虑的有点少，直接使用双重遍历查看每个位置是否符合条件，没有考虑到是否可达。</p>
-<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>在解法中发现了一种与我的思路一样但是考虑完全，添加了是否可达的条件的解法，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public int movingCount(int m, int n, int k) &#123;</span><br><span class="line">       int size = 1;  //因为起始点是一定可达的，所以设初值为1</span><br><span class="line">       int[][] count = new int[m][n]; //创建二维数组</span><br><span class="line">       count[0][0] = 1; // 将第一个位置设置为1，代表可达</span><br><span class="line">       for(int i = 0;i&lt;m;i++)&#123;</span><br><span class="line">           for(int j=0;j&lt;n;j++)&#123; // 遍历数组的每一个位置</span><br><span class="line">               if(i%10+i/10+j%10+j/10&lt;=k &amp;&amp; (i&gt;0&amp;&amp;count[i-1][j]==1 || j&gt;0&amp;&amp;count[i][j-1]==1</span><br><span class="line">               || i&lt;m-1 &amp;&amp; count[i+1][j]==1 &amp;&amp; j&lt;n-1&amp;&amp;count[i][j+1]==1))&#123;</span><br><span class="line">               	// 如果满足数位之和小于等于规定值且该点有路径可达时，将该点标记为可达，结果数加一</span><br><span class="line">                   size++;</span><br><span class="line">                   count[i][j]=1;        // 标记该点为可达</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return size;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<p>还有一种解法是深度优先遍历，这里需要了解一个数位和的特性，数位和的增量公式，当(x+1)%10 = 0 时，x+1的数位和等于x的数位和-8；当(x+1)%!=0时，x+1的数位和等于x的数位和+1;根据这个性质我们可以进行深度优先的遍历。代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    int m,n,k;</span><br><span class="line">    boolean[][] visited;  //定义一个布尔类型的数组标识数组元素是否访问过</span><br><span class="line">    public int movingCount(int m, int n, int k) &#123;</span><br><span class="line">        this.m = m;</span><br><span class="line">        this.n = n;</span><br><span class="line">        this.k = k;</span><br><span class="line">        this.visited = new boolean[m][n];</span><br><span class="line">        return dfs(0,0,0,0);</span><br><span class="line">    &#125;</span><br><span class="line">    //i和j为下标，si和sj分别代表i与j的数位和</span><br><span class="line">    int dfs(int i,int j,int si,int sj)&#123;</span><br><span class="line">        if(i&lt;0||i&gt;m-1||j&lt;0||j&gt;n-1||k&lt;si+sj||visited[i][j])&#123; //如果下标越界或者数位和大于条件值或当前元素已经访问过，直接返回0</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        visited[i][j] = true; //标记当前位置为已访问</span><br><span class="line">        return 1+dfs(i+1,j,(i+1)%10==0?si-8:si+1,sj)+dfs(i,j+1,si,(j+1)%10==0?sj-8:sj+1); //最终的结果为当前位置的1和向下和向右两个方向的递归值。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。例如，字符串”+100”、”5e2”、”-123”、”3.1416”、”0123”及”-1E-16”都表示数值，但”12e”、”1a3.14”、”1.2.3”、”+-5”及”12e+5.4”都不是。</p>
+<h2 id="问题解法"><a href="#问题解法" class="headerlink" title="问题解法"></a>问题解法</h2><p>思路是标记遇到的每一个字符，判断对应的情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public boolean isNumber(String s) &#123;</span><br><span class="line">       if(s==null||s.length()==0)&#123;</span><br><span class="line">           return true;</span><br><span class="line">       &#125;</span><br><span class="line">       boolean num = false;  //标记是否遇到数字</span><br><span class="line">       boolean dot = false;  //标记是否遇到.</span><br><span class="line">       boolean e = false;	  //标记是否遇到e</span><br><span class="line">       char[] strs = s.trim().toCharArray(); // 将字符串转换为字节数组</span><br><span class="line">       for(int i = 0;i &lt; strs.length;i++)&#123; // 遍历数组</span><br><span class="line">           if(strs[i]&gt;=&apos;0&apos;&amp;&amp;strs[i]&lt;=&apos;9&apos;)&#123; // 如果遇到数字就将标识数字的变量置为true</span><br><span class="line">               num = true;</span><br><span class="line">           &#125;else if(strs[i]==&apos;.&apos;)&#123; //如果遇到.</span><br><span class="line">               if(dot||e)&#123;</span><br><span class="line">               	// .的前面不能出现.或e，如果此时标识.或e的变量为true，则说明此字符串不是一个数字</span><br><span class="line">                   return false;</span><br><span class="line">               &#125;</span><br><span class="line">               dot = true; // 将.的标识变量置为true</span><br><span class="line">           &#125;else if(strs[i]==&apos;e&apos;||strs[i]==&apos;E&apos;)&#123; // 如果碰到e的情况</span><br><span class="line">               if(!num||e)&#123;</span><br><span class="line">                   return false; //e的前面不能出现e，且e的前面必须有数字</span><br><span class="line">               &#125;</span><br><span class="line">               e = true;</span><br><span class="line">               num = false; // 将数字标识重置，因为e之后也要出现数字</span><br><span class="line">           &#125;else if(strs[i]==&apos;+&apos;||strs[i]==&apos;-&apos;)&#123; //如果遇到加减号的情况</span><br><span class="line">               if(i!=0&amp;&amp;strs[i-1]!=&apos;e&apos;&amp;&amp;strs[i-1]!=&apos;E&apos;)&#123; // 加减号出现在字符串的首部或者e的后面</span><br><span class="line">                   return false;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">               return false; // 如果前面都没有命中说明当前位置字符不符合条件，返回false</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return num; // 最后返回数字标识</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -198,7 +188,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/26/剑指Offer算法题11-机器人的运动范围/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/04/03/剑指Offer算法题19-表示数值的字符串/">展开全文 >></a>
         </p>
       
 
@@ -228,36 +218,33 @@
 
 
   
-    <article id="post-剑指Offer算法题10-矩阵中的路径" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-剑指Offer算法题18-正则表达式匹配" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/25/剑指Offer算法题10-矩阵中的路径/">剑指Offer算法题10-矩阵中的路径</a>
+      <a class="article-title" href="/2020/04/03/剑指Offer算法题18-正则表达式匹配/">剑指Offer算法18-正则表达式匹配</a>
     </h1>
   
 
         
-        <a href="/2020/03/25/剑指Offer算法题10-矩阵中的路径/" class="archive-article-date">
-  	<time datetime="2020-03-25T13:05:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-25</time>
+        <a href="/2020/04/03/剑指Offer算法题18-正则表达式匹配/" class="archive-article-date">
+  	<time datetime="2020-04-03T13:17:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一格开始，每一步可以在矩阵中向左、右、上、下移动一格。如果一条路径经过了矩阵的某一格，那么该路径不能再次进入该格子。例如，在下面的3×4的矩阵中包含一条字符串“bfce”的路径（路径中的字母用加粗标出）。</p>
-<p>[[“a”,”b”,”c”,”e”],<br>[“s”,”f”,”c”,”s”],<br>[“a”,”d”,”e”,”e”]]</p>
-<p>但矩阵中不包含字符串“abfb”的路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入这个格子。</p>
-<p>示例 1：</p>
-<p>输入：board = [[“A”,”B”,”C”,”E”],[“S”,”F”,”C”,”S”],[“A”,”D”,”E”,”E”]], word = “ABCCED”<br>输出：true<br>示例 2：</p>
-<p>输入：board = [[“a”,”b”],[“c”,”d”]], word = “abcd”<br>输出：false</p>
-<h2 id="自己的思路"><a href="#自己的思路" class="headerlink" title="自己的思路"></a>自己的思路</h2><p>由于题中指出，路径可以从矩阵中的任意一格，所以需要先遍历矩阵，查看是否存在目标字符串的首字符，如果存在多个还需要分别考虑。还有就是要注意到每个格子只能走一次，且只能向上下左右移动。</p>
-<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>查看别人的解法中发现了这种方法，深度优先矩阵搜索，采用递归的方法，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public boolean exist(char[][] board, String word) &#123;</span><br><span class="line">       char[] words = word.toCharArray(); //将目标字符床转换为字符数组</span><br><span class="line">       for(int i = 0;i&lt;board.length;i++)&#123;</span><br><span class="line">           for(int j = 0;j&lt;board[i].length;j++)&#123;</span><br><span class="line">               if(dfs(board,words,i,j,0))&#123;  //遍历二维数组中的每个元素调用下面的方法尝试能否有一条成功的路径</span><br><span class="line">                   return true;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return false;</span><br><span class="line">   &#125;</span><br><span class="line">   //board表示二维数组，word表示目标字符串转换成的字符数组，i代表二维数组的下标，j代表二维数组中一维数组的下标，k代表目标字符数组的下标 </span><br><span class="line">   boolean dfs(char[][] board,char[] word,int i,int j,int k)&#123;</span><br><span class="line">       if(i&lt;0 || i&gt;=board.length||j&lt;0||j&gt;=board[i].length||board[i][j]!=word[k])&#123; // 如果i或j越界或者当前的元素与目标字符数组的字符不匹配，直接返回false</span><br><span class="line">           return false;</span><br><span class="line">       &#125;</span><br><span class="line">       if(k == word.length-1)&#123; 如果当前已经匹配到最后一个就返回true</span><br><span class="line">           return true;</span><br><span class="line">       &#125;</span><br><span class="line">       char tmp = board[i][j]; 保存当前值</span><br><span class="line">       board[i][j] = &apos;/&apos;; 将当前位置赋值为‘/’，为了防止出现重复走格子。</span><br><span class="line">       boolean res =   dfs(board,word,i+1,j,k+1)||dfs(board,word,i-1,j,k+1)|| //从当前位置，向上下左右四个方向递归搜索通路。使用或是因为只要有一条就可以</span><br><span class="line">                       dfs(board,word,i,j+1,k+1)||dfs(board,word,i,j-1,k+1);</span><br><span class="line">       board[i][j] = tmp; //将当前值重置为之前的值。</span><br><span class="line">       return res; // 返回递归结果</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>请实现一个函数用来匹配包含’. ‘和’<em>‘的正则表达式。模式中的字符’.’表示任意一个字符，而’</em>‘表示它前面的字符可以出现任意次（含0次）。在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串”aaa”与模式”a.a”和”ab<em>ac</em>a”匹配，但与”aa.a”和”ab*a”均不匹配。</p>
+<p>示例 1:</p>
+<p>输入:<br>s = “aa”<br>p = “a”<br>输出: false<br>解释: “a” 无法匹配 “aa” 整个字符串。<br>示例 2:</p>
+<p>输入:<br>s = “aa”<br>p = “a*”<br>输出: true<br>解释: 因为 ‘*’ 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 ‘a’。因此，字符串 “aa” 可被视为 ‘a’ 重复了一次。<br>示例 3:</p>
+<p>输入:<br>s = “ab”<br>p = “.*”<br>输出: true<br>解释: “.*” 表示可匹配零个或多个（’*’）任意字符（’.’）。<br>示例 4:</p>
+<p>输入:<br>s = “aab”<br>p = “c<em>a</em>b”<br>输出: true<br>解释: 因为 ‘*’ 表示零个或多个，这里 ‘c’ 为 0 个, ‘a’ 被重复一次。因此可以匹配字符串 “aab”。<br>示例 5:</p>
+<p>输入:<br>s = “mississippi”<br>p = “mis<em>is*p</em>.”<br>输出: false<br>s 可能为空，且只包含从 a-z 的小写字母。<br>p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。</p>
 
       
 
@@ -281,7 +268,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/25/剑指Offer算法题10-矩阵中的路径/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/04/03/剑指Offer算法题18-正则表达式匹配/">展开全文 >></a>
         </p>
       
 
@@ -311,35 +298,37 @@
 
 
   
-    <article id="post-剑指Offer算法题09-旋转数组的最小数字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-剑指Offer算法题17-删除链表的节点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/24/剑指Offer算法题09-旋转数组的最小数字/">剑指Offer算法题09-旋转数组的最小数字</a>
+      <a class="article-title" href="/2020/04/01/剑指Offer算法题17-删除链表的节点/">剑指Offer算法题17-删除链表的节点</a>
     </h1>
   
 
         
-        <a href="/2020/03/24/剑指Offer算法题09-旋转数组的最小数字/" class="archive-article-date">
-  	<time datetime="2020-03-24T12:46:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-24</time>
+        <a href="/2020/04/01/剑指Offer算法题17-删除链表的节点/" class="archive-article-date">
+  	<time datetime="2020-04-01T11:51:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组 [3,4,5,1,2] 为 [1,2,3,4,5] 的一个旋转，该数组的最小值为1。  </p>
-<p>示例 1：</p>
-<p>输入：[3,4,5,1,2]<br>输出：1<br>示例 2：</p>
-<p>输入：[2,2,2,0,1]<br>输出：0</p>
-<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>根据自己对于题意的理解，发现这样子的数组是将最小的元素移动至数组的尾部，然后再将次小的元素移动到数组的尾部，通过这样来看的话，只要从数组的尾部遍历数组，查看当前位置的元素与前一个位置元素对的大小关系，如果当前<br>元素大于前一位元素，则讲当前元素替换为前一位元素继续判断，如果当前元素小于前一位元素，则直接返回。 代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public int minArray(int[] numbers) &#123;</span><br><span class="line">       int result = -1; //定义一个变量来存储当前的数组元素值</span><br><span class="line">       for(int i = numbers.length-1;i&gt;=0;i--)&#123; // 从后往前遍历</span><br><span class="line">           result = numbers[i]; // 存储当前下标位置的值</span><br><span class="line">           if(i&gt;=1)&#123; // 这里的判断是防止i为0的时候，下面判断语句的numbers[i-1]越界</span><br><span class="line">               if(result&lt;numbers[i-1])&#123;</span><br><span class="line">                   return result; //如果当前位置的元素的值小于前一个位置的元素的值，则证明当前元素的值即为最小值</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return result;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。</p>
+<p>返回删除后的链表的头节点。</p>
+<p>注意：此题对比原题有改动</p>
+<p>示例 1:</p>
+<p>输入: head = [4,5,1,9], val = 5<br>输出: [4,1,9]<br>解释: 给定你链表中值为 5 的第二个节点，那么在调用了你的函数之后，该链表应变为 4 -&gt; 1 -&gt; 9.<br>示例 2:</p>
+<p>输入: head = [4,5,1,9], val = 1<br>输出: [4,5,9]<br>解释: 给定你链表中值为 1 的第三个节点，那么在调用了你的函数之后，该链表应变为 4 -&gt; 5 -&gt; 9.</p>
+<h2 id="自己的解法"><a href="#自己的解法" class="headerlink" title="自己的解法"></a>自己的解法</h2><p>自己使用的方法就是遍历然后删除，最终结果超出时间限制，因为自己在实现的过程中没有定义辅助节点，只使用头节点进行操作，改变了头节点的指向，最终导致结果不正确，且实现的过程中，在链表值未命中时未将链表后移才导致了超时。</p>
+<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>定义两个辅助节点，一个标识前驱结点，一个标识当前节点，当前节点的值符合条件时，将当前节点的next赋值给前驱节点的next,代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public ListNode deleteNode(ListNode head, int val) &#123;</span><br><span class="line">       if(head.val==val)&#123;</span><br><span class="line">           return head.next; //如果要删除的是头节点的话直接返回头节点的next</span><br><span class="line">       &#125;</span><br><span class="line">       ListNode pre = head;  //定义前驱节点</span><br><span class="line">       ListNode cur = head.next; // 定义当前节点</span><br><span class="line">       while(cur!=null)&#123;</span><br><span class="line">           if(cur.val==val)&#123;</span><br><span class="line">               pre.next = cur.next; //命中就返回</span><br><span class="line">               return head;</span><br><span class="line">           &#125;</span><br><span class="line">           pre = pre.next; // 前驱结点后移</span><br><span class="line">           cur = cur.next; // 当前节点后移</span><br><span class="line">       &#125;</span><br><span class="line">       return head;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p>在此题的题解中发现了二分法，主要的思路为当数组经过旋转时，会呈现出两个升序的排序数组的现象，我们要寻找的就是右数组的首元素，可以肯定的是左数组中的每一个值一定都大于等于右数组中的任何一个值，因此定义两个值i,j分别为数组的两端，取其中点m，若m处的值大于j处的值，说明m一定是在左数组中，因此将m+1赋值给i，缩小范围，当m处的值小于j处的值时，说明m位于右数组中，因此将m赋值给j(之所以不是m-1，是因为当前的m处元素就有可能是最终的结果)，如果当前的m处的值等于j处的值，则无法判断<br>原因：<br>    例 [1, 0, 1, 1, 1][1,0,1,1,1] ：旋转点 x = 1x=1 ，因此 m = 2m=2 在 右排序数组 中。<br>    例 [1, 1, 1, 0, 1][1,1,1,0,1] ：旋转点 x = 3x=3 ，因此 m = 2m=2 在 左排序数组 中。<br>当遇到这种情况，我们让j–，缩小搜索范围，最终代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public int minArray(int[] numbers) &#123;</span><br><span class="line">       int i = 0;</span><br><span class="line">       int j = numbers.length-1;</span><br><span class="line">       while(i&lt;j)&#123;</span><br><span class="line">           int m = (i+j)/2;</span><br><span class="line">           if(numbers[m]&gt;numbers[j])&#123;</span><br><span class="line">               i = m+1;</span><br><span class="line">           &#125;else if(numbers[m]&lt;numbers[j])&#123;</span><br><span class="line">               j = m;</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">               j--;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return numbers[i];</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -362,7 +351,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/24/剑指Offer算法题09-旋转数组的最小数字/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/04/01/剑指Offer算法题17-删除链表的节点/">展开全文 >></a>
         </p>
       
 
@@ -394,7 +383,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
@@ -490,11 +479,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
+                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -502,11 +491,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,11 +503,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">datastructure</a>
               </li>
              
               <li class="article-tag-list-item">
